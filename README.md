@@ -21,4 +21,5 @@ sejam copiados e salvos apenas no SPJ. Deste modo, afirmamos que não há nenhum
 entre o HiBO e qualquer outros sistema ou Banco de Dados, e que o HiBO não armazena nenhum
 dado referente ao registro de ocorrências.
 
-Para mais informações, acesse o manual PDF da ferramenta.
+Para mais informações, acesse o manual PDF da ferramenta, ou entre em contato através do
+email hibo.app@gmail.com.
