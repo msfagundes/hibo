@@ -12,9 +12,7 @@ O programa auxilia na construção do texto dos históricos e dos termos de decl
 de uma sequência de perguntas necessárias para o completo detalhamento do registro, sendo que
 parte das perguntas é fundamentada no Formulário Nacional de Avaliação de Risco, criado em 
 conjunto pelo Conselho Nacional de Justiça (CNJ) e o Conselho Nacional do Ministério Público
-(CNMP) com o intuito de coletar dados referentes à violência doméstica no Brasil. As demais
-perguntas do formulário foram inseridas para atender demandas apontadas pela DEAM (Delegacia 
-Especializada de Atendimento à Mulher) de Bento Gonçalves (RS).
+(CNMP) com o intuito de coletar dados referentes à violência doméstica no Brasil.
 
 É importante ressaltar que, por motivos de segurança, nenhum dado referente aos históricos e
 termos de declarações é salvo pelo sistema. Buscamos que o HiBO seja apenas uma ferramenta de
