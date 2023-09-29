@@ -120,11 +120,9 @@ $("#rRelacionamento1").click(function () {
   $("#aOutroRelacionamento").hide();
 
   if ($("#sTempoRelacionamento option:selected").text() == "por") {
-    $("#lTempoRelacionamento").text(
-      "Por quanto tempo viveram em união estável?"
-    );
+    $("#lTempoRelacionamento").text("Por quanto tempo viveram em união estável?");
   } else if ($("#sTempoRelacionamento option:selected").text() == "desde") {
-    $("#lTempoRelacionamento").text("Há quanto tempo vivem em união estável?");
+    $("#lTempoRelacionamento").text("Desde quando vivem em união estável?");
   } else {
     $("#lTempoRelacionamento").text("Há quanto tempo vivem em união estável?");
   }
@@ -145,7 +143,7 @@ $("#rRelacionamento2").click(function () {
   if ($("#sTempoRelacionamento option:selected").text() == "por") {
     $("#lTempoRelacionamento").text("Por quanto tempo estiveram casados?");
   } else if ($("#sTempoRelacionamento option:selected").text() == "desde") {
-    $("#lTempoRelacionamento").text("Há quanto tempo estão casados?");
+    $("#lTempoRelacionamento").text("Desde quando estão casados?");
   } else {
     $("#lTempoRelacionamento").text("Há quanto tempo estão casados?");
   }
@@ -166,7 +164,7 @@ $("#rRelacionamento4").click(function () {
   if ($("#sTempoRelacionamento option:selected").text() == "por") {
     $("#lTempoRelacionamento").text("Por quanto tempo estiveram namorando?");
   } else if ($("#sTempoRelacionamento option:selected").text() == "desde") {
-    $("#lTempoRelacionamento").text("Há quanto tempo estão namorando?");
+    $("#lTempoRelacionamento").text("Desde quando estão namorando?");
   } else {
     $("#lTempoRelacionamento").text("Há quanto tempo estão namorando?");
   }
