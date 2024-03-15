@@ -1,7 +1,7 @@
 <!--
- * title="HBO"
- * version="1.5"
- * date="27/09/2023"
+ * title="HiBO"
+ * version="1.6"
+ * date="14/03/2024"
  * author="Moser Silva Fagundes"
  *
  * This file is part of HiBO (is the past named HBO).
@@ -27,8 +27,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta title="HBO" version="1.5" date="27/09/2023" author="Moser Silva Fagundes">
-    <title>Histórico e Termo de Declarações do Boletim de Ocorrência</title>
+    <meta title="HiBO" version="1.6" date="14/03/2024" author="Moser Silva Fagundes">
+    <title>Históricos e Termos de Declarações</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
@@ -85,6 +85,12 @@
         .pointer:hover {
             cursor: pointer;
         }
+
+        tr {
+            line-height: 5px;
+            min-height: 5px;
+            height: 5px;
+        }
     </style>
 
 
@@ -102,18 +108,17 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link pointer mx-3" id="seguranca">Segurança de Dados</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link pointer mx-3" id="programa">O Programa</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link pointer mx-3" id="manual" href="./Manual-HiBO.pdf" target="_blank">Manual</a>
-                </li>
+                <!--li class="nav-item"> VIDEO EM JANELA EXTRA TAMBEM
+                    <a class="nav-link pointer mx-3" id="video" href="http://xxxxxxxxxx" target="_blank">Vídeo</a>
+                </li-->
                 <li class="nav-item">
                     <a class="nav-link pointer mx-3" id="licenca">Licença</a>
                 </li>
-
+                <li class="nav-item">
+                    <a class="nav-link pointer mx-3" id="config">Configurações</a>
+                </li>
             </ul>
         </div>
     </nav>
@@ -123,11 +128,10 @@
     -->
     <div class="jumbotron jumbotron-fluid text-center">
         <div class="container">
-            <h1 class="display-4">HiBO</h1>
-            <p class="lead mb-0"><strong>Hi</strong>stórico e Termo de Declarações do <strong>B</strong>oletim de
-                <strong>O</strong>corrência
+            <p class="lead mb-0">
+                <strong>Sistema de Apoio para Geração de Históricos e Termos de Declarações</strong>
             </p>
-            <p class="lead mb-0">para Registros de Violência Doméstica e Familiar</p>
+            <p class="lead mb-0">Registros de Violência Doméstica e Familiar</p>
         </div>
     </div>
 
@@ -1690,7 +1694,7 @@
         $("#taHistorico").text("");
         $("#taTermo").text("");
 
-        // VERIFICA OS CAMPOS
+        // VERIFICA OS CAMPOS OBRIGATORIOS E MARCADOS
         let ok = null;
         ok = verificaCamposRelacionamento(ok);
         ok = verificaCamposConduta(ok);
@@ -1711,36 +1715,48 @@
             return false;
         }
 
+        // *******************************************
         // GERA OS PARAGRAFOS DO HISTORICO
-        $("#taHistorico").append(criaParagrafoRelacionamento());
-        $("#taHistorico").append(criaParagrafoProle());
-        $("#taHistorico").append(criaParagrafoConduta());
-        $("#taHistorico").append(criaParagrafoLesaoAtendimento());
-        $("#taHistorico").append(criaParagrafoTestemunhas());
-        $("#taHistorico").append(criaParagrafoAcaoPenal());
-        $("#taHistorico").append(criaParagrafoAcaoPrivada());
-        $("#taHistorico").append(criaParagrafoMedidasProtetivas());
-        $("#taHistorico").append(criaParagrafoArmas());
+        // *******************************************
+        if(localStorage.getItem("ch1")  === "true") $("#taHistorico").append(criaParagrafoRelacionamento());    // 1 2 3   
+        if(localStorage.getItem("ch4")  === "true") $("#taHistorico").append(criaParagrafoProle());             // 4
+        if(localStorage.getItem("ch5")  === "true") $("#taHistorico").append(criaParagrafoConduta());           // 5
+        if(localStorage.getItem("ch6")  === "true") $("#taHistorico").append(criaParagrafoLesaoAtendimento());  // 6
+        if(localStorage.getItem("ch7")  === "true") $("#taHistorico").append(criaParagrafoTestemunhas());       // 7
+        if(localStorage.getItem("ch8")  === "true") $("#taHistorico").append(criaParagrafoAcaoPenal());         // 8
+        if(localStorage.getItem("ch9")  === "true") $("#taHistorico").append(criaParagrafoAcaoPrivada());       // 9
+        if(localStorage.getItem("ch10") === "true") $("#taHistorico").append(criaParagrafoMedidasProtetivas()); // 10
+        if(localStorage.getItem("ch11") === "true") $("#taHistorico").append(criaParagrafoArmas());             // 11
+        if(localStorage.getItem("ch12") === "true") $("#taHistorico").append(criaParagrafoParadeiro());         // 12
+        if(localStorage.getItem("ch13") === "true") $("#taHistorico").append(criaParagrafoVicios());            // 13
+        if(localStorage.getItem("ch14") === "true") $("#taHistorico").append(criaParagrafoAmeacaArmas());       // 14
+        if(localStorage.getItem("ch15") === "true") $("#taHistorico").append(criaParagrafoRelacoesSexuais());   // 15
+        if(localStorage.getItem("ch16") === "true") $("#taHistorico").append(criaParagrafoDeficiencia());       // 16
+        if(localStorage.getItem("ch17") === "true") $("#taHistorico").append(criaParagrafoAlbergue());          // 17
+        if(localStorage.getItem("ch18") === "true") $("#taHistorico").append(criaParagrafoBuscaPertences());    // 18
+        if(localStorage.getItem("ch19") === "true") $("#taHistorico").append(criaParagrafoMediar());            // 19
 
+
+        // *******************************************
         // GERA OS PARAGRAFOS DO TERMO DE DECLARAÇÕES
-        $("#taTermo").append(criaParagrafoRelacionamento());
-        $("#taTermo").append(criaParagrafoProle());
-        $("#taTermo").append(criaParagrafoConduta());
-        $("#taTermo").append(criaParagrafoLesaoAtendimento());
-        $("#taTermo").append(criaParagrafoTestemunhas());
-        $("#taTermo").append(criaParagrafoAcaoPenal());
-        $("#taTermo").append(criaParagrafoAcaoPrivada());
-        $("#taTermo").append(criaParagrafoMedidasProtetivas());
-        $("#taTermo").append(criaParagrafoArmas());
-
-        $("#taTermo").append(criaParagrafoParadeiro());
-        $("#taTermo").append(criaParagrafoVicios());
-        $("#taTermo").append(criaParagrafoAmeacaArmas());
-        $("#taTermo").append(criaParagrafoRelacoesSexuais());
-        $("#taTermo").append(criaParagrafoDeficiencia());
-        $("#taTermo").append(criaParagrafoAlbergue());
-        $("#taTermo").append(criaParagrafoBuscaPertences());
-        $("#taTermo").append(criaParagrafoMediar());
+        // *******************************************
+        if(localStorage.getItem("ct1")  === "true") $("#taTermo").append(criaParagrafoRelacionamento());    // 1 2 3   
+        if(localStorage.getItem("ct4")  === "true") $("#taTermo").append(criaParagrafoProle());             // 4
+        if(localStorage.getItem("ct5")  === "true") $("#taTermo").append(criaParagrafoConduta());           // 5
+        if(localStorage.getItem("ct6")  === "true") $("#taTermo").append(criaParagrafoLesaoAtendimento());  // 6
+        if(localStorage.getItem("ct7")  === "true") $("#taTermo").append(criaParagrafoTestemunhas());       // 7
+        if(localStorage.getItem("ct8")  === "true") $("#taTermo").append(criaParagrafoAcaoPenal());         // 8
+        if(localStorage.getItem("ct9")  === "true") $("#taTermo").append(criaParagrafoAcaoPrivada());       // 9
+        if(localStorage.getItem("ct10") === "true") $("#taTermo").append(criaParagrafoMedidasProtetivas()); // 10
+        if(localStorage.getItem("ct11") === "true") $("#taTermo").append(criaParagrafoArmas());             // 11
+        if(localStorage.getItem("ct12") === "true") $("#taTermo").append(criaParagrafoParadeiro());         // 12
+        if(localStorage.getItem("ct13") === "true") $("#taTermo").append(criaParagrafoVicios());            // 13
+        if(localStorage.getItem("ct14") === "true") $("#taTermo").append(criaParagrafoAmeacaArmas());       // 14
+        if(localStorage.getItem("ct15") === "true") $("#taTermo").append(criaParagrafoRelacoesSexuais());   // 15
+        if(localStorage.getItem("ct16") === "true") $("#taTermo").append(criaParagrafoDeficiencia());       // 16
+        if(localStorage.getItem("ct17") === "true") $("#taTermo").append(criaParagrafoAlbergue());          // 17
+        if(localStorage.getItem("ct18") === "true") $("#taTermo").append(criaParagrafoBuscaPertences());    // 18
+        if(localStorage.getItem("ct19") === "true") $("#taTermo").append(criaParagrafoMediar());            // 19
 
         let maxTamanhoHistorico = 1804;
         let tamanhoHistorico = $("#taHistorico").val().length;
@@ -2525,34 +2541,20 @@
         return " A vítima diz que deseja participar do Programa Mediar da Polícia Civil, sendo informada que haverá avaliação dos requisitos de participação por parte da autoridade policial; caso sejam preenchidos os requisitos, será realizado um contato para confirmar a sua participação no programa.";
     }
 
-    $("#seguranca").click(function () {
-        bootbox.alert({
-            size: "large",
-            message: `<h4>SEGURANÇA DE DADOS</h4>
-                  <p class="mt-4">
-                    Por motivos de segurança, <span class="text-danger"><strong>os dados inseridos nos campos do formulário não são
-                    salvos</strong></span>, sendo que os mesmos serão perdidos após o fechamento da aba do navegador ou caso
-                    a página seja recarregada pelo usuário. Também por motivos de segurança, <span class="text-danger"><strong>nenhum 
-                    dado inserido no formulário é enviado para qualquer servidor</strong></span>, sendo que os dados informados
-                    permanecerão somente no navegador de modo temporário até o momento que o usuário saia
-                    da página ou a recarregue. Deste modo, buscamos que o HiBO seja apenas uma <strong>ferramenta de apoio</strong>,
-                    sendo que os <strong>dados privados permanecem exclusivamente no computador do usuário que está 
-                    realizando o registro</strong>.
-                  </p>`,
-        });
-    });
 
     $("#programa").click(function () {
         bootbox.alert({
             size: "large",
             message: `<h4>O PROGRAMA</h4>
-                <p class="mt-4">
-                    O <strong>HiBO é um sistema de apoio na construção de históricos e termos de declarações</strong> para boletins de ocorrência 
+                <p class="mt-4 small">
+                    O <strong>HiBO</strong> (acrônimo de <strong class="text-primary">Hi</strong>stórico de 
+                    <strong class="text-primary">B</strong>oletim de <strong class="text-primary">O</strong>corrência) é 
+                    um sistema de apoio na construção de históricos e termos de declarações</strong> para boletins de ocorrência 
                     em casos de violência doméstica e familiar, sendo a que a sua primeira versão foi desenvolvida em meados de 2020. 
-                    Atualmente, o HiBO se encontra na versão 1.5, havendo incorporado diversas melhorias desde a sua primeira versão.
+                    Atualmente, o sistema se encontra na versão 1.6, havendo incorporado diversas melhorias desde a sua primeira versão.
                   </p>
 
-                  <p>
+                  <p class="small">
                     O programa auxilia na construção do texto dos históricos e dos termos de declarações
                     por meio de uma sequência de perguntas necessárias para o completo detalhamento do
                     registro, sendo que parte das perguntas é fundamentada no 
@@ -2561,12 +2563,19 @@
                     Justiça (CNJ) e o Conselho Nacional do Ministério Público (CNMP) com o intuito de coletar 
                     dados referentes à violência doméstica no Brasil.
                   </p>
+
+                  <p class="mt-4 small">
+                    Por motivos de segurança, <span class="text-danger"><strong>os dados inseridos nos campos do formulário não são
+                    salvos</strong></span>, sendo que os mesmos serão perdidos após o fechamento da aba do navegador ou caso
+                    a página seja recarregada pelo usuário. Também por motivos de segurança, <span class="text-danger"><strong>nenhum 
+                    dado inserido no formulário é enviado para qualquer servidor</strong></span>, sendo que os dados informados
+                    permanecerão somente no navegador de modo temporário até o momento que o usuário saia
+                    da página ou a recarregue. Deste modo, buscamos que o programa seja apenas uma <strong>ferramenta de apoio</strong>,
+                    sendo que os <strong>dados privados permanecem exclusivamente no computador do usuário que está 
+                    realizando o registro</strong>.
                   
-                  <p>
-                    Para mais informações sobre o programa HiBO, acesse o 
-                    <a href="./Manual-HiBO.pdf" target="_blank" class="text-primary"><strong>
-                    manual</strong></a> 
-                    ou entre em contato através do email 
+                  <p class="small">
+                    Para mais informações sobre o programa, entre em contato através do email 
                     <a class="text-primary" href="mailto:hibo.app@gmail.com"><strong>hibo.app@gmail.com</strong></a>.
                     Você também pode visitar o nosso repositório no GitHub no seguinte endereço  
                     <a href="https://github.com/msfagundes/hibo" target="_blank" class="text-primary"><strong>
@@ -2579,11 +2588,11 @@
         bootbox.alert({
             size: "large",
             message: `<h4>LICENÇA</h4>
-                  <h6 class="mt-4"><strong>Author</strong>: Moser Silva Fagundes</h6>
-                  <h6><strong>Email</strong>: <a class="text-primary" href="mailto:hibo.app@gmail.com">hibo.app@gmail.com</a></h6>
-                  <h6><strong>Repository</strong>: <a href="https://github.com/msfagundes/hibo" target="_blank" class="text-primary">https://github.com/msfagundes/hibo</a></h6>
-                  <h6><strong>Version</strong>: 1.5</h6>
-                  <h6 class="mb-4"><strong>Date</strong>: 27/09/2023</h6>
+                  <h6 class="mt-4 small"><strong>Author</strong>: Moser Silva Fagundes</h6>
+                  <h6 class="small"><strong>Email</strong>: <a class="text-primary" href="mailto:hibo.app@gmail.com">hibo.app@gmail.com</a></h6>
+                  <h6 class="small"><strong>Repository</strong>: <a href="https://github.com/msfagundes/hibo" target="_blank" class="text-primary">https://github.com/msfagundes/hibo</a></h6>
+                  <h6 class="small"><strong>Version</strong>: 1.6</h6>
+                  <h6 class="mb-4 small"><strong>Date</strong>: 14/03/2024</h6>
                   
                   <p class="small">
                   <strong>HiBO</strong> (in the past named HBO) is free software: 
@@ -2620,5 +2629,330 @@
                   </p>`,
         });
     });
+
+
+    $("#config").click(function () {
+        bootbox.confirm({
+            size: "large",
+
+            buttons: {
+                cancel: {
+                label: 'Cancelar'
+                },
+                confirm: {
+                label: 'Salvar'
+                }
+            },
+
+            callback: function (result) {
+                if(result) {
+                    localConfig.forEach(i => {
+                        localStorage.setItem(`ch${i}`, document.getElementById(`ch${i}`).checked ? true : false);
+                        //localStorage.setItem(`ct${i}`, document.getElementById(`ct${i}`).checked ? true : false);
+                    });
+                }
+            },
+
+            message: `<div class="small"><h4>CONFIGURAÇÕES</h4>
+                            <table class="table table-hover">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col"></th>
+                                    <th class="text-center" scope="col">Histórico</th>
+                                    <th class="text-center" scope="col">Termo</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <th scope="row">1&#8210;3</th>
+                                    <td>Relacionamento entre a vítima e o acusado</td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ch1" id="ch1">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ct1" id="ct1">
+                                        </div>
+                                    </td>
+                                  </tr>
+
+                                  <tr>
+                                    <th scope="row">4</th>
+                                    <td>Deseja incluir filhos da vítima no histórico?</td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ch4" id="ch4">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ct4" id="ct4">
+                                        </div>
+                                    </td>
+                                  </tr>
+
+                                  <tr>
+                                    <th scope="row">5</th>
+                                    <td>Conduta delitiva</td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ch5" id="ch5">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ct5" id="ct5">
+                                        </div>
+                                    </td>
+                                  </tr>
+
+                                  <tr>
+                                    <th scope="row">6</th>
+                                    <td>Há lesão corporal na vítima?</td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ch6" id="ch6">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ct6" id="ct6">
+                                        </div>
+                                    </td>
+                                  </tr>
+
+                                  <tr>
+                                    <th scope="row">7</th>
+                                    <td>Há testemunhas?</td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ch7" id="ch7">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ct7" id="ct7">
+                                        </div>
+                                    </td>
+                                  </tr>
+
+                                  <tr>
+                                    <th scope="row">8</th>
+                                    <td>A vítima deseja representar?</td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ch8" id="ch8">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ct8" id="ct8">
+                                        </div>
+                                    </td>
+                                  </tr>
+
+                                  <tr>
+                                    <th scope="row">9</th>
+                                    <td>Há delito de ação penal privada?</td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ch9" id="ch9">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ct9" id="ct9">
+                                        </div>
+                                    </td>
+                                  </tr>
+
+                                  <tr>
+                                    <th scope="row">10</th>
+                                    <td>A vítima solicita medidas protetivas?</td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ch10" id="ch10">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ct10" id="ct10">
+                                        </div>
+                                    </td>
+                                  </tr>
+
+                                  <tr>
+                                    <th scope="row">11</th>
+                                    <td>Há armas no ARM/SINARM em nome do acusado?</td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ch11" id="ch11">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ct11" id="ct11">
+                                        </div>
+                                    </td>
+                                  </tr>
+
+                                  <tr>
+                                    <th scope="row">12</th>
+                                    <td>Paradeiro do acusado</td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ch12" id="ch12">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ct12" id="ct12">
+                                        </div>
+                                    </td>
+                                  </tr>
+
+                                  <tr>
+                                    <th scope="row">13</th>
+                                    <td>Vícios do acusado</td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ch13" id="ch13">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ct13" id="ct13">
+                                        </div>
+                                    </td>
+                                  </tr>
+
+                                  <tr>
+                                    <th scope="row">14</th>
+                                    <td>O acusado usou ou ameaçou usar arma de fogo?</td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ch14" id="ch14">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ct14" id="ct14">
+                                        </div>
+                                    </td>
+                                  </tr>
+
+                                  <tr>
+                                    <th scope="row">15</th>
+                                    <td>O acusado já obrigou a vítima a praticar relações?</td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ch15" id="ch15">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ct15" id="ct15">
+                                        </div>
+                                    </td>
+                                  </tr>
+
+                                  <tr>
+                                    <th scope="row">16</th>
+                                    <td>A vítima possui alguma deficiência?</td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ch16" id="ch16">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ct16" id="ct16">
+                                        </div>
+                                    </td>
+                                  </tr>
+
+                                  <tr>
+                                    <th scope="row">17</th>
+                                    <td>A vítima deseja ser albergada?</td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ch17" id="ch17">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ct17" id="ct17">
+                                        </div>
+                                    </td>
+                                  </tr>
+
+                                  <tr>
+                                    <th scope="row">18</th>
+                                    <td>A vítima solicita auxílio para buscar seus pertences?</td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ch18" id="ch18">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ct18" id="ct18">
+                                        </div>
+                                    </td>
+                                  </tr>
+
+                                  <tr>
+                                    <th scope="row">19</th>
+                                    <td>A vítima deseja participar do Programa Mediar?</td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ch19" id="ch19">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check text-center">
+                                            <input class="form-check-input my-0" type="checkbox" value="ct19" id="ct19">
+                                        </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                            </table></div>`,
+        });
+
+        localConfig.forEach(i => {
+            document.getElementById(`ch${i}`).checked = (localStorage.getItem(`ch${i}`) === "true" ? true : false);
+            document.getElementById(`ct${i}`).checked = (localStorage.getItem(`ct${i}`) === "true" ? true : false);
+            document.getElementById(`ch${i}`).disabled = disabledConfig.includes(i) ? true : false;
+            document.getElementById(`ct${i}`).disabled = true;
+        });
+
+    });
+
+    
+    var localConfig = [1,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19];
+    var disabledConfig = [1,4,5,6,8,10,11];
+
+    function inicializaConfig() {
+        localConfig.forEach(i => {
+            if(!localStorage.getItem(`ch${i}`)) localStorage.setItem(`ch${i}`, i>11 ? false : true);
+            if(!localStorage.getItem(`ct${i}`)) localStorage.setItem(`ct${i}`,true);
+
+        });
+    }
+
+    inicializaConfig();
+
+
+    // 3. colocar explicacao antes da tabela
+    // 4. integrar as configs na geração de cada um deles
+    // 5. avisar no texto o que esta sendo usado em cada um?
+    // 6. remover o manual (inclusive github) // ninguem vai olhar
+    // 7. atualizar o video
+    // 8. atualizar github
+    // 9. atualizar site
+    // 10. incluir nome da delegada no site?
 
 </script>
