@@ -107,17 +107,12 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link pointer mx-3" id="programa">O Programa</a>
-                </li>
-                <!--li class="nav-item"> VIDEO EM JANELA EXTRA TAMBEM
-                    <a class="nav-link pointer mx-3" id="video" href="http://xxxxxxxxxx" target="_blank">Vídeo</a>
-                </li-->
-                <li class="nav-item">
-                    <a class="nav-link pointer mx-3" id="licenca">Licença</a>
-                </li>
+                
                 <li class="nav-item">
                     <a class="nav-link pointer mx-3" id="config">Configurações</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link pointer mx-3" id="programa">Sobre o Programa</a>
                 </li>
             </ul>
         </div>
@@ -2545,91 +2540,57 @@
     $("#programa").click(function () {
         bootbox.alert({
             size: "large",
-            message: `<h4>O PROGRAMA</h4>
-                <p class="mt-4 small">
-                    O <strong>HiBO</strong> (acrônimo de <strong class="text-primary">Hi</strong>stórico de 
-                    <strong class="text-primary">B</strong>oletim de <strong class="text-primary">O</strong>corrência) é 
-                    um sistema de apoio na construção de históricos e termos de declarações</strong> para boletins de ocorrência 
-                    em casos de violência doméstica e familiar, sendo a que a sua primeira versão foi desenvolvida em meados de 2020. 
-                    Atualmente, o sistema se encontra na versão 1.6, havendo incorporado diversas melhorias desde a sua primeira versão.
-                  </p>
-
-                  <p class="small">
-                    O programa auxilia na construção do texto dos históricos e dos termos de declarações
-                    por meio de uma sequência de perguntas necessárias para o completo detalhamento do
-                    registro, sendo que parte das perguntas é fundamentada no 
+            message: `<h4>O Programa</h4>
+                <p class="mt-3 small">
+                    O <strong>Sistema de Apoio para Geração de Históricos e Termos de Declarações</strong>, 
+                    chamado <strong>HiBO</strong> (acrônimo de <span class="text-primary">Hi</span>stórico de 
+                    <span class="text-primary">B</span>oletim de <span class="text-primary">O</span>corrência) é 
+                    um sistema de apoio na construção de históricos e termos de declarações para boletins de ocorrência 
+                    em casos de violência doméstica e familiar. O programa auxilia a construção dos textos
+                    por meio de uma sequência de perguntas fundamentada no 
                     <a href="https://atos.cnj.jus.br/atos/detalhar/3218" target="_blank" class="text-primary">
-                    <strong>Formulário Nacional de Avaliação de Risco</strong></a>, construído em conjunto pelo Conselho Nacional de 
-                    Justiça (CNJ) e o Conselho Nacional do Ministério Público (CNMP) com o intuito de coletar 
-                    dados referentes à violência doméstica no Brasil.
+                    <span>Formulário Nacional de Avaliação de Risco</span></a>.
                   </p>
 
-                  <p class="mt-4 small">
+                  <p class="mt-3 small">
                     Por motivos de segurança, <span class="text-danger"><strong>os dados inseridos nos campos do formulário não são
                     salvos</strong></span>, sendo que os mesmos serão perdidos após o fechamento da aba do navegador ou caso
                     a página seja recarregada pelo usuário. Também por motivos de segurança, <span class="text-danger"><strong>nenhum 
                     dado inserido no formulário é enviado para qualquer servidor</strong></span>, sendo que os dados informados
                     permanecerão somente no navegador de modo temporário até o momento que o usuário saia
                     da página ou a recarregue. Deste modo, buscamos que o programa seja apenas uma <strong>ferramenta de apoio</strong>,
-                    sendo que os <strong>dados privados permanecem exclusivamente no computador do usuário que está 
+                    sendo que os <strong>dados privados permanecem de modo temporário exclusivamente no computador do usuário que está 
                     realizando o registro</strong>.
                   
-                  <p class="small">
+                  <h4 class="mt-4">Contato</h4>
+                  <p class="small mt-3">
                     Para mais informações sobre o programa, entre em contato através do email 
-                    <a class="text-primary" href="mailto:hibo.app@gmail.com"><strong>hibo.app@gmail.com</strong></a>.
+                    <a class="text-primary" href="mailto:hibo.app@gmail.com"><span>hibo.app@gmail.com</span></a>.
                     Você também pode visitar o nosso repositório no GitHub no seguinte endereço  
-                    <a href="https://github.com/msfagundes/hibo" target="_blank" class="text-primary"><strong>
-                    https://github.com/msfagundes/hibo</strong></a>.
-                  </p>`,
-        });
-    });
-
-    $("#licenca").click(function () {
-        bootbox.alert({
-            size: "large",
-            message: `<h4>LICENÇA</h4>
-                  <h6 class="mt-4 small"><strong>Author</strong>: Moser Silva Fagundes</h6>
-                  <h6 class="small"><strong>Email</strong>: <a class="text-primary" href="mailto:hibo.app@gmail.com">hibo.app@gmail.com</a></h6>
-                  <h6 class="small"><strong>Repository</strong>: <a href="https://github.com/msfagundes/hibo" target="_blank" class="text-primary">https://github.com/msfagundes/hibo</a></h6>
-                  <h6 class="small"><strong>Version</strong>: 1.6</h6>
-                  <h6 class="mb-4 small"><strong>Date</strong>: 14/03/2024</h6>
-                  
-                  <p class="small">
-                  <strong>HiBO</strong> (in the past named HBO) is free software: 
-                    you can redistribute it and/or modify
-                    it under the terms of the <strong>
-                    GNU General Public License</strong> as published by
-                    the Free Software Foundation, either version 3 of the License, or
-                    (at your option) any later version.
-                    <strong>HiBO</strong> is distributed in the hope that it will be useful,
-                    but <strong>WITHOUT ANY WARRANTY</strong>; without even the implied warranty of
-                    <strong>MERCHANTABILITY</strong> or <strong>FITNESS FOR A PARTICULAR PURPOSE</strong>.  See the
-                    GNU General Public License for more details.
-                    You should have received a copy of the GNU General Public License
-                    along with <strong>HiBO</strong>.  If not, see 
-                    <a href="https://www.gnu.org/licenses/" target="_blank" class="text-primary">
-                    <strong>https://www.gnu.org/licenses/</strong></a>.
+                    <a href="https://github.com/msfagundes/hibo" target="_blank" class="text-primary"><span>
+                    https://github.com/msfagundes/hibo</span></a>.
                   </p>
-
-                  <p class="small">
-                    <strong>HiBO</strong> (antes chamado HBO) é um software livre; você pode redistribuí-lo e/ou
-                    modificá-lo dentro dos termos da <strong>Licença Pública Geral GNU</strong> como
+                  
+                  <h4 class="mt-4">Licença</h4>
+                  
+                  <p class="small mt-3">
+                    <span>HiBO</span> (antes chamado HBO) é um software livre; você pode redistribuí-lo e/ou
+                    modificá-lo dentro dos termos da <span>Licença Pública Geral GNU</span> como
                     publicada pela Free Software Foundation (FSF); na versão 3 da
                     Licença, ou (a seu critério) qualquer versão posterior.
 
                     Este programa é distribuído na esperança de que possa ser útil,
-                    mas <strong>SEM NENHUMA GARANTIA</strong>; sem uma garantia implícita de <strong>ADEQUAÇÃO</strong>
-                    a qualquer <strong>MERCADO</strong> ou <strong>APLICAÇÃO EM PARTICULAR</strong>. Veja a
+                    mas <span>SEM NENHUMA GARANTIA</span>; sem uma garantia implícita de <span>ADEQUAÇÃO</span>
+                    a qualquer <span>MERCADO</span> ou <span>APLICAÇÃO EM PARTICULAR</span>. Veja a
                     Licença Pública Geral GNU para maiores detalhes.
 
                     Você deve ter recebido uma cópia da Licença Pública Geral GNU junto
                     com este programa, Caso não tenha, veja em 
                     <a href="https://www.gnu.org/licenses/" target="_blank" class="text-primary">
-                    <strong>http://www.gnu.org/licenses/</strong></a>.
+                    <span>http://www.gnu.org/licenses/</span></a>.
                   </p>`,
         });
     });
-
 
     $("#config").click(function () {
         bootbox.confirm({
@@ -2653,7 +2614,7 @@
                 }
             },
 
-            message: `<div class="small"><h4>CONFIGURAÇÕES</h4>
+            message: `<div class="small mb-4"><h4>Configurações</h4>
                             <table class="table table-hover">
                                 <thead>
                                   <tr>
@@ -2944,15 +2905,5 @@
     }
 
     inicializaConfig();
-
-
-    // 3. colocar explicacao antes da tabela
-    // 4. integrar as configs na geração de cada um deles
-    // 5. avisar no texto o que esta sendo usado em cada um?
-    // 6. remover o manual (inclusive github) // ninguem vai olhar
-    // 7. atualizar o video
-    // 8. atualizar github
-    // 9. atualizar site
-    // 10. incluir nome da delegada no site?
 
 </script>
