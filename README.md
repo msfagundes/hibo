@@ -1,5 +1,4 @@
-# HiBO (versão offline)
-
+# HiBO
 O HiBO é um sistema de apoio na criação de históricos e termos de declarações para boletins
 de ocorrência em casos de violência doméstica e familiar, desenvolvido por Moser Silva Fagundes
 (http://lattes.cnpq.br/6749728142725127). O programa auxilia na construção do texto dos históricos 
