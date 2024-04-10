@@ -1,0 +1,82 @@
+/*
+ * title="HiBO"
+ * version="1.7"
+ * date="10/04/2024"
+ * author="Moser Silva Fagundes"
+ *
+ * This file is part of HiBO (is the past named HBO).
+ *
+ * HiBO is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * HiBO is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with HiBO.  If not, see <https://www.gnu.org/licenses/>.
+ */
+ 
+.form-control::-webkit-input-placeholder {
+    color: rgb(220, 220, 220);
+}
+
+.form-control:-moz-placeholder {
+    color: rgb(220, 220, 220);
+}
+
+.form-control::-moz-placeholder {
+    color: rgb(220, 220, 220);
+}
+
+.alert {
+    font-size: smaller;
+    color: red;
+    background-color: transparent;
+    border: transparent;
+    padding: 0rem 1rem;
+    margin: 0.1rem;
+}
+
+.main-label {
+    font-weight: 600;
+}
+
+.container-border {
+    border-color: lightgray;
+    border-style: solid;
+    border-width: 1px;
+    background-color: white;
+}
+
+.popover {
+    max-width: 600px;
+}
+
+.jumbotron,
+body {
+    background-color: #f8f9fa;
+}
+
+.offline {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: large;
+    color: black
+}
+
+.pointer:hover {
+    cursor: pointer;
+}
+
+tr {
+    line-height: 5px;
+    min-height: 5px;
+    height: 5px;
+}
+
+.sublinhado {
+    text-decoration: underline;
+}
