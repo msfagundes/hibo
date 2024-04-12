@@ -81,7 +81,6 @@ $("#divAtendimento").hide();
 $("#divLocalAtendimento").hide();
 $("#divTestemunha").hide();
 $("#spanRemoverTestemunha").hide();
-$("#divAcaoPenal").hide();
 $("#divAcaoPrivada").hide();
 $("#divOutrosVicios").hide();
 $("#divAmeacaArmaUsou").hide();
@@ -105,7 +104,6 @@ $("#aLocalResidencia").hide();
 $("#aConduta").hide();
 $("#aLocalAtendimento").hide();
 $("#aListaTestemunhas").hide();
-$("#aAcaoPenal").hide();
 $("#aAcaoPrivada").hide();
 $("#aParadeiro").hide();
 $("#aOutrosVicios").hide();
@@ -522,20 +520,6 @@ $("#spanRemoverTestemunha").click(function () {
   }
 });
 
-$("#rRepresentacaoS").click(function () {
-  $("#taAcaoPenal").val("A vítima DESEJA REPRESENTAR CRIMINALMENTE.");
-  $("#divAcaoPenal").show();
-});
-
-$("#rRepresentacaoN").click(function () {
-  $("#taAcaoPenal").val(
-    "A vítima NÃO DESEJA REPRESENTAR CRIMINALMENTE e fica ciente do prazo decadencial de seis meses para fazê-lo."
-  );
-  $("#divAcaoPenal").hide();
-  $("#aAcaoPenal").hide();
-  $("#taAcaoPenal").css("border-color", "#ced4da");
-});
-
 $("#rAcaoPrivadaS").click(function () {
   $("#taAcaoPrivada").val(
     "A vítima fica ciente do prazo decadencial de seis meses para propor queixa-crime através de advogado no tocante às "
@@ -787,7 +771,6 @@ $("#btnGerar").click(function () {
   ok = verificaCamposConduta(ok);
   ok = verificaLesaoAtendimento(ok);
   ok = verificaCamposTestemunhas(ok);
-  ok = verificaCamposAcaoPenal(ok);
   ok = verificaCamposAcaoPrivada(ok);
   ok = verificaCamposParadeiro(ok);
   ok = verificaCamposVicios(ok);
@@ -809,7 +792,7 @@ $("#btnGerar").click(function () {
   if (localStorage.getItem("ch1") === "true")
     $("#taHistorico").append(criaParagrafoOrgao()); // 1-2
   if (localStorage.getItem("ch3") === "true")
-    $("#taHistorico").append(criaParagrafoRelacionamento()); // 3
+    $("#taHistorico").append(criaParagrafoRelacionamento(false)); // 3
   if (localStorage.getItem("ch4") === "true")
     $("#taHistorico").append(criaParagrafoMesmaResidencia()); // 4
   if (localStorage.getItem("ch5") === "true")
@@ -857,7 +840,7 @@ $("#btnGerar").click(function () {
   if (localStorage.getItem("ct1") === "true")
     $("#taTermo").append(criaParagrafoOrgao()); // 1
   if (localStorage.getItem("ct3") === "true")
-    $("#taTermo").append(criaParagrafoRelacionamento()); // 3
+    $("#taTermo").append(criaParagrafoRelacionamento(true)); // 3
   if (localStorage.getItem("ct4") === "true")
     $("#taTermo").append(criaParagrafoMesmaResidencia()); // 4
   if (localStorage.getItem("ct5") === "true")
@@ -1032,6 +1015,7 @@ function verificaDadosVitima(ok) {
   return ok;
 }
 
+
 function verificaCamposRelacionamento(ok) {
   if (!$("#rRelacionamento3").is(":checked")) {
     $("#aTempoRelacionamento").hide();
@@ -1084,12 +1068,21 @@ function verificaCamposRelacionamento(ok) {
   return ok;
 }
 
-function criaParagrafoRelacionamento() {
+function criaParagrafoRelacionamento(termo) {
+
+  let nome = String($("#iNomeVitima").val()).trim();
+  let idade = String($("#iIdadeVitima").val()).trim();
   let t = "";
 
   // COMPANHEIRO - AINDA ESTAO JUNTOS
   if ($("#rRelacionamento1").is(":checked")) {
-    t = t.concat("A vítima informa que ");
+    if(termo) {
+      t = t.concat("A vítima, ");
+      t = t.concat(nome + ", com " + idade + " anos de idade");
+      t = t.concat(", informa que ");
+    } else {
+      t = t.concat("A vítima informa que ");
+    }
 
     // POR / PRETÉRITO
     if ($("#sTempoRelacionamento option:selected").text() == "por") {
@@ -1109,7 +1102,14 @@ function criaParagrafoRelacionamento() {
 
     // EX-COMPANHEIRO - SEPARADOS
   } else if ($("#rRelacionamento1-Ex").is(":checked")) {
-    t = t.concat("A vítima informa que ");
+
+    if(termo) {
+      t = t.concat("A vítima, ");
+      t = t.concat(nome + ", com " + idade + " anos de idade");
+      t = t.concat(", informa que ");
+    } else {
+      t = t.concat("A vítima informa que ");
+    }
 
     // POR / PRETÉRITO
     if ($("#sTempoRelacionamento option:selected").text() == "por") {
@@ -1140,7 +1140,13 @@ function criaParagrafoRelacionamento() {
 
     // MARIDO - AINDA ESTAO JUNTOS
   } else if ($("#rRelacionamento2").is(":checked")) {
-    t = t.concat("A vítima informa que ");
+    if(termo) {
+      t = t.concat("A vítima, ");
+      t = t.concat(nome + ", com " + idade + " anos de idade");
+      t = t.concat(", informa que ");
+    } else {
+      t = t.concat("A vítima informa que ");
+    }
 
     // POR / PRETÉRITO
     if ($("#sTempoRelacionamento option:selected").text() == "por") {
@@ -1160,7 +1166,13 @@ function criaParagrafoRelacionamento() {
 
     // EX-MARIDO - SEPARADOS
   } else if ($("#rRelacionamento2-Ex").is(":checked")) {
-    t = t.concat("A vítima informa que ");
+    if(termo) {
+      t = t.concat("A vítima, ");
+      t = t.concat(nome + ", com " + idade + " anos de idade");
+      t = t.concat(", informa que ");
+    } else {
+      t = t.concat("A vítima informa que ");
+    }
 
     // POR / PRETÉRITO
     if ($("#sTempoRelacionamento option:selected").text() == "por") {
@@ -1191,7 +1203,13 @@ function criaParagrafoRelacionamento() {
 
     // NAMORADO - AINDA ESTAO JUNTOS
   } else if ($("#rRelacionamento4").is(":checked")) {
-    t = t.concat("A vítima informa que ");
+    if(termo) {
+      t = t.concat("A vítima, ");
+      t = t.concat(nome + ", com " + idade + " anos de idade");
+      t = t.concat(", informa que ");
+    } else {
+      t = t.concat("A vítima informa que ");
+    }
 
     // POR / PRETÉRITO
     if ($("#sTempoRelacionamento option:selected").text() == "por") {
@@ -1211,7 +1229,13 @@ function criaParagrafoRelacionamento() {
 
     // EX-NAMORADO - SEPARADOS
   } else if ($("#rRelacionamento4-Ex").is(":checked")) {
-    t = t.concat("A vítima informa que ");
+    if(termo) {
+      t = t.concat("A vítima, ");
+      t = t.concat(nome + ", com " + idade + " anos de idade");
+      t = t.concat(", informa que ");
+    } else {
+      t = t.concat("A vítima informa que ");
+    }
 
     // POR / PRETÉRITO
     if ($("#sTempoRelacionamento option:selected").text() == "por") {
@@ -1460,36 +1484,22 @@ function criaParagrafoTestemunhas() {
   return t;
 }
 
-function verificaCamposAcaoPenal(ok) {
-  if ($("#rRepresentacaoN").is(":checked")) {
-    $("#taAcaoPenal").css("border-color", "#ced4da");
-    $("#aAcaoPenal").hide();
-    return ok;
-  }
-
-  let t = String($("#taAcaoPenal").val()).trim();
-  if (t == "") {
-    $("#aAcaoPenal").show();
-    $("#taAcaoPenal").css("border-color", "red");
-    if (!ok) ok = "lAcaoPenal";
-  } else {
-    $("#taAcaoPenal").css("border-color", "#ced4da");
-    $("#aAcaoPenal").hide();
-  }
-  return ok;
-}
 
 function criaParagrafoAcaoPenal() {
   if ($("#rRepresentacaoN").is(":checked")) {
-    return " A vítima NÃO DESEJA REPRESENTAR CRIMINALMENTE e fica ciente do prazo decadencial de seis meses para fazê-lo.";
+    return " A vítima NÃO DESEJA REPRESENTAR CRIMINALMENTE e fica ciente do prazo decadencial de seis meses para fazê-lo. ";
   }
 
-  let t = String($("#taAcaoPenal").val()).trim() + ".";
-  t = " " + removerPontoDuplicado(t);
-  return t;
+  return " A vítima DESEJA REPRESENTAR CRIMINALMENTE, ";
 }
 
 function criaParagrafoMedidasProtetivas() {
+  if ($("#rRepresentacaoS").is(":checked")) {
+    if ($("#rMedidasN").is(":checked")) {
+      return " porém não solicita medidas protetivas.";
+    } else return " e solicita medidas protetivas.";
+  } 
+
   if ($("#rMedidasN").is(":checked")) {
     return " Não solicita medidas protetivas.";
   }
