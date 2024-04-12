@@ -116,7 +116,6 @@ $("#aAmeacaArmaFacil").hide();
 $("#aAmeacaArmaNaoSabe").hide();
 $("#aRelacoesSexuais").hide();
 $("#aRelacoesSexuaisNaoSabe").hide();
-$("#aLocalAbrigo").hide();
 $("#aQuandoOnde").hide();
 $("#aOutrosHistorico").hide();
 $("#aOutrosHistoricoFoneEmail").hide();
@@ -766,16 +765,6 @@ $("#rDeficienteS3").click(function () {
   $("#divDeficiente").show();
 });
 
-$("#rAbrigoN").click(function () {
-  $("#divLocalAbrigo").show();
-});
-
-$("#rAbrigoS").click(function () {
-  $("#divLocalAbrigo").hide();
-  $("#iLocalAbrigo").css("border-color", "#ced4da");
-  $("#aLocalAbrigo").hide();
-});
-
 $("#sCidade").change(function () {
   if ($("#sCidade option:selected").index()) {
     $("#divBairro").hide();
@@ -803,7 +792,6 @@ $("#btnGerar").click(function () {
   ok = verificaCamposMidias(ok);
   ok = verificaCamposAmeacaArmas(ok);
   ok = verificaCamposRelacoesSexuais(ok);
-  ok = verificaCamposAbrigo(ok);
   ok = verificaCamposOrientacoesHistorico(ok);
 
   if (ok) {
@@ -819,7 +807,7 @@ $("#btnGerar").click(function () {
   if (localStorage.getItem("ch1") === "true")
     $("#taHistorico").append(criaParagrafoOrgao()); // 1
   if (localStorage.getItem("ch2") === "true")
-    $("#taHistorico").append(criaParagrafoRelacionamento(true)); // 2
+    $("#taHistorico").append(criaParagrafoRelacionamento()); // 2
   if (localStorage.getItem("ch3") === "true")
     $("#taHistorico").append(criaParagrafoMesmaResidencia()); // 3
   if (localStorage.getItem("ch4") === "true")
@@ -867,7 +855,7 @@ $("#btnGerar").click(function () {
   if (localStorage.getItem("ct1") === "true")
     $("#taTermo").append(criaParagrafoOrgao()); // 1
   if (localStorage.getItem("ct2") === "true")
-    $("#taTermo").append(criaParagrafoRelacionamento(false)); // 2
+    $("#taTermo").append(criaParagrafoRelacionamento()); // 2
   if (localStorage.getItem("ct3") === "true")
     $("#taTermo").append(criaParagrafoMesmaResidencia()); // 3
   if (localStorage.getItem("ct4") === "true")
@@ -1058,14 +1046,12 @@ function verificaCamposRelacionamento(ok) {
   return ok;
 }
 
-function criaParagrafoRelacionamento(intro) {
+function criaParagrafoRelacionamento() {
   let t = "";
 
   // COMPANHEIRO - AINDA ESTAO JUNTOS
   if ($("#rRelacionamento1").is(":checked")) {
-    t = t.concat("A vítima relata que sofreu violência praticada pelo ");
-    t = t.concat("companheiro. ");
-    t = t.concat("Informa que ");
+    t = t.concat("A vítima informa que ");
 
     // POR / PRETÉRITO
     if ($("#sTempoRelacionamento option:selected").text() == "por") {
@@ -1085,9 +1071,7 @@ function criaParagrafoRelacionamento(intro) {
 
     // EX-COMPANHEIRO - SEPARADOS
   } else if ($("#rRelacionamento1-Ex").is(":checked")) {
-    t = t.concat("A vítima relata que sofreu violência praticada pelo ");
-    t = t.concat("ex-companheiro. ");
-    t = t.concat("Informa que ");
+    t = t.concat("A vítima informa que ");
 
     // POR / PRETÉRITO
     if ($("#sTempoRelacionamento option:selected").text() == "por") {
@@ -1118,9 +1102,7 @@ function criaParagrafoRelacionamento(intro) {
 
     // MARIDO - AINDA ESTAO JUNTOS
   } else if ($("#rRelacionamento2").is(":checked")) {
-    t = t.concat("A vítima relata que sofreu violência praticada pelo ");
-    t = t.concat("marido. ");
-    t = t.concat("Informa que ");
+    t = t.concat("A vítima informa que ");
 
     // POR / PRETÉRITO
     if ($("#sTempoRelacionamento option:selected").text() == "por") {
@@ -1140,9 +1122,7 @@ function criaParagrafoRelacionamento(intro) {
 
     // EX-MARIDO - SEPARADOS
   } else if ($("#rRelacionamento2-Ex").is(":checked")) {
-    t = t.concat("A vítima relata que sofreu violência praticada pelo ");
-    t = t.concat("ex-marido. ");
-    t = t.concat("Informa que ");
+    t = t.concat("A vítima informa que ");
 
     // POR / PRETÉRITO
     if ($("#sTempoRelacionamento option:selected").text() == "por") {
@@ -1173,9 +1153,7 @@ function criaParagrafoRelacionamento(intro) {
 
     // NAMORADO - AINDA ESTAO JUNTOS
   } else if ($("#rRelacionamento4").is(":checked")) {
-    t = t.concat("A vítima relata que sofreu violência praticada pelo ");
-    t = t.concat("namorado. ");
-    t = t.concat("Informa que ");
+    t = t.concat("A vítima informa que ");
 
     // POR / PRETÉRITO
     if ($("#sTempoRelacionamento option:selected").text() == "por") {
@@ -1195,9 +1173,7 @@ function criaParagrafoRelacionamento(intro) {
 
     // EX-NAMORADO - SEPARADOS
   } else if ($("#rRelacionamento4-Ex").is(":checked")) {
-    t = t.concat("A vítima relata que sofreu violência praticada pelo ");
-    t = t.concat("ex-namorado. ");
-    t = t.concat("Informa que ");
+    t = t.concat("A vítima informa que ");
 
     // POR / PRETÉRITO
     if ($("#sTempoRelacionamento option:selected").text() == "por") {
@@ -1230,16 +1206,7 @@ function criaParagrafoRelacionamento(intro) {
     t = t.concat(outroRelacionamento);
   }
 
-  t = t.concat(".");
-  t = removerPontoDuplicado(t);
-
-  if (intro) {
-    return (
-      "De acordo com o Termo de Informações, " +
-      t.charAt(0).toLowerCase() +
-      t.slice(1)
-    );
-  }
+  t = removerPonto(t);
 
   return t;
 }
@@ -1264,10 +1231,10 @@ function verificaCamposMesmaResidencia(ok) {
 
 function criaParagrafoMesmaResidencia() {
   if ($("#rMesmaResidenciaN").is(":checked")) {
-    return " Informa que não vivem na mesma residência.";
+    return " e que não vivem na mesma residência.";
   }
 
-  let t = " Informa que vivem na mesma residência (";
+  let t = " e que vivem na mesma residência (";
   t = t.concat($("#iLocalResidencia").val() + ").");
   return t;
 }
@@ -1323,7 +1290,7 @@ function criaParagrafoProle() {
 }
 
 function verificaCamposConduta(ok) {
-  let s = "A vítima comunica que, NA DATA DO FATO, o suspeito";
+  let s = "Relata, ainda, que NA DATA DO FATO, o suspeito";
   let t = String($("#taConduta").val()).trim();
 
   if (t == "" || t == s) {
@@ -1364,20 +1331,21 @@ function verificaLesaoAtendimento(ok) {
 function criaParagrafoLesaoAtendimento() {
   let t = "";
   if ($("#rLesaoS").is(":checked")) {
-    t =
-      "Em relação às lesões, a vítima fica ciente que foi encaminhada para exame no PML. ";
 
     if ($("#rAtendimentoS").is(":checked")) {
-      t = t.concat(
-        "A vítima informa que procurou atendimento médico no seguinte local: "
-      );
+      t = t.concat("A vítima informa que procurou atendimento médico no seguinte local: ");
       t = t.concat($("#iLocalAtendimento").val() + ".");
-    } else {
-      t = t.concat("A vítima informa que não procurou atendimento médico.");
-    }
-  }
+      t = removerPontoDuplicado(t);
+      t = t.concat(" Realizado o seu encaminhamento a exame pericial no PML.");
 
-  t = " " + removerPontoDuplicado(t);
+    } else {
+      t = t.concat("A vítima informa que não procurou atendimento médico,");
+      t = t.concat(" sendo realizado o seu encaminhamento a exame pericial no PML.");
+    }
+
+    t = " " + t;
+  }
+  
   return t;
 }
 
@@ -1421,7 +1389,7 @@ function criaParagrafoTestemunhas() {
   }
 
   if ($("#rTestemunhaSQ").is(":checked")) {
-    return " Há testemunhas e as mesmas foram qualificadas no respectivo campo do SPJ.";
+    return " As testemunhas foram qualificadas no respectivo campo do SPJ.";
   }
 
   let nomes = [];
@@ -1430,11 +1398,12 @@ function criaParagrafoTestemunhas() {
 
   for (let i = 1; i <= n; i++) {
     let label = "#divDadosTestemunha-" + i;
-    nomes.push(String($(label + " #iNomeTestemunha").val()));
+    nomes.push((String($(label + " #iNomeTestemunha").val()).toUpperCase()));
     contatos.push(String($(label + " #iContatoTestemunha").val()));
   }
 
-  let t = " São testemunhas: ";
+  let t = " Indicada como testemunha do fato: ";
+  if(n > 1) t = " Indicadas como testemunhas do fato: ";
   for (let i = 0; i < nomes.length; i++) {
     if (i == 0) {
       t = t.concat(String(nomes[i]));
@@ -1474,12 +1443,19 @@ function verificaCamposAcaoPenal(ok) {
 
 function criaParagrafoAcaoPenal() {
   if ($("#rRepresentacaoN").is(":checked")) {
-    return " A vítima não deseja representar e fica ciente do prazo decadencial de seis meses para fazê-lo.";
+    return " A vítima NÃO DESEJA REPRESENTAR CRIMINALMENTE e fica ciente do prazo decadencial de seis meses para fazê-lo.";
   }
 
   let t = String($("#taAcaoPenal").val()).trim() + ".";
   t = " " + removerPontoDuplicado(t);
   return t;
+}
+
+function criaParagrafoMedidasProtetivas() {
+  if ($("#rMedidasN").is(":checked")) {
+    return " Não solicita medidas protetivas.";
+  }
+  return " Solicita medidas protetivas.";
 }
 
 function verificaCamposAcaoPrivada(ok) {
@@ -1510,18 +1486,13 @@ function criaParagrafoAcaoPrivada() {
   return "";
 }
 
-function criaParagrafoMedidasProtetivas() {
-  if ($("#rMedidasN").is(":checked")) {
-    return " Não solicita medidas protetivas.";
-  }
-  return " Solicita medidas protetivas.";
-}
+
 
 function criaParagrafoArmas() {
   if ($("#rArmasN").is(":checked")) {
-    return " ARM/SINARM: nada localizado em nome do suspeito, conforme documentos anexos.";
+    return " Realizada pesquisas nos sistemas ARM/SINARM: nada localizado em nome do suspeito, conforme documentos anexos.";
   }
-  return " ARM/SINARM: há registro de arma em nome do suspeito, conforme documentos anexos.";
+  return " Realizada pesquisas nos sistemas ARM/SINARM: há registro de arma em nome do suspeito, conforme documentos anexos.";
 }
 
 function verificaCamposAmeacaArmas(ok) {
@@ -1825,35 +1796,17 @@ function criaParagrafoDeficiencia() {
   return t;
 }
 
-function verificaCamposAbrigo(ok) {
-  if ($("#rAbrigoN").is(":checked")) {
-    if ($("#iLocalAbrigo").val()) {
-      $("#iLocalAbrigo").css("border-color", "#ced4da");
-      $("#aLocalAbrigo").hide();
-    } else {
-      $("#aLocalAbrigo").show();
-      $("#iLocalAbrigo").css("border-color", "red");
-      if (!ok) ok = "lLocalAbrigo";
-    }
-  } else {
-    $("#iLocalAbrigo").css("border-color", "#ced4da");
-    $("#aLocalAbrigo").hide();
-  }
-
-  return ok;
-}
-
 function criaParagrafoAbrigo() {
   let t = "Foi oferecido abrigo para a vítima, tendo ela aceitado.";
   if ($("#rAbrigoN").is(":checked")) {
-    t = "Foi oferecido abrigo para a vítima, tendo ela recusado; ";
+    t = "Foi oferecido abrigo para a vítima, porém a mesma recusou";
     if ($("#rMedidasS").is(":checked")) {
       t = t.concat(
-        "a vítima foi orientada a aguardar o deferimento da MPU em local seguro; "
+        ", sendo orientada a aguardar o deferimento da MPU em local seguro. "
       );
+    } else {
+      t = t.concat(".");
     }
-    t = t.concat("a vítima informou que ficará no seguinte local: ");
-    t = t.concat($("#iLocalAbrigo").val() + ".");
   }
   t = " " + removerPontoDuplicado(t);
   return t;
