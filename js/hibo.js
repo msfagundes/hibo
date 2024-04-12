@@ -972,7 +972,7 @@ function criaParagrafoOrgao() {
     t = t.concat(nome);
     t = t.concat(", com ");
     t = t.concat(idade);
-    t = t.concat(" anos de idade, para apresentar ocorrência no contexto de violência doméstica e familiar contra a mulher. ");
+    t = t.concat(" anos de idade, para registrar ocorrência no contexto de violência doméstica e familiar contra a mulher. ");
     return t;
   }
 
