@@ -117,10 +117,37 @@
                         </div>
                     </div>
 
-                    <!-- 2. TIPO DE RELACIONAMENTO? TEMPO DE RELACIONAMENTO? TEMPO SEPARADOS? -->
+                    <!-- 2. DADOS DA VITIMA-->
                     <div class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
                         <div class="form-group col-sm-12">
-                            <label class="main-label">2. Qual tipo de relacionamento a vítima e o suspeito <span
+                            <label class="main-label" id="lDadosVitima">2. Dados da vítima:</label>
+                            <div id="divNomeVitima" class="form-group col-sm-12 form-row mb-0 mt-2 pb-0">
+                                <div class="form-group col-sm-2 sublinhado text-center">Nome</div>
+                                <div class="form-group col-sm-10">
+                                    <input type="text" class="form-control form-control-sm" id="iNomeVitima" placeholder="Maria Silva">
+                                </div>
+                            </div>
+
+                            <div id="divIdadeVitima" class="form-group col-sm-12 form-row my-0 pb-0">
+                                <div class="form-group col-sm-2 sublinhado text-center">Idade</div>
+                                <div class="form-group col-sm-2">
+                                    <input type="number" class="form-control form-control-sm text-center" id="iIdadeVitima" value="18">
+                                </div>
+                                <div class="form-group col-sm-2 text-left">anos</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row" id="aDadosVitima">
+                        <div class="alert alert-warning">
+                            É obrigatório o preenchimento do nome e a idade da vítima.
+                        </div>
+                    </div>
+
+                    <!-- 3. TIPO DE RELACIONAMENTO? TEMPO DE RELACIONAMENTO? TEMPO SEPARADOS? -->
+                    <div class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
+                        <div class="form-group col-sm-12">
+                            <label class="main-label">3. Qual tipo de relacionamento a vítima e o suspeito <span
                                     class="sublinhado">tem</span> ou <span class="sublinhado">tiveram</span>?</label>
                             <div class="form-check">
 
@@ -251,11 +278,11 @@
                         </div>
                     </div>
 
-
-                    <!-- 3. MESMA RESIDENCIA? -->
+ 
+                    <!-- 4. MESMA RESIDENCIA? -->
                     <div id="divMesmaResidencia" class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
                         <div class="form-group col-sm-12">
-                            <label class="main-label">3. Estão vivendo na mesma residência?</label>
+                            <label class="main-label">4. Estão vivendo na mesma residência?</label>
 
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="rMesmaResidencia"
@@ -288,10 +315,10 @@
                     </div>
 
 
-                    <!-- 4. PROLE / FILHOS -->
+                    <!-- 5. PROLE / FILHOS -->
                     <div class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
                         <div class="form-group col-sm-12">
-                            <label class="main-label">4. Deseja incluir filhos da vítima no histórico?</label>
+                            <label class="main-label">5. Deseja incluir filhos da vítima no histórico?</label>
 
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="rFilhos" id="rFilhosN" value="Nao"
@@ -359,10 +386,10 @@
                     </div>
 
 
-                    <!-- 5. CONDUTA DELITIVA -->
+                    <!-- 6. CONDUTA DELITIVA -->
                     <div class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
                         <div class="form-group col-sm-12">
-                            <label class="main-label" id="lConduta" for="taConduta">5. Conduta delitiva:</label>
+                            <label class="main-label" id="lConduta" for="taConduta">6. Conduta delitiva:</label>
                             <textarea class="form-control" name="taConduta" id="taConduta"
                                 rows="8">Relata, ainda, que NA DATA DO FATO, o suspeito </textarea>
                         </div>
@@ -375,11 +402,11 @@
                     </div>
 
 
-                    <!-- 6. LESAO CORPORAL -->
+                    <!-- 7. LESAO CORPORAL -->
                     <div class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
 
                         <div class="form-group col-sm-12">
-                            <label class="main-label">6. Há lesão corporal na vítima?</label>
+                            <label class="main-label">7. Há lesão corporal na vítima?</label>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="rLesao" id="rLesaoN" value="Nao"
                                     checked>
@@ -435,10 +462,10 @@
                     </div>
 
 
-                    <!-- 7. TESTEMUNHAS -->
+                    <!-- 8. TESTEMUNHAS -->
                     <div class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
                         <div class="form-group col-sm-12">
-                            <label class="main-label">7. Testemunhas</label>
+                            <label class="main-label">8. Testemunhas:</label>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="rTestemunha" id="rTestemunhaN"
                                     value="Nao" checked>
@@ -503,10 +530,10 @@
                     </div>
 
 
-                    <!-- 8. REPRESENTACAO / ACAO PENAL PUBLICA -->
+                    <!-- 9. REPRESENTACAO CRIMINAL / ACAO PENAL PUBLICA -->
                     <div id="divRepresentacao" class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
                         <div class="form-group col-sm-12">
-                            <label class="main-label">8. A vítima deseja representar?</label>
+                            <label class="main-label">9. A vítima deseja representar criminalmente?</label>
 
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="rRepresentacao" id="rRepresentacaoN"
@@ -540,11 +567,31 @@
                         </div>
                     </div>
 
-
-                    <!-- 9. ACAO PENAL PRIVADA -->
+                    <!-- 10. MEDIDAS PROTETIVAS -->
                     <div class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
                         <div class="form-group col-sm-12">
-                            <label class="main-label">9. Há delito de ação penal privada?
+                            <label class="main-label">10. A vítima solicita Medida Protetiva de Urgência?</label>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="rMedidas" id="rMedidasN" value="Nao"
+                                    checked>
+                                <label class="form-check-label" for="rMedidasN">
+                                    Não
+                                </label>
+                            </div>
+                            <div class=" form-check">
+                                <input class="form-check-input" type="radio" name="rMedidas" id="rMedidasS" value="Sim">
+                                <label class="form-check-label" for="rMedidasS">
+                                    Sim
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                     <!-- 11. ACAO PENAL PRIVADA -->
+                     <div class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
+                        <div class="form-group col-sm-12">
+                            <label class="main-label">11. Há delito de ação penal privada?
 
                             </label>
 
@@ -579,33 +626,10 @@
                         </div>
                     </div>
 
-
-                    <!-- 10. MEDIDAS PROTETIVAS -->
+                    <!-- 12. ARMAS -->
                     <div class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
                         <div class="form-group col-sm-12">
-                            <label class="main-label">10. A vítima solicita Medida Protetiva de Urgência?</label>
-
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="rMedidas" id="rMedidasN" value="Nao"
-                                    checked>
-                                <label class="form-check-label" for="rMedidasN">
-                                    Não
-                                </label>
-                            </div>
-                            <div class=" form-check">
-                                <input class="form-check-input" type="radio" name="rMedidas" id="rMedidasS" value="Sim">
-                                <label class="form-check-label" for="rMedidasS">
-                                    Sim
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- 11. ARMAS -->
-                    <div class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
-                        <div class="form-group col-sm-12">
-                            <label class="main-label">11. Foram localizadas armas no ARM/SINARM em nome do
+                            <label class="main-label">12. Foram localizadas armas no ARM/SINARM em nome do
                                 suspeito?</label>
 
                             <div class="form-check">
@@ -625,10 +649,10 @@
                     </div>
 
 
-                    <!-- 12. AMEACA ARMAS -->
+                    <!-- 13. AMEACA ARMAS -->
                     <div class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
                         <div class="form-group col-sm-12">
-                            <label class="main-label">12. O suspeito usou ou ameaçou usar arma de fogo contra a vítima,
+                            <label class="main-label">13. O suspeito usou ou ameaçou usar arma de fogo contra a vítima,
                                 ou tem fácil acesso a arma?</label>
 
                             <div class="form-check">
@@ -731,10 +755,10 @@
                     </div>
 
 
-                    <!-- 13. RELACOES SEXUAIS -->
+                    <!-- 14. RELACOES SEXUAIS -->
                     <div class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
                         <div class="form-group col-sm-12">
-                            <label class="main-label">13. O suspeito já obrigou a vítima a praticar relações ou atos
+                            <label class="main-label">14. O suspeito já obrigou a vítima a praticar relações ou atos
                                 sexuais contra sua vontade?</label>
 
                             <div class="form-check">
@@ -813,10 +837,10 @@
                     </div>
 
 
-                    <!-- 14. OCORRENCIA CONTRA O SUSPEITO? -->
+                    <!-- 15. OCORRENCIA CONTRA O SUSPEITO? -->
                     <div class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
                         <div class="form-group col-sm-12">
-                            <label class="main-label">14. Já registrou ocorrência policial contra o suspeito?</label>
+                            <label class="main-label">15. Já registrou ocorrência policial contra o suspeito?</label>
 
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="rOcorrenciaSuspeito"
@@ -844,10 +868,10 @@
                     </div>
 
 
-                    <!-- 15. PARADEIRO -->
+                    <!-- 16. PARADEIRO -->
                     <div class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
                         <div class="form-group col-sm-12">
-                            <label class="main-label" id="lParadeiro" for="taParadeiro">15. Paradeiro do suspeito:
+                            <label class="main-label" id="lParadeiro" for="taParadeiro">16. Paradeiro do suspeito:
                             </label>
                             <textarea class="form-control" name="taParadeiro" id="taParadeiro"
                                 rows="5">Sobre o paradeiro do suspeito, acredita-se que possa ser encontrado na </textarea>
@@ -861,10 +885,10 @@
                     </div>
 
 
-                    <!-- 16. VICIOS -->
+                    <!-- 17. VICIOS -->
                     <div class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
                         <div class="form-group col-sm-12">
-                            <label class="main-label">16. Vícios do suspeito:</label>
+                            <label class="main-label">17. Vícios do suspeito:</label>
 
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="álcool" id="cVicio1">
@@ -918,10 +942,10 @@
                     </div>
 
 
-                    <!-- 17. REGISTRO EM MIDIA (AUDIO OU VIDEO) -->
+                    <!-- 18. REGISTRO EM MIDIA (AUDIO OU VIDEO) -->
                     <div class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
                         <div class="form-group col-sm-12">
-                            <label class="main-label">17. Os fatos foram registrados através de <span
+                            <label class="main-label">18. Os fatos foram registrados através de <span
                                     class="sublinhado">áudio</span> e/ou <span class="sublinhado">vídeo</span>?</label>
 
                             <div class="form-check">
@@ -999,10 +1023,10 @@
                     </div>
 
 
-                    <!-- 18. DEPENDENCIA FINANCEIRA -->
+                    <!-- 19. DEPENDENCIA FINANCEIRA -->
                     <div class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
                         <div class="form-group col-sm-12">
-                            <label class="main-label">18. A vítima depende financeiramente do suspeito?</label>
+                            <label class="main-label">19. A vítima depende financeiramente do suspeito?</label>
 
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="rDependencia" id="rDependenciaN"
@@ -1022,10 +1046,10 @@
                     </div>
 
 
-                    <!-- 19. DEFICIENCIA -->
+                    <!-- 20. DEFICIENCIA -->
                     <div class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
                         <div class="form-group col-sm-12">
-                            <label class="main-label">19. A vítima possui alguma deficiência?</label>
+                            <label class="main-label">20. A vítima possui alguma deficiência?</label>
 
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="rDeficiente" id="rDeficienteN"
@@ -1061,10 +1085,10 @@
                     </div>
 
 
-                    <!-- 20. ABRIGO -->
+                    <!-- 21. ABRIGO -->
                     <div class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
                         <div class="form-group col-sm-12">
-                            <label class="main-label">20. A vítima deseja ser abrigada?</label>
+                            <label class="main-label">21. A vítima deseja ser abrigada?</label>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="rAbrigo" id="rAbrigoN" value="Nao"
                                     checked>
@@ -1082,10 +1106,10 @@
                         </div>
                     </div>
 
-                    <!-- 21. PERTENCES -->
+                    <!-- 22. PERTENCES -->
                     <div class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
                         <div class="form-group col-sm-12">
-                            <label class="main-label">21. A vítima solicita auxílio para buscar os seus pertences
+                            <label class="main-label">22. A vítima solicita auxílio para buscar os seus pertences
                                 pessoais?</label>
 
                             <div class="form-check">
@@ -1106,10 +1130,10 @@
                     </div>
 
 
-                    <!-- 22. ORIENTACOES A SEREM INCLUIDAS NO HISTORICO -->
+                    <!-- 23. ORIENTACOES A SEREM INCLUIDAS NO HISTORICO -->
                     <div class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
                         <div class="form-group col-sm-12">
-                            <label class="main-label" id="lOutrosHistorico">22. Orientações a serem incluídas no
+                            <label class="main-label" id="lOutrosHistorico">23. Orientações a serem incluídas no
                                 histórico:</label>
                             <div class="form-check my-3">
                                 <input class="form-check-input" type="checkbox" value="informacoesMedidas"
