@@ -2052,14 +2052,15 @@ $("#programa").click(function () {
     size: "large",
     message: `<h4>O Programa</h4>
             <p class="mt-3 small">
-                O <strong>Sistema de Apoio para Geração de Históricos e Termos de Informações</strong>, 
-                chamado <strong>HiBO</strong> (acrônimo de <span class="text-primary">Hi</span>stórico de 
+                
+                O <strong>HiBO</strong> (acrônimo de <span class="text-primary">Hi</span>stórico de 
                 <span class="text-primary">B</span>oletim de <span class="text-primary">O</span>corrência) é 
-                um sistema de apoio na construção de históricos e termos de informações para boletins de ocorrência 
-                em casos de violência doméstica e familiar. O programa auxilia a construção dos textos
-                por meio de uma sequência de perguntas fundamentada no 
+                um <strong>sistema de apoio na construção de históricos e termos de informações</strong> para boletins de ocorrência 
+                em casos de <strong>violência doméstica e familiar</strong>. O programa auxilia a construção dos textos
+                por meio de uma sequência de perguntas fundamentadas no 
                 <a href="https://atos.cnj.jus.br/atos/detalhar/3218" target="_blank" class="text-primary">
-                <span>Formulário Nacional de Avaliação de Risco</span></a>.
+                <span>Formulário Nacional de Avaliação de Risco</span></a>, porém não restritas ao mesmo, havendo 
+              agregado uma série de contribuições oriundas da experiência diária das Delegacias de Polícia do Estado do Rio Grande do Sul.
               </p>
 
               <p class="mt-3 small">
@@ -2070,35 +2071,7 @@ $("#programa").click(function () {
                 permanecerão somente no navegador de modo temporário até o momento que o usuário saia
                 da página ou a recarregue. Deste modo, buscamos que o programa seja apenas uma <strong>ferramenta de apoio</strong>,
                 sendo que os <strong>dados privados permanecem de modo temporário exclusivamente no computador do usuário que está 
-                realizando o registro</strong>.
-              
-              <h4 class="mt-4">Contato</h4>
-              <p class="small mt-3">
-                Para mais informações sobre o programa, entre em contato através do email 
-                <a class="text-primary" href="mailto:hibo.app@gmail.com"><span>hibo.app@gmail.com</span></a>.
-                Você também pode visitar o nosso repositório no GitHub no seguinte endereço  
-                <a href="https://github.com/msfagundes/hibo" target="_blank" class="text-primary"><span>
-                https://github.com/msfagundes/hibo</span></a>.
-              </p>
-              
-              <h4 class="mt-4">Licença</h4>
-              
-              <p class="small mt-3">
-                <span>HiBO</span> (antes chamado HBO) é um software livre; você pode redistribuí-lo e/ou
-                modificá-lo dentro dos termos da <span>Licença Pública Geral GNU</span> como
-                publicada pela Free Software Foundation (FSF); na versão 3 da
-                Licença, ou (a seu critério) qualquer versão posterior.
-
-                Este programa é distribuído na esperança de que possa ser útil,
-                mas <span>SEM NENHUMA GARANTIA</span>; sem uma garantia implícita de <span>ADEQUAÇÃO</span>
-                a qualquer <span>MERCADO</span> ou <span>APLICAÇÃO EM PARTICULAR</span>. Veja a
-                Licença Pública Geral GNU para maiores detalhes.
-
-                Você deve ter recebido uma cópia da Licença Pública Geral GNU junto
-                com este programa, Caso não tenha, veja em 
-                <a href="https://www.gnu.org/licenses/" target="_blank" class="text-primary">
-                <span>http://www.gnu.org/licenses/</span></a>.
-              </p>`,
+                realizando o registro</strong>.`,
   });
 });
 
