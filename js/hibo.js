@@ -2117,7 +2117,7 @@ $("#config").click(function () {
                     <tbody>
                         <tr>
                         <th scope="row">1</th>
-                        <td>Ocorrência apresentada por órgão de segurança pública?</td>
+                        <td>Comunicante da ocorrência</td>
                         <td>
                             <div class="form-check text-center">
                                 <input class="form-check-input my-0" type="checkbox" value="ch1" id="ch1">
@@ -2146,7 +2146,7 @@ $("#config").click(function () {
                         </tr>
                         <tr>
                         <th scope="row">3</th>
-                        <td>Relacionamento entre a vítima e o suspeito</td>
+                        <td>Relacionamento entre as partes</td>
                         <td>
                             <div class="form-check text-center">
                                 <input class="form-check-input my-0" type="checkbox" value="ch3" id="ch3">
@@ -2160,7 +2160,7 @@ $("#config").click(function () {
                         </tr>
                         <tr>
                         <th scope="row">4</th>
-                        <td>As partes vivem na mesma residência?</td>
+                        <td>Residencia das partes</td>
                         <td>
                             <div class="form-check text-center">
                                 <input class="form-check-input my-0" type="checkbox" value="ch4" id="ch4">
@@ -2174,7 +2174,7 @@ $("#config").click(function () {
                         </tr>
                         <tr>
                         <th scope="row">5</th>
-                        <td>Deseja incluir filhos da vítima no histórico?</td>
+                        <td>Filhos</td>
                         <td>
                             <div class="form-check text-center">
                                 <input class="form-check-input my-0" type="checkbox" value="ch5" id="ch5">
@@ -2204,7 +2204,7 @@ $("#config").click(function () {
 
                         <tr>
                         <th scope="row">7</th>
-                        <td>Há lesão corporal na vítima?</td>
+                        <td>Lesão corporal</td>
                         <td>
                             <div class="form-check text-center">
                                 <input class="form-check-input my-0" type="checkbox" value="ch7" id="ch7">
@@ -2219,7 +2219,7 @@ $("#config").click(function () {
 
                         <tr>
                         <th scope="row">8</th>
-                        <td>Há testemunhas?</td>
+                        <td>Testemunhas</td>
                         <td>
                             <div class="form-check text-center">
                                 <input class="form-check-input my-0" type="checkbox" value="ch8" id="ch8">
@@ -2234,7 +2234,7 @@ $("#config").click(function () {
 
                         <tr>
                         <th scope="row">9</th>
-                        <td>A vítima deseja representar?</td>
+                        <td>Representação criminal</td>
                         <td>
                             <div class="form-check text-center">
                                 <input class="form-check-input my-0" type="checkbox" value="ch9" id="ch9">
@@ -2249,7 +2249,7 @@ $("#config").click(function () {
 
                         <tr>
                         <th scope="row">10</th>
-                        <td>A vítima solicita Medida Protetiva de Urgência?</td>
+                        <td>Medida Protetiva de Urgência</td>
                         <td>
                             <div class="form-check text-center">
                                 <input class="form-check-input my-0" type="checkbox" value="ch10" id="ch10">
@@ -2264,7 +2264,7 @@ $("#config").click(function () {
 
                         <tr>
                         <th scope="row">11</th>
-                        <td>Há delito de ação penal privada?</td>
+                        <td>Ação penal privada</td>
                         <td>
                             <div class="form-check text-center">
                                 <input class="form-check-input my-0" type="checkbox" value="ch11" id="ch11">
@@ -2281,7 +2281,7 @@ $("#config").click(function () {
 
                         <tr>
                         <th scope="row">12</th>
-                        <td>Há armas no ARM/SINARM em nome do suspeito?</td>
+                        <td>Armas no ARM/SINARM</td>
                         <td>
                             <div class="form-check text-center">
                                 <input class="form-check-input my-0" type="checkbox" value="ch12" id="ch12">
@@ -2296,7 +2296,7 @@ $("#config").click(function () {
 
                         <tr>
                         <th scope="row">13</th>
-                        <td>O suspeito usou ou ameaçou usar arma de fogo?</td>
+                        <td>Ameaça ou uso de arma de fogo</td>
                         <td>
                             <div class="form-check text-center">
                                 <input class="form-check-input my-0" type="checkbox" value="ch13" id="ch13">
@@ -2311,7 +2311,7 @@ $("#config").click(function () {
 
                         <tr>
                         <th scope="row">14</th>
-                        <td>O suspeito já obrigou a vítima a praticar relações?</td>
+                        <td>Relações ou atos sexuais contra vontade</td>
                         <td>
                             <div class="form-check text-center">
                                 <input class="form-check-input my-0" type="checkbox" value="ch14" id="ch14">
@@ -2326,7 +2326,7 @@ $("#config").click(function () {
 
                         <tr>
                         <th scope="row">15</th>
-                        <td>Já registrou ocorrência policial contra o suspeito?</td>
+                        <td>Registro de ocorrência anterior</td>
                         <td>
                             <div class="form-check text-center">
                                 <input class="form-check-input my-0" type="checkbox" value="ch15" id="ch15">
@@ -2372,7 +2372,7 @@ $("#config").click(function () {
 
                         <tr>
                         <th scope="row">18</th>
-                        <td>Os fatos foram registrados através de áudio ou vídeo?</td>
+                        <td>Registros em áudio e/ou vídeo</td>
                         <td>
                             <div class="form-check text-center">
                                 <input class="form-check-input my-0" type="checkbox" value="ch18" id="ch18">
@@ -2387,7 +2387,7 @@ $("#config").click(function () {
 
                         <tr>
                         <th scope="row">19</th>
-                        <td>A vítima depende financeiramente do suspeito?</td>
+                        <td>Dependência financeira</td>
                         <td>
                             <div class="form-check text-center">
                                 <input class="form-check-input my-0" type="checkbox" value="ch19" id="ch19">
@@ -2402,7 +2402,7 @@ $("#config").click(function () {
 
                         <tr>
                         <th scope="row">20</th>
-                        <td>A vítima possui alguma deficiência?</td>
+                        <td>Deficiências da vítima</td>
                         <td>
                             <div class="form-check text-center">
                                 <input class="form-check-input my-0" type="checkbox" value="ch20" id="ch20">
@@ -2417,7 +2417,7 @@ $("#config").click(function () {
 
                         <tr>
                         <th scope="row">21</th>
-                        <td>A vítima deseja ser abrigada?</td>
+                        <td>Abrigo</td>
                         <td>
                             <div class="form-check text-center">
                                 <input class="form-check-input my-0" type="checkbox" value="ch21" id="ch21">
@@ -2432,7 +2432,7 @@ $("#config").click(function () {
 
                         <tr>
                         <th scope="row">22</th>
-                        <td>A vítima solicita auxílio para buscar seus pertences?</td>
+                        <td>Auxílio para buscar pertences</td>
                         <td>
                             <div class="form-check text-center">
                                 <input class="form-check-input my-0" type="checkbox" value="ch22" id="ch22">
@@ -2447,7 +2447,7 @@ $("#config").click(function () {
 
                         <tr>
                         <th scope="row">23</th>
-                        <td>Orientações a serem incluídas no histórico</td>
+                        <td>Orientações no histórico</td>
                         <td>
                             <div class="form-check text-center">
                                 <input class="form-check-input my-0" type="checkbox" value="ch23" id="ch23">
