@@ -1,6 +1,6 @@
 /*
  * title="HiBO"
- * version="1.7.1"
+ * version="1.7.2"
  * date="29/07/2024"
  * author="Moser Silva Fagundes"
  *
