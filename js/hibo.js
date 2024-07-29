@@ -1,7 +1,7 @@
 /*
  * title="HiBO"
- * version="1.7"
- * date="10/04/2024"
+ * version="1.7.1"
+ * date="29/07/2024"
  * author="Moser Silva Fagundes"
  *
  * This file is part of HiBO (is the past named HBO).
@@ -520,18 +520,33 @@ $("#spanRemoverTestemunha").click(function () {
   }
 });
 
-$("#rAcaoPrivadaS").click(function () {
+$("#rRepresentacaoPrivada").click(function () {
   $("#taAcaoPrivada").val(
     "A vítima fica ciente do prazo decadencial de seis meses para propor queixa-crime através de advogado no tocante às "
   );
   $("#divAcaoPrivada").show();
 });
 
-$("#rAcaoPrivadaN").click(function () {
+$("#rRepresentacaoIncondicionada").click(function () {
   $("#divAcaoPrivada").hide();
   $("#aAcaoPrivada").hide();
   $("#taAcaoPrivada").css("border-color", "#ced4da");
 });
+
+$("#rRepresentacaoCondicionadaSim").click(function () {
+  $("#divAcaoPrivada").hide();
+  $("#aAcaoPrivada").hide();
+  $("#taAcaoPrivada").css("border-color", "#ced4da");
+});
+
+$("#rRepresentacaoCondicionadaNao").click(function () {
+  $("#divAcaoPrivada").hide();
+  $("#aAcaoPrivada").hide();
+  $("#taAcaoPrivada").css("border-color", "#ced4da");
+});
+
+
+
 
 $("#cVicio6").click(function () {
   if ($("#cVicio6").is(":checked")) {
@@ -771,7 +786,7 @@ $("#btnGerar").click(function () {
   ok = verificaCamposConduta(ok);
   ok = verificaLesaoAtendimento(ok);
   ok = verificaCamposTestemunhas(ok);
-  ok = verificaCamposAcaoPrivada(ok);
+  ok = verificaCamposAcaoPenal(ok);
   ok = verificaCamposParadeiro(ok);
   ok = verificaCamposVicios(ok);
   ok = verificaCamposMidias(ok);
@@ -789,98 +804,94 @@ $("#btnGerar").click(function () {
   // *******************************************
   // GERA OS PARAGRAFOS DO HISTORICO
   // *******************************************
-  if (localStorage.getItem("ch1") === "true")
+  if (localStorage.getItem("settingHistorico1") === "true")
     $("#taHistorico").append(criaParagrafoOrgao()); // 1-2
-  if (localStorage.getItem("ch3") === "true")
+  if (localStorage.getItem("settingHistorico3") === "true")
     $("#taHistorico").append(criaParagrafoRelacionamento(false)); // 3
-  if (localStorage.getItem("ch4") === "true")
+  if (localStorage.getItem("settingHistorico4") === "true")
     $("#taHistorico").append(criaParagrafoMesmaResidencia()); // 4
-  if (localStorage.getItem("ch5") === "true")
+  if (localStorage.getItem("settingHistorico5") === "true")
     $("#taHistorico").append(criaParagrafoProle()); // 5
-  if (localStorage.getItem("ch6") === "true")
+  if (localStorage.getItem("settingHistorico6") === "true")
     $("#taHistorico").append(criaParagrafoConduta()); // 6
-  if (localStorage.getItem("ch7") === "true")
+  if (localStorage.getItem("settingHistorico7") === "true")
     $("#taHistorico").append(criaParagrafoLesaoAtendimento()); // 7
-  if (localStorage.getItem("ch8") === "true")
+  if (localStorage.getItem("settingHistorico8") === "true")
     $("#taHistorico").append(criaParagrafoTestemunhas()); // 8
-  if (localStorage.getItem("ch9") === "true")
+  if (localStorage.getItem("settingHistorico9") === "true")
     $("#taHistorico").append(criaParagrafoAcaoPenal()); // 9
-  if (localStorage.getItem("ch10") === "true")
+  if (localStorage.getItem("settingHistorico10") === "true")
     $("#taHistorico").append(criaParagrafoMedidasProtetivas()); // 10
-  if (localStorage.getItem("ch11") === "true")
-    $("#taHistorico").append(criaParagrafoAcaoPrivada()); // 11
-  if (localStorage.getItem("ch12") === "true")
+  if (localStorage.getItem("settingHistorico11") === "true")
+    $("#taHistorico").append(criaParagrafoAmeacaArmas()); // 11
+  if (localStorage.getItem("settingHistorico12") === "true")
     $("#taHistorico").append(criaParagrafoArmas()); // 12
-  if (localStorage.getItem("ch13") === "true")
-    $("#taHistorico").append(criaParagrafoAmeacaArmas()); // 13
-  if (localStorage.getItem("ch14") === "true")
-    $("#taHistorico").append(criaParagrafoRelacoesSexuais()); // 14
-  if (localStorage.getItem("ch15") === "true")
-    $("#taHistorico").append(criaParagrafoOcorrenciaSuspeito()); // 15
-  if (localStorage.getItem("ch16") === "true")
-    $("#taHistorico").append(criaParagrafoParadeiro()); // 16
-  if (localStorage.getItem("ch17") === "true")
-    $("#taHistorico").append(criaParagrafoVicios()); // 17
-  if (localStorage.getItem("ch18") === "true")
-    $("#taHistorico").append(criaParagrafoMidias()); // 18
-  if (localStorage.getItem("ch19") === "true")
-    $("#taHistorico").append(criaParagrafoDependencia()); // 19
-  if (localStorage.getItem("ch20") === "true")
-    $("#taHistorico").append(criaParagrafoDeficiencia()); // 20
-  if (localStorage.getItem("ch21") === "true")
-    $("#taHistorico").append(criaParagrafoAbrigo()); // 21
-  if (localStorage.getItem("ch22") === "true")
-    $("#taHistorico").append(criaParagrafoBuscaPertences()); // 22
-  if (localStorage.getItem("ch23") === "true")
-    $("#taHistorico").append(criaParagrafoOrientacoesHistorico()); // 23
+  if (localStorage.getItem("settingHistorico13") === "true")
+    $("#taHistorico").append(criaParagrafoRelacoesSexuais()); // 13
+  if (localStorage.getItem("settingHistorico14") === "true")
+    $("#taHistorico").append(criaParagrafoOcorrenciaSuspeito()); // 14
+  if (localStorage.getItem("settingHistorico15") === "true")
+    $("#taHistorico").append(criaParagrafoParadeiro()); // 15
+  if (localStorage.getItem("settingHistorico16") === "true")
+    $("#taHistorico").append(criaParagrafoVicios()); // 16
+  if (localStorage.getItem("settingHistorico17") === "true")
+    $("#taHistorico").append(criaParagrafoMidias()); // 17
+  if (localStorage.getItem("settingHistorico18") === "true")
+    $("#taHistorico").append(criaParagrafoDependencia()); // 18
+  if (localStorage.getItem("settingHistorico19") === "true")
+    $("#taHistorico").append(criaParagrafoDeficiencia()); // 19
+  if (localStorage.getItem("settingHistorico20") === "true")
+    $("#taHistorico").append(criaParagrafoAbrigo()); // 20
+  if (localStorage.getItem("settingHistorico21") === "true")
+    $("#taHistorico").append(criaParagrafoBuscaPertences()); // 21
+  if (localStorage.getItem("settingHistorico22") === "true")
+    $("#taHistorico").append(criaParagrafoOrientacoesHistorico()); // 22
 
   // *******************************************
   // GERA OS PARAGRAFOS DO TERMO DE INFORMAÇÕES
   // *******************************************
-  if (localStorage.getItem("ct1") === "true")
+  if (localStorage.getItem("settingTermo1") === "true")
     $("#taTermo").append(criaParagrafoOrgao()); // 1
-  if (localStorage.getItem("ct3") === "true")
+  if (localStorage.getItem("settingTermo3") === "true")
     $("#taTermo").append(criaParagrafoRelacionamento(true)); // 3
-  if (localStorage.getItem("ct4") === "true")
+  if (localStorage.getItem("settingTermo4") === "true")
     $("#taTermo").append(criaParagrafoMesmaResidencia()); // 4
-  if (localStorage.getItem("ct5") === "true")
+  if (localStorage.getItem("settingTermo5") === "true")
     $("#taTermo").append(criaParagrafoProle()); // 5
-  if (localStorage.getItem("ct6") === "true")
+  if (localStorage.getItem("settingTermo6") === "true")
     $("#taTermo").append(criaParagrafoConduta()); // 6
-  if (localStorage.getItem("ct7") === "true")
+  if (localStorage.getItem("settingTermo7") === "true")
     $("#taTermo").append(criaParagrafoLesaoAtendimento()); // 7
-  if (localStorage.getItem("ct8") === "true")
+  if (localStorage.getItem("settingTermo8") === "true")
     $("#taTermo").append(criaParagrafoTestemunhas()); // 8
-  if (localStorage.getItem("ct9") === "true")
+  if (localStorage.getItem("settingTermo9") === "true")
     $("#taTermo").append(criaParagrafoAcaoPenal()); // 9
-  if (localStorage.getItem("ct10") === "true")
+  if (localStorage.getItem("settingTermo10") === "true")
     $("#taTermo").append(criaParagrafoMedidasProtetivas()); // 10
-  if (localStorage.getItem("ct11") === "true")
-    $("#taTermo").append(criaParagrafoAcaoPrivada()); // 11
-  if (localStorage.getItem("ct12") === "true")
+  if (localStorage.getItem("settingTermo11") === "true")
+    $("#taTermo").append(criaParagrafoAmeacaArmas()); // 11
+  if (localStorage.getItem("settingTermo12") === "true")
     $("#taTermo").append(criaParagrafoArmas()); // 12
-  if (localStorage.getItem("ct13") === "true")
-    $("#taTermo").append(criaParagrafoAmeacaArmas()); // 13
-  if (localStorage.getItem("ct14") === "true")
-    $("#taTermo").append(criaParagrafoRelacoesSexuais()); // 14
-  if (localStorage.getItem("ct15") === "true")
-    $("#taTermo").append(criaParagrafoOcorrenciaSuspeito()); // 15
-  if (localStorage.getItem("ct16") === "true")
-    $("#taTermo").append(criaParagrafoParadeiro()); // 16
-  if (localStorage.getItem("ct17") === "true")
-    $("#taTermo").append(criaParagrafoVicios()); // 17
-  if (localStorage.getItem("ct18") === "true")
-    $("#taTermo").append(criaParagrafoMidias()); // 18
-  if (localStorage.getItem("ct19") === "true")
-    $("#taTermo").append(criaParagrafoDependencia()); // 19
-  if (localStorage.getItem("ct20") === "true")
-    $("#taTermo").append(criaParagrafoDeficiencia()); // 20
-  if (localStorage.getItem("ct21") === "true")
-    $("#taTermo").append(criaParagrafoAbrigo()); // 21
-  if (localStorage.getItem("ct22") === "true")
-    $("#taTermo").append(criaParagrafoBuscaPertences()); // 22
-  if (localStorage.getItem("ct23") === "true")
-    $("#taTermo").append(criaParagrafoOrientacoesHistorico()); // 23
+  if (localStorage.getItem("settingTermo13") === "true")
+    $("#taTermo").append(criaParagrafoRelacoesSexuais()); // 13
+  if (localStorage.getItem("settingTermo14") === "true")
+    $("#taTermo").append(criaParagrafoOcorrenciaSuspeito()); // 14
+  if (localStorage.getItem("settingTermo15") === "true")
+    $("#taTermo").append(criaParagrafoParadeiro()); // 15
+  if (localStorage.getItem("settingTermo16") === "true")
+    $("#taTermo").append(criaParagrafoVicios()); // 16
+  if (localStorage.getItem("settingTermo17") === "true")
+    $("#taTermo").append(criaParagrafoMidias()); // 17
+  if (localStorage.getItem("settingTermo18") === "true")
+    $("#taTermo").append(criaParagrafoDependencia()); // 18
+  if (localStorage.getItem("settingTermo19") === "true")
+    $("#taTermo").append(criaParagrafoDeficiencia()); // 19
+  if (localStorage.getItem("settingTermo20") === "true")
+    $("#taTermo").append(criaParagrafoAbrigo()); // 20
+  if (localStorage.getItem("settingTermo21") === "true")
+    $("#taTermo").append(criaParagrafoBuscaPertences()); // 21
+  if (localStorage.getItem("settingTermo22") === "true")
+    $("#taTermo").append(criaParagrafoOrientacoesHistorico()); // 22
 
   let maxTamanhoHistorico = 1804;
   let tamanhoHistorico = $("#taHistorico").val().length;
@@ -1485,31 +1496,9 @@ function criaParagrafoTestemunhas() {
 }
 
 
-function criaParagrafoAcaoPenal() {
-  if ($("#rRepresentacaoN").is(":checked")) {
-    return " A vítima NÃO DESEJA REPRESENTAR CRIMINALMENTE e fica ciente do prazo decadencial de seis meses para fazê-lo. ";
-  }
-
-  return " A vítima DESEJA REPRESENTAR CRIMINALMENTE, ";
-}
-
-function criaParagrafoMedidasProtetivas() {
-  if ($("#rRepresentacaoS").is(":checked")) {
-    if ($("#rMedidasN").is(":checked")) {
-      return " porém não solicita medidas protetivas.";
-    } else return " e solicita medidas protetivas.";
-  } 
-
-  if ($("#rMedidasN").is(":checked")) {
-    return " Não solicita medidas protetivas.";
-  }
-  return " Solicita medidas protetivas.";
-}
-
-function verificaCamposAcaoPrivada(ok) {
-  if ($("#rAcaoPrivadaS").is(":checked")) {
-    let s =
-      "A vítima fica ciente do prazo decadencial de seis meses para propor queixa-crime através de advogado no tocante às";
+function verificaCamposAcaoPenal(ok) {
+  if ($("#rRepresentacaoPrivada").is(":checked")) {
+    let s = "A vítima fica ciente do prazo decadencial de seis meses para propor queixa-crime através de advogado no tocante às";
     let t = String($("#taAcaoPrivada").val()).trim();
 
     if (t == "" || t == s) {
@@ -1525,14 +1514,40 @@ function verificaCamposAcaoPrivada(ok) {
   return ok;
 }
 
-function criaParagrafoAcaoPrivada() {
-  if ($("#rAcaoPrivadaS").is(":checked")) {
-    let t = String($("#taAcaoPrivada").val()).trim() + ".";
-    t = " " + removerPontoDuplicado(t);
-    return t;
+function criaParagrafoAcaoPenal() {
+
+  let t = "";
+
+  if ($("#rRepresentacaoIncondicionada").is(":checked")) {
+    t = "A vítima foi cientificada de que se trata de crime(s) de ação penal pública incondicionada.";
+  } else if ($("#rRepresentacaoCondicionadaSim").is(":checked")) {
+    t = "A vítima manifestou o interesse de representar criminalmente contra o(s) autor(es) do(s) fato(s).";
+  } else if ($("#rRepresentacaoCondicionadaNao").is(":checked")) {
+    t = "A vítima não deseja representar criminalmente contra o(s) autor(es) do(s) fato(s).";
+  } else {
+    t = String($("#taAcaoPrivada").val()).trim() + ".";
   }
-  return "";
+
+  t = " " + removerPontoDuplicado(t);
+  return t;
 }
+
+
+
+
+function criaParagrafoMedidasProtetivas() {
+  if ($("#rRepresentacaoS").is(":checked")) {
+    if ($("#rMedidasN").is(":checked")) {
+      return " porém não solicita medidas protetivas.";
+    } else return " e solicita medidas protetivas.";
+  } 
+
+  if ($("#rMedidasN").is(":checked")) {
+    return " Não solicita medidas protetivas.";
+  }
+  return " Solicita medidas protetivas.";
+}
+
 
 
 
@@ -1740,7 +1755,7 @@ function criaParagrafoVicios() {
   }
 
   if (vicios.length > 0) {
-    t = " Diz que o suspeito é viciado em ";
+    t = " Diz que o suspeito é usuário de ";
     if (vicios.length == 1) {
       t = t.concat(String(vicios[0]) + ".");
     } else {
@@ -1764,6 +1779,7 @@ function verificaCamposMidias(ok) {
   if ($("#rRegistroMidiaS").is(":checked")) {
     if (
       !$("#cMidiaAudio").is(":checked") &&
+      !$("#cMidiaImagem").is(":checked") &&
       !$("#cMidiaVideo").is(":checked")
     ) {
       $("#aTipoMidia").show();
@@ -1799,13 +1815,17 @@ function criaParagrafoMidias() {
   if ($("#rRegistroMidiaS").is(":checked")) {
     let t = "A vítima informa que os fatos foram registrados em ";
 
-    if ($("#cMidiaAudio").is(":checked") && $("#cMidiaVideo").is(":checked")) {
-      t = t.concat("áudio e vídeo");
-    } else if ($("#cMidiaAudio").is(":checked")) {
-      t = t.concat("áudio");
-    } else if ($("#cMidiaVideo").is(":checked")) {
-      t = t.concat("vídeo");
-    }
+    let m = [];
+    if ($("#cMidiaAudio").is(":checked")) m.push("áudio");
+    if ($("#cMidiaImagem").is(":checked")) m.push("imagem");
+    if ($("#cMidiaVideo").is(":checked")) m.push("vídeo");
+
+    if(m.length == 1) 
+      t = t.concat(m[0]);
+    else if(m.length == 2)
+      t = t.concat(m[0] + " e " + m[1]);
+    else if(m.length == 3)
+      t = t.concat(m[0] + ", " + m[1] + " e " + m[2]);
 
     if ($("#rEntregouMidiaS").is(":checked")) {
       t = t.concat(", e que o material foi entregue na Delegacia de Polícia.");
@@ -1821,10 +1841,12 @@ function criaParagrafoMidias() {
 }
 
 function criaParagrafoDependencia() {
+  let t = "A vítima informa que depende financeiramente do suspeito.";
   if ($("#rDependenciaN").is(":checked"))
-    return "A vítima informa que não depende financeiramente do suspeito.";
+    t = "A vítima informa que não depende financeiramente do suspeito.";
 
-  return "A vítima informa que depende financeiramente do suspeito.";
+  t = " " + removerPontoDuplicado(t);
+  return t;
 }
 
 function criaParagrafoDeficiencia() {
@@ -2011,11 +2033,42 @@ function criaParagrafoOrientacoesHistorico() {
       t = t.concat($("#iFoneProvas").val());
     }
 
-    t = t.concat(".");
+    t = t.concat(". ");
   }
 
-  return t;
+    // Comparecimento CRAM
+    if ($("#cOutrosHistorico4").is(":checked")) {
+      t = t.concat("Orientada a comparecer ao CRAM (Centro de Referência de Atendimento à Mulher) para buscar atendimento psicológico, jurídico e de assistência social. ");
+    }
+
+    // Encaminhamento Exame Corpo Delito
+    if ($("#cOutrosHistorico5").is(":checked")) {
+      t = t.concat("Houve o encaminhamento da vítima a exame de corpo de delito. ");
+    }
+
+    // Autorizou Registro Lesao
+    if ($("#cOutrosHistorico6").is(":checked")) {
+      t = t.concat("A vítima autorizou o(a) servidor(a) policial responsável pelo atendimento da ocorrência a realizar o registro fotográfico da(s) lesão(ões) corporal(is) indicada(s). ");
+    }
+    
+    // NAO Autorizou Registro Lesao
+    if ($("#cOutrosHistorico7").is(":checked")) {
+      t = t.concat("A vítima NÃO autorizou o(a) servidor(a) policial responsável pelo atendimento da ocorrência a realizar o registro fotográfico da(s) lesão(ões) corporal(is) indicada(s). ");
+    }
+
+    // Remover espaço em branco
+    t = " " + removerPontoDuplicado(t);
+    return t;
 }
+
+$("#cOutrosHistorico6").click(function () {
+  $("#cOutrosHistorico7").prop('checked', false);
+});
+
+$("#cOutrosHistorico7").click(function () {
+  $("#cOutrosHistorico6").prop('checked', false);
+});
+
 
 function salvarOrientacoesHistorico() {
   localStorage.setItem(
@@ -2093,12 +2146,12 @@ $("#config").click(function () {
                         <td>Comunicante da ocorrência</td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ch1" id="ch1">
+                                <input class="form-check-input my-0" type="checkbox" value="settingHistorico1" id="settingHistorico1">
                             </div>
                         </td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ct1" id="ct1">
+                                <input class="form-check-input my-0" type="checkbox" value="settingTermo1" id="settingTermo1">
                             </div>
                         </td>
                         </tr>
@@ -2108,12 +2161,12 @@ $("#config").click(function () {
                         <td>Dados da vítima</td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ch2" id="ch2">
+                                <input class="form-check-input my-0" type="checkbox" value="settingHistorico2" id="settingHistorico2">
                             </div>
                         </td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ct2" id="ct2">
+                                <input class="form-check-input my-0" type="checkbox" value="settingTermo2" id="settingTermo2">
                             </div>
                         </td>
                         </tr>
@@ -2122,12 +2175,12 @@ $("#config").click(function () {
                         <td>Relacionamento entre as partes</td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ch3" id="ch3">
+                                <input class="form-check-input my-0" type="checkbox" value="settingHistorico3" id="settingHistorico3">
                             </div>
                         </td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ct3" id="ct3">
+                                <input class="form-check-input my-0" type="checkbox" value="settingTermo3" id="settingTermo3">
                             </div>
                         </td>
                         </tr>
@@ -2136,12 +2189,12 @@ $("#config").click(function () {
                         <td>Residencia das partes</td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ch4" id="ch4">
+                                <input class="form-check-input my-0" type="checkbox" value="settingHistorico4" id="settingHistorico4">
                             </div>
                         </td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ct4" id="ct4">
+                                <input class="form-check-input my-0" type="checkbox" value="settingTermo4" id="settingTermo4">
                             </div>
                         </td>
                         </tr>
@@ -2150,12 +2203,12 @@ $("#config").click(function () {
                         <td>Filhos</td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ch5" id="ch5">
+                                <input class="form-check-input my-0" type="checkbox" value="settingHistorico5" id="settingHistorico5">
                             </div>
                         </td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ct5" id="ct5">
+                                <input class="form-check-input my-0" type="checkbox" value="settingTermo5" id="settingTermo5">
                             </div>
                         </td>
                         </tr>
@@ -2165,12 +2218,12 @@ $("#config").click(function () {
                         <td>Conduta delitiva</td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ch6" id="ch6">
+                                <input class="form-check-input my-0" type="checkbox" value="settingHistorico6" id="settingHistorico6">
                             </div>
                         </td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ct6" id="ct6">
+                                <input class="form-check-input my-0" type="checkbox" value="settingTermo6" id="settingTermo6">
                             </div>
                         </td>
                         </tr>
@@ -2180,12 +2233,12 @@ $("#config").click(function () {
                         <td>Lesão corporal</td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ch7" id="ch7">
+                                <input class="form-check-input my-0" type="checkbox" value="settingHistorico7" id="settingHistorico7">
                             </div>
                         </td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ct7" id="ct7">
+                                <input class="form-check-input my-0" type="checkbox" value="settingTermo7" id="settingTermo7">
                             </div>
                         </td>
                         </tr>
@@ -2195,27 +2248,27 @@ $("#config").click(function () {
                         <td>Testemunhas</td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ch8" id="ch8">
+                                <input class="form-check-input my-0" type="checkbox" value="settingHistorico8" id="settingHistorico8">
                             </div>
                         </td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ct8" id="ct8">
+                                <input class="form-check-input my-0" type="checkbox" value="settingTermo8" id="settingTermo8">
                             </div>
                         </td>
                         </tr>
 
                         <tr>
                         <th scope="row">9</th>
-                        <td>Representação criminal</td>
+                        <td>Natureza da ação penal</td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ch9" id="ch9">
+                                <input class="form-check-input my-0" type="checkbox" value="settingHistorico9" id="settingHistorico9">
                             </div>
                         </td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ct9" id="ct9">
+                                <input class="form-check-input my-0" type="checkbox" value="settingTermo9" id="settingTermo9">
                             </div>
                         </td>
                         </tr>
@@ -2225,210 +2278,196 @@ $("#config").click(function () {
                         <td>Medida Protetiva de Urgência</td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ch10" id="ch10">
+                                <input class="form-check-input my-0" type="checkbox" value="settingHistorico10" id="settingHistorico10">
                             </div>
                         </td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ct10" id="ct10">
+                                <input class="form-check-input my-0" type="checkbox" value="settingTermo10" id="settingTermo10">
                             </div>
                         </td>
                         </tr>
 
+                    
                         <tr>
                         <th scope="row">11</th>
-                        <td>Ação penal privada</td>
+                        <td>Ameaça ou uso de arma de fogo</td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ch11" id="ch11">
+                                <input class="form-check-input my-0" type="checkbox" value="settingHistorico11" id="settingHistorico11">
                             </div>
                         </td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ct11" id="ct11">
+                                <input class="form-check-input my-0" type="checkbox" value="settingTermo11" id="settingTermo11">
                             </div>
                         </td>
                         </tr>
 
-                       
 
                         <tr>
                         <th scope="row">12</th>
                         <td>Armas no ARM/SINARM</td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ch12" id="ch12">
+                                <input class="form-check-input my-0" type="checkbox" value="settingHistorico12" id="settingHistorico12">
                             </div>
                         </td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ct12" id="ct12">
+                                <input class="form-check-input my-0" type="checkbox" value="settingTermo12" id="settingTermo12">
                             </div>
                         </td>
                         </tr>
 
+
                         <tr>
                         <th scope="row">13</th>
-                        <td>Ameaça ou uso de arma de fogo</td>
+                        <td>Relações ou atos sexuais contra vontade</td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ch13" id="ch13">
+                                <input class="form-check-input my-0" type="checkbox" value="settingHistorico13" id="settingHistorico13">
                             </div>
                         </td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ct13" id="ct13">
+                                <input class="form-check-input my-0" type="checkbox" value="settingTermo13" id="settingTermo13">
                             </div>
                         </td>
                         </tr>
 
                         <tr>
                         <th scope="row">14</th>
-                        <td>Relações ou atos sexuais contra vontade</td>
-                        <td>
-                            <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ch14" id="ch14">
-                            </div>
-                        </td>
-                        <td>
-                            <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ct14" id="ct14">
-                            </div>
-                        </td>
-                        </tr>
-
-                        <tr>
-                        <th scope="row">15</th>
                         <td>Registro de ocorrência anterior</td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ch15" id="ch15">
+                                <input class="form-check-input my-0" type="checkbox" value="settingHistorico14" id="settingHistorico14">
                             </div>
                         </td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ct15" id="ct15">
+                                <input class="form-check-input my-0" type="checkbox" value="settingTermo14" id="settingTermo14">
                             </div>
                         </td>
                         </tr>
 
 
                         <tr>
-                        <th scope="row">16</th>
+                        <th scope="row">15</th>
                         <td>Paradeiro do suspeito</td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ch16" id="ch16">
+                                <input class="form-check-input my-0" type="checkbox" value="settingHistorico15" id="settingHistorico15">
                             </div>
                         </td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ct16" id="ct16">
+                                <input class="form-check-input my-0" type="checkbox" value="settingTermo15" id="settingTermo15">
+                            </div>
+                        </td>
+                        </tr>
+
+                        <tr>
+                        <th scope="row">16</th>
+                        <td>Substâncias das quais o suspeito é usuário</td>
+                        <td>
+                            <div class="form-check text-center">
+                                <input class="form-check-input my-0" type="checkbox" value="settingHistorico16" id="settingHistorico16">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-check text-center">
+                                <input class="form-check-input my-0" type="checkbox" value="settingTermo16" id="settingTermo16">
                             </div>
                         </td>
                         </tr>
 
                         <tr>
                         <th scope="row">17</th>
-                        <td>Vícios do suspeito</td>
+                        <td>Registros em áudio e/ou vídeo</td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ch17" id="ch17">
+                                <input class="form-check-input my-0" type="checkbox" value="settingHistorico17" id="settingHistorico17">
                             </div>
                         </td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ct17" id="ct17">
+                                <input class="form-check-input my-0" type="checkbox" value="settingTermo17" id="settingTermo17">
                             </div>
                         </td>
                         </tr>
 
                         <tr>
                         <th scope="row">18</th>
-                        <td>Registros em áudio e/ou vídeo</td>
+                        <td>Dependência financeira</td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ch18" id="ch18">
+                                <input class="form-check-input my-0" type="checkbox" value="settingHistorico18" id="settingHistorico18">
                             </div>
                         </td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ct18" id="ct18">
+                                <input class="form-check-input my-0" type="checkbox" value="settingTermo18" id="settingTermo18">
                             </div>
                         </td>
                         </tr>
 
                         <tr>
                         <th scope="row">19</th>
-                        <td>Dependência financeira</td>
+                        <td>Deficiências da vítima</td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ch19" id="ch19">
+                                <input class="form-check-input my-0" type="checkbox" value="settingHistorico19" id="settingHistorico19">
                             </div>
                         </td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ct19" id="ct19">
+                                <input class="form-check-input my-0" type="checkbox" value="settingTermo19" id="settingTermo19">
                             </div>
                         </td>
                         </tr>
 
                         <tr>
                         <th scope="row">20</th>
-                        <td>Deficiências da vítima</td>
+                        <td>Abrigo</td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ch20" id="ch20">
+                                <input class="form-check-input my-0" type="checkbox" value="settingHistorico20" id="settingHistorico20">
                             </div>
                         </td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ct20" id="ct20">
+                                <input class="form-check-input my-0" type="checkbox" value="settingTermo20" id="settingTermo20">
                             </div>
                         </td>
                         </tr>
 
                         <tr>
                         <th scope="row">21</th>
-                        <td>Abrigo</td>
+                        <td>Auxílio para buscar pertences</td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ch21" id="ch21">
+                                <input class="form-check-input my-0" type="checkbox" value="settingHistorico21" id="settingHistorico21">
                             </div>
                         </td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ct21" id="ct21">
+                                <input class="form-check-input my-0" type="checkbox" value="settingTermo21" id="settingTermo21">
                             </div>
                         </td>
                         </tr>
 
                         <tr>
                         <th scope="row">22</th>
-                        <td>Auxílio para buscar pertences</td>
-                        <td>
-                            <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ch22" id="ch22">
-                            </div>
-                        </td>
-                        <td>
-                            <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ct22" id="ct22">
-                            </div>
-                        </td>
-                        </tr>
-
-                        <tr>
-                        <th scope="row">23</th>
                         <td>Orientações no histórico</td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ch23" id="ch23">
+                                <input class="form-check-input my-0" type="checkbox" value="settingHistorico22" id="settingHistorico22">
                             </div>
                         </td>
                         <td>
                             <div class="form-check text-center">
-                                <input class="form-check-input my-0" type="checkbox" value="ct23" id="ct23">
+                                <input class="form-check-input my-0" type="checkbox" value="settingTermo22" id="settingTermo22">
                             </div>
                         </td>
                         </tr>
@@ -2450,15 +2489,15 @@ $("#config").click(function () {
           localConfig.forEach((i) => {});
 
           localConfig.forEach((i) => {
-            localStorage.setItem(`ch${i}`, i <= 12 || i == 23 ? true : false);
-            localStorage.setItem(`ct${i}`, i <= 2 || i == 23 ? false : true);
-            document.getElementById(`ch${i}`).checked =
-              localStorage.getItem(`ch${i}`) === "true" ? true : false;
-            document.getElementById(`ct${i}`).checked =
-              localStorage.getItem(`ct${i}`) === "true" ? true : false;
-            document.getElementById(`ch${i}`).disabled =
+            localStorage.setItem(`settingHistorico${i}`, i <= 10 || i == 22 ? true : false);
+            localStorage.setItem(`settingTermo${i}`, i <= 2 || i == 22 ? false : true);
+            document.getElementById(`settingHistorico${i}`).checked =
+              localStorage.getItem(`settingHistorico${i}`) === "true" ? true : false;
+            document.getElementById(`settingTermo${i}`).checked =
+              localStorage.getItem(`settingTermo${i}`) === "true" ? true : false;
+            document.getElementById(`settingHistorico${i}`).disabled =
               disabledConfig.includes(i) ? true : false;
-            document.getElementById(`ct${i}`).disabled = true;
+            document.getElementById(`settingTermo${i}`).disabled = true;
           });
 
           return true;
@@ -2472,8 +2511,8 @@ $("#config").click(function () {
           if (result) {
             localConfig.forEach((i) => {
               localStorage.setItem(
-                `ch${i}`,
-                document.getElementById(`ch${i}`).checked ? true : false
+                `settingHistorico${i}`,
+                document.getElementById(`settingHistorico${i}`).checked ? true : false
               );
             });
           }
@@ -2483,28 +2522,27 @@ $("#config").click(function () {
   });
 
   localConfig.forEach((i) => {
-    document.getElementById(`ch${i}`).checked =
-      localStorage.getItem(`ch${i}`) === "true" ? true : false;
-    document.getElementById(`ct${i}`).checked =
-      localStorage.getItem(`ct${i}`) === "true" ? true : false;
-    document.getElementById(`ch${i}`).disabled = disabledConfig.includes(i)
+    document.getElementById(`settingHistorico${i}`).checked =
+      localStorage.getItem(`settingHistorico${i}`) === "true" ? true : false;
+    document.getElementById(`settingTermo${i}`).checked =
+      localStorage.getItem(`settingTermo${i}`) === "true" ? true : false;
+    document.getElementById(`settingHistorico${i}`).disabled = disabledConfig.includes(i)
       ? true
       : false;
-    document.getElementById(`ct${i}`).disabled = true;
+    document.getElementById(`settingTermo${i}`).disabled = true;
   });
 });
 
-var localConfig = [
-  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23
-];
-var disabledConfig = [1, 2, 3, 4, 5, 6, 9, 10, 12, 23];
+var localConfig = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
+var disabledConfig = [1, 2, 3, 4, 5, 6, 9, 10, 22];
 
 function inicializaConfig() {
   localConfig.forEach((i) => {
-    if (!localStorage.getItem(`ch${i}`))
-      localStorage.setItem(`ch${i}`, i <= 12 || i == 23 ? true : false);
-    if (!localStorage.getItem(`ct${i}`))
-      localStorage.setItem(`ct${i}`, i <= 2 || i == 23 ? false : true);
+    if (!localStorage.getItem(`settingHistorico${i}`))
+      localStorage.setItem(`settingHistorico${i}`, i <= 10 || i == 22 ? true : false);
+
+    if (!localStorage.getItem(`settingTermo${i}`))
+      localStorage.setItem(`settingTermo${i}`, i <= 2 || i == 22 ? false : true);
   });
 }
 
