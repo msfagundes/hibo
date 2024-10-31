@@ -1,7 +1,7 @@
 <!--
  * title="HiBO"
- * version="1.7.2"
- * date="29/07/2024"
+ * version="1.7.3"
+ * date="29/10/2024"
  * author="Moser Silva Fagundes"
  *
  * This file is part of HiBO (is the past named HBO).
@@ -27,7 +27,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta title="HiBO" version="1.7" date="14/03/2024" author="Moser Silva Fagundes">
+    <meta title="HiBO" version="1.7.3" date="29/10/2024" author="Moser Silva Fagundes">
     <title>Históricos e Termos de Informações</title>
 
     <link rel="stylesheet" href="./css/bootstrap.min.css">
@@ -131,7 +131,7 @@
                             <div id="divIdadeVitima" class="form-group col-sm-12 form-row my-0 pb-0">
                                 <div class="form-group col-sm-2 sublinhado text-center">Idade</div>
                                 <div class="form-group col-sm-2">
-                                    <input type="number" class="form-control form-control-sm text-center" id="iIdadeVitima" value="18">
+                                    <input type="text" class="form-control form-control-sm text-center" id="iIdadeVitima" placeholder="18" value="18">
                                 </div>
                                 <div class="form-group col-sm-2 text-left">anos</div>
                             </div>
@@ -316,72 +316,82 @@
 
 
                     <!-- 5. PROLE / FILHOS -->
+
                     <div class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
                         <div class="form-group col-sm-12">
-                            <label class="main-label">5. A vítima possui filho(s)?</label>
-
+                            <label class="main-label">5. A vítima possui filhos?</label>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="rFilhos" id="rFilhosN" value="Nao"
-                                    checked>
-                                <label class="form-check-label" for="rFilhosN">
+                                <input class="form-check-input" type="radio" name="rProle" id="rProleN"
+                                    value="Nao" checked>
+                                <label class="form-check-label" for="rProleN">
                                     Não
                                 </label>
                             </div>
+                        
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="rFilhos" id="rFilhosS" value="Sim">
-                                <label class="form-check-label" for="rFilhosS">
+                                <input class="form-check-input" type="radio" name="rProle" id="rProleS"
+                                    value="Sim">
+                                <label class="form-check-label" for="rProleS">
                                     Sim
                                 </label>
                             </div>
                         </div>
 
-                        <div id="divFilhos" class="form-row mt-3">
+                        <div id="divProle" class="form-group col-sm-12 mb-0">
+                            <div class="form-row align-text-bottom">
+                                <div class="form-group col-sm-3 mb-0">
+                                    <label class="main-label-sm">Nome</label>
+                                </div>
+                                <div class="form-group col-sm-3 mb-0">
+                                    <label class="main-label-sm">Idade</label>
+                                </div>
+                                <div class="form-group col-sm-3 mb-0 text-center">
+                                    <label class="main-label-sm">Vive junto com a vítima?</label>
+                                </div>
+                                <div class="form-group col-sm-3 mb-0 text-center">
+                                    <label class="main-label-sm">De outro relacionamento?</label>
+                                </div>
+                            </div>
 
-                            <div class="form-group col-sm-6">
-                                <label for="sNumeroFilhos" class="main-label">Quantos filhos a vítima possui?</label>
+                            <div id="divListaProle">
+                                <div class="form-row" id="divDadosProle-1">
+                                    <div class="form-group col-sm-3">
+                                        <input type="text" class="form-control  form-control-sm" id="iNomeProle"
+                                            placeholder="">
+                                    </div>
+                                    <div class="form-group col-sm-1">
+                                        <input type="number" class="form-control  form-control-sm" id="iIdadeProle"
+                                            placeholder="1">
+                                    </div>
+                                    <div class="form-group col-sm-2">
+                                        <select name="sIdadeProle" id="sIdadeProle"
+                                            class="form-control form-control-sm">
+                                            <option value="ano">ano(s)</option>
+                                            <option value="mes">mes(es)</option>
+                                            <option value="dia">dia(s)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-sm-3 text-center">
+                                        <input class="form-check-input" type="checkbox" value="sim" id="cJuntoProle" checked="checked">
+                                    </div>
+                                    <div class="form-group col-sm-3 text-center">
+                                        <input class="form-check-input" type="checkbox" value="sim" id="cOutroProle">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group col-sm-3">
-                                <select name="sNumeroFilhos" id="sNumeroFilhos" class="form-control form-control-sm">
-                                    <option value="um">um</option>
-                                    <option value="dois">dois</option>
-                                    <option value="três">três</option>
-                                    <option value="quatro">quatro</option>
-                                    <option value="cinco">cinco</option>
-                                    <option value="seis">seis</option>
-                                    <option value="sete">sete</option>
-                                    <option value="oito">oito</option>
-                                    <option value="nove">nove</option>
-                                    <option value="dez">dez</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-sm-3"></div>
 
+                            <div class="form-row">
+                                <div class="form-group col-sm-12">
+                                    <span class="btn btn-outline-primary btn-sm" id="spanAdicionarProle">Adicionar</span>
+                                    <span class="btn btn-outline-primary btn-sm" id="spanRemoverProle">Remover</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                            <div class="form-group col-sm-6">
-                                <label for="sNumeroFilhosMenores" class="main-label">Quantos filhos são menores de
-                                    idade?</label>
-                            </div>
-                            <div class="form-group col-sm-3">
-                                <select name="sNumeroFilhosMenores" id="sNumeroFilhosMenores"
-                                    class="form-control form-control-sm">
-                                    <option value="nenhum">nenhum</option>
-                                    <option value="um">um</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-sm-3"></div>
-
-                            <div class="form-group col-sm-6">
-                                <label for="sNumeroFilhosVivendo" class="main-label">Quantos filhos vivem com a
-                                    vítima?</label>
-                            </div>
-                            <div class="form-group col-sm-3">
-                                <select name="sNumeroFilhosVivendo" id="sNumeroFilhosVivendo"
-                                    class="form-control form-control-sm">
-                                    <option value="nenhum">nenhum</option>
-                                    <option value="um">um</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-sm-3"></div>
+                    <div class="form-row" id="aListaProle">
+                        <div class="alert alert-warning">
+                            Informe o nome completo dos filhos e seus respectivos dados.
                         </div>
                     </div>
 
@@ -464,7 +474,7 @@
                     <!-- 8. TESTEMUNHAS -->
                     <div class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
                         <div class="form-group col-sm-12">
-                            <label class="main-label">8. Há testemunha(s)?</label>
+                            <label class="main-label">8. Há testemunhas?</label>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="rTestemunha" id="rTestemunhaN"
                                     value="Nao" checked>
@@ -491,10 +501,10 @@
                         <div id="divTestemunha" class="form-group col-sm-12 mb-0">
                             <div class="form-row">
                                 <div class="form-group col-sm-5 mb-0">
-                                    <label class="main-label">Nome da testemunha:</label>
+                                    <label class="main-label-sm">Nome</label>
                                 </div>
                                 <div class="form-group col-sm-7 mb-0">
-                                    <label class="main-label">Contato:</label>
+                                    <label class="main-label-sm">Contato</label>
                                 </div>
                             </div>
 
@@ -502,7 +512,7 @@
                                 <div class="form-row" id="divDadosTestemunha-1">
                                     <div class="form-group col-sm-5">
                                         <input type="text" class="form-control  form-control-sm" id="iNomeTestemunha"
-                                            placeholder="Nome completo">
+                                            placeholder="">
                                     </div>
                                     <div class="form-group col-sm-7">
                                         <input type="text" class="form-control  form-control-sm" id="iContatoTestemunha"
@@ -513,10 +523,8 @@
 
                             <div class="form-row">
                                 <div class="form-group col-sm-12">
-                                    <span class="btn btn-light btn-sm" id="spanAdicionarNovaTestemunha">Adicionar nova
-                                        testemunha</span>
-                                    <span class="btn btn-light btn-sm" id="spanRemoverTestemunha">Remover
-                                        testemunha</span>
+                                    <span class="btn btn-outline-primary btn-sm" id="spanAdicionarNovaTestemunha">Adicionar</span>
+                                    <span class="btn btn-outline-primary btn-sm" id="spanRemoverTestemunha">Remover</span>
                                 </div>
                             </div>
                         </div>
@@ -577,6 +585,8 @@
                         </div>
                     </div>
 
+
+
                     <!-- 10. MEDIDAS PROTETIVAS -->
                     <div class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
                         <div class="form-group col-sm-12">
@@ -600,112 +610,53 @@
 
         
 
-                    <!-- 11. AMEACA ARMAS -->
+                    <!-- 11. POSSUI ARMAS -->
                     <div class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
                         <div class="form-group col-sm-12">
-                            <label class="main-label">11. O suspeito usou ou ameaçou usar arma de fogo contra a vítima,
-                                ou tem fácil acesso a arma?</label>
+                            <label class="main-label">11. O suspeito possui ou mantém em sua posse arma(s) de fogo?</label>
 
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="rAmeacaArma" id="rAmeacaArmaN"
+                                <input class="form-check-input" type="radio" name="rPossuiArmas" id="rPossuiArmasN"
                                     value="Nao" checked>
-                                <label class="form-check-label" for="rAmeacaArmaN">
+                                <label class="form-check-label" for="rPossuiArmasN">
                                     Não
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="rAmeacaArma" id="rAmeacaArmaSU"
+                                <input class="form-check-input" type="radio" name="rPossuiArmas" id="rPossuiArmasSim"
                                     value="Usou">
-                                <label class="form-check-label" for="rAmeacaArmaSU">
-                                    Sim, já <span class="sublinhado">usou</span> arma de fogo
+                                <label class="form-check-label" for="rPossuiArmasSim">
+                                    Sim
                                 </label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="rAmeacaArma" id="rAmeacaArmaSA"
-                                    value="Ameacou">
-                                <label class="form-check-label" for="rAmeacaArmaSA">
-                                    Sim, <span class="sublinhado">ameaçou</span> usar arma de fogo
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="rAmeacaArma" id="rAmeacaArmaSF"
-                                    value="Facil acesso">
-                                <label class="form-check-label" for="rAmeacaArmaSF">
-                                    Sim, tem <span class="sublinhado">fácil acesso</span> a uma arma de fogo
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="rAmeacaArma" id="rAmeacaArmaNS"
+                                <input class="form-check-input" type="radio" name="rPossuiArmas" id="rPossuiArmasNS"
                                     value="Nao sabe">
-                                <label class="form-check-label" for="rAmeacaArmaNS">
-                                    Não sabe
+                                <label class="form-check-label" for="rPossuiArmasNS">
+                                    Não sabe informar
                                 </label>
                             </div>
                         </div>
 
-                        <div id="divAmeacaArmaUsou" class="form-row form-group col-sm-12 mt-3">
-                            <label class="main-label" id="lAmeacaArmaUsou" for="taAmeacaArmaUsou">
-                                Informe como, quando e onde o suspeito usou arma de fogo.<br>Há registro de B.O.
-                                referente a este fato?
+                        <div id="divPossuiArmasSim" class="form-row form-group col-sm-12 mt-3">
+                            <label class="main-label" id="lPossuiArmasSim" for="taPossuiArmasSim">
+                                Informe quantas armas o suspeito possui e onde ele as armazena.
                             </label>
-                            <textarea class="form-control" name="taAmeacaArmaUsou" id="taAmeacaArmaUsou"
-                                rows="5">A vítima informou que o suspeito usou arma de fogo ...</textarea>
+                            <textarea class="form-control" name="taPossuiArmasSim" id="taPossuiArmasSim"
+                                rows="5">A vítima informou que o suspeito possui ou mantém em sua posse ___ arma(s) de fogo, e que são armazenadas em ___</textarea>
                         </div>
-
-                        <div id="divAmeacaArmaAmeacou" class="form-row form-group col-sm-12 mt-3">
-                            <label class="main-label" id="lAmeacaArmaAmeacou" for="taAmeacaArmaAmeacou">
-                                Informe como, quando e onde o suspeito ameaçou usar arma de fogo.<br>Há registro de B.O.
-                                referente a este fato?
-                            </label>
-                            <textarea class="form-control" name="taAmeacaArmaAmeacou" id="taAmeacaArmaAmeacou"
-                                rows="5">A vítima informou que o suspeito ameaçou usar arma de fogo ...</textarea>
-                        </div>
-
-                        <div id="divAmeacaArmaFacil" class="form-row form-group col-sm-12 mt-3">
-                            <label class="main-label" id="lAmeacaArmaFacil" for="taAmeacaArmaFacil">
-                                Informe detalhes referentes ao fácil acesso a arma de fogo.
-                            </label>
-                            <textarea class="form-control" name="taAmeacaArmaFacil" id="taAmeacaArmaFacil"
-                                rows="5">A vítima informou que o suspeito tem fácil acesso a arma de fogo ...</textarea>
-                        </div>
-
-                        <div id="divAmeacaArmaNaoSabe" class="form-row form-group col-sm-12 mt-3">
-                            <label class="main-label" id="lAmeacaArmaNaoSabe" for="taAmeacaArmaNaoSabe">
-                                Informe o motivo de ter assinalado a opção "Não sabe".
-                            </label>
-                            <textarea class="form-control" name="taAmeacaArmaNaoSabe" id="taAmeacaArmaNaoSabe"
-                                rows="5">Quando perguntada sobre o suspeito ter usado ou ameaçado usar arma de fogo, ou ter fácil acesso a arma, a vítima respondeu não saber. O motivo de não saber é ...</textarea>
-                        </div>
+                    
                     </div>
 
-                    <div class="form-row" id="aAmeacaArmaUsou">
+                    <div class="form-row" id="aPossuiArmasSim">
                         <div class="alert alert-warning">
-                            É obrigatório detalhar o uso de arma de fogo (como, quando e onde), informando também se
-                            houve registro de boletim de ocorrência.
+                            É obrigatório detalhar a quantidade de armas de fogo e onde as mesmas podem ser encontradas.
                         </div>
                     </div>
 
-                    <div class="form-row" id="aAmeacaArmaAmeacou">
-                        <div class="alert alert-warning">
-                            É obrigatório detalhar a ameaça de uso de arma de fogo (como, quando e onde), informando
-                            também se houve registro de boletim de ocorrência.
-                        </div>
-                    </div>
 
-                    <div class="form-row" id="aAmeacaArmaFacil">
-                        <div class="alert alert-warning">
-                            É obrigatório detalhar como o suspeito possui fácil acesso a arma de fogo.
-                        </div>
-                    </div>
 
-                    <div class="form-row" id="aAmeacaArmaNaoSabe">
-                        <div class="alert alert-warning">
-                            É obrigatório informar o motivo pelo qual a opção "Não sabe" foi assinalada com respeito ao
-                            suspeito(a) ter usado ou ameaçado usar arma de fogo, ou ter fácil acesso a arma.
-                        </div>
-                    </div>
-
-                    <!-- 12. ARMAS -->
+                    <!-- 12. ARMAS ARM / SINARM-->
                     <div class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
                         <div class="form-group col-sm-12">
                             <label class="main-label">12. Foram localizadas armas no ARM/SINARM em nome do
@@ -751,7 +702,7 @@
                                 <input class="form-check-input" type="radio" name="rRelacoesSexuais"
                                     id="rRelacoesSexuaisNS" value="Nao sabe">
                                 <label class="form-check-label" for="rRelacoesSexuaisNS">
-                                    Não sabe
+                                    Não sabe informar
                                 </label>
                             </div>
                         </div>
@@ -785,7 +736,7 @@
 
                         <div id="divRelacoesSexuaisNaoSabe" class="form-row form-group col-sm-12 mt-3">
                             <label class="main-label" id="lRelacoesSexuaisNaoSabe" for="taRelacoesSexuaisNaoSabe">
-                                Informe o motivo de ter assinalado a opção "Não sabe".
+                                Informe o motivo de ter assinalado a opção "Não sabe informar".
                             </label>
                             <textarea class="form-control" name="taRelacoesSexuaisNaoSabe" id="taRelacoesSexuaisNaoSabe"
                                 rows="5">Quando perguntada sobre ter sido obrigada a ter relações sexuais ou praticar atos sexuais contra a sua vontade, a vítima respondeu não saber. O motivo de não saber é ...</textarea>
@@ -802,8 +753,8 @@
 
                     <div class="form-row" id="aRelacoesSexuaisNaoSabe">
                         <div class="alert alert-warning">
-                            É obrigatório informar o motivo pelo qual a opção "Não sabe" foi assinalada com respeito ao
-                            suspeito(a) ter obrigado a vítima a ter relações sexuais ou praticar atos sexuais contra a
+                            É obrigatório informar o motivo pelo qual a opção "Não sabe informar" foi assinalada com respeito ao
+                            suspeito ter obrigado a vítima a ter relações sexuais ou praticar atos sexuais contra a
                             sua vontade.
                         </div>
                     </div>
@@ -1169,11 +1120,11 @@
                                         <div class="form-check ml-5 mt-1 p-1" id="divOutrosHistorico3Email">
                                             <input class="form-check-input" type="checkbox" value="EmailProvas"
                                                 id="cOutrosHistorico3Email">
-                                            <label class="form-check-label" for="cOutrosHistorico3Email">
+                                            <label class="form-check-label" for="cOutrosHistorico3Email" >
                                                 E-mail
                                                 <input type="text" class="form-control form-control-sm"
                                                     style="display: inline; width: 20em; height: 1.7em;"
-                                                    id="iEmailProvas" value="@pc.rs.gov.br">
+                                                    id="iEmailProvas" placeholder="@pc.rs.gov.br">
                                             </label>
                                         </div>
 
@@ -1184,7 +1135,7 @@
                                                 Whatsapp
                                                 <input type="text" class="form-control form-control-sm"
                                                     style="display: inline; width: 10em; height: 1.7em;"
-                                                    id="iFoneProvas" value="(51) 9999-99999">
+                                                    id="iFoneProvas" placeholder="(51) 9999-99999">
                                             </label>
                                         </div>
                                     </div>

@@ -1,7 +1,7 @@
 /*
  * title="HiBO"
- * version="1.7.2"
- * date="29/07/2024"
+ * version="1.7.3"
+ * date="29/10/2024"
  * author="Moser Silva Fagundes"
  *
  * This file is part of HiBO (is the past named HBO).
@@ -19,45 +19,6 @@
  * You should have received a copy of the GNU General Public License
  * along with HiBO.  If not, see <https://www.gnu.org/licenses/>.
  */
- 
- window.addEventListener("load", () => {
-  if (!navigator.onLine) {
-    const h1 = document.createElement("h1");
-    const h1Content = document.createTextNode("Sem conexão com a Internet");
-    h1.append(h1Content);
-
-    const p = document.createElement("p");
-    const pContent = document.createTextNode(
-      "Para executar o HiBO é preciso estar conectado à Internet pois as seguintes bibliotecas (acessadas via CDN) são necessárias:"
-    );
-    p.append(pContent);
-
-    const ul = document.createElement("ul");
-    const bibliotecas = [
-      "bootstrap@4.6.2",
-      "jquery@3.5.1",
-      "popper.js@1.16.1",
-      "bootbox.js@4.4.0",
-      "font-awesome@5.13.0",
-    ];
-
-    bibliotecas.forEach((e) => {
-      const li = document.createElement("li");
-      const liContent = document.createTextNode(e);
-      li.append(liContent);
-      ul.append(li);
-    });
-
-    const div = document.createElement("div");
-    div.classList.add("offline");
-    div.append(h1);
-    div.append(p);
-    div.append(ul);
-
-    document.querySelector("body").replaceChildren(div);
-    return;
-  }
-});
 
 $(function () {
   $('[data-toggle="popover"]').popover({ html: true, container: "body" });
@@ -72,21 +33,34 @@ $("html").on("mouseup", function (e) {
   }
 });
 
+const numerosPorExtenso = [
+  "zero", "um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove", "dez",
+  "onze", "doze", "treze", "quatorze", "quinze", "dezesseis", "dezessete", "dezoito", "dezenove", "vinte",
+  "vinte e um", "vinte e dois", "vinte e três", "vinte e quatro", "vinte e cinco", "vinte e seis", "vinte e sete", "vinte e oito", "vinte e nove",
+  "trinta", "trinta e um", "trinta e dois", "trinta e três", "trinta e quatro", "trinta e cinco", "trinta e seis", "trinta e sete", "trinta e oito", "trinta e nove",
+  "quarenta", "quarenta e um", "quarenta e dois", "quarenta e três", "quarenta e quatro", "quarenta e cinco", "quarenta e seis", "quarenta e sete", "quarenta e oito", "quarenta e nove",
+  "cinquenta", "cinquenta e um", "cinquenta e dois", "cinquenta e três", "cinquenta e quatro", "cinquenta e cinco", "cinquenta e seis", "cinquenta e sete", "cinquenta e oito", "cinquenta e nove",
+  "sessenta", "sessenta e um", "sessenta e dois", "sessenta e três", "sessenta e quatro", "sessenta e cinco", "sessenta e seis", "sessenta e sete", "sessenta e oito", "sessenta e nove",
+  "setenta", "setenta e um", "setenta e dois", "setenta e três", "setenta e quatro", "setenta e cinco", "setenta e seis", "setenta e sete", "setenta e oito", "setenta e nove",
+  "oitenta", "oitenta e um", "oitenta e dois", "oitenta e três", "oitenta e quatro", "oitenta e cinco", "oitenta e seis", "oitenta e sete", "oitenta e oito", "oitenta e nove",
+  "noventa", "noventa e um", "noventa e dois", "noventa e três", "noventa e quatro", "noventa e cinco", "noventa e seis", "noventa e sete", "noventa e oito", "noventa e nove",
+  "cem"
+];
+
+
 $("#divOrgaoSP").hide();
 $("#divOutroRelacionamento").hide();
 $("#divTempoSeparados").hide();
 $("#divLocalResidencia").hide();
-$("#divFilhos").hide();
+$("#divProle").hide();
+$("#spanRemoverProle").hide();
 $("#divAtendimento").hide();
 $("#divLocalAtendimento").hide();
 $("#divTestemunha").hide();
 $("#spanRemoverTestemunha").hide();
 $("#divAcaoPrivada").hide();
 $("#divOutrosVicios").hide();
-$("#divAmeacaArmaUsou").hide();
-$("#divAmeacaArmaAmeacou").hide();
-$("#divAmeacaArmaFacil").hide();
-$("#divAmeacaArmaNaoSabe").hide();
+$("#divPossuiArmasSim").hide();
 $("#divRelacoesSexuais").hide();
 $("#divViolenciaGraveAmeaca").hide();
 $("#divRelacoesSexuaisNaoSabe").hide();
@@ -101,6 +75,7 @@ $("#aDadosVitima").hide();
 $("#aTempoRelacionamento").hide();
 $("#aOutroRelacionamento").hide();
 $("#aLocalResidencia").hide();
+$("#aListaProle").hide();
 $("#aConduta").hide();
 $("#aLocalAtendimento").hide();
 $("#aListaTestemunhas").hide();
@@ -109,10 +84,7 @@ $("#aParadeiro").hide();
 $("#aOutrosVicios").hide();
 $("#aTipoMidia").hide();
 $("#aLocalMidia").hide();
-$("#aAmeacaArmaUsou").hide();
-$("#aAmeacaArmaAmeacou").hide();
-$("#aAmeacaArmaFacil").hide();
-$("#aAmeacaArmaNaoSabe").hide();
+$("#aPossuiArmasSim").hide();
 $("#aRelacoesSexuais").hide();
 $("#aRelacoesSexuaisNaoSabe").hide();
 $("#aQuandoOnde").hide();
@@ -409,43 +381,53 @@ $("#rMesmaResidenciaS").click(function () {
   $("#divLocalResidencia").show();
 });
 
-$("#rFilhosN").click(function () {
-  $("#divFilhos").hide();
-});
-
-$("#rFilhosS").click(function () {
-  $("#divFilhos").show();
-});
-
-$("#sNumeroFilhos").change(function () {
-  let options = [
-    "<option value='nenhum'>nenhum</option>",
-    "<option value='um'>um</option>",
-    "<option value='dois'>dois</option>",
-    "<option value='três'>três</option>",
-    "<option value='quatro'>quatro</option>",
-    "<option value='cinco'>cinco</option>",
-    "<option value='seis'>seis</option>",
-    "<option value='sete'>sete</option>",
-    "<option value='oito'>oito</option>",
-    "<option value='nove'>nove</option>",
-    "<option value='todos'>todos</option>",
-  ];
-
-  let n = 1 + $("#sNumeroFilhos option:selected").index();
-  let t = options[0];
-  t = t.concat(options[1]);
-
-  if (n > 1) {
-    for (let i = 2; i < n; i++) {
-      t = t.concat(options[i]);
-    }
-    t = t.concat(options[10]);
+$("#rProleN").click(function () {
+  $("#divProle").hide();
+  $("#aListaProle").hide();
+  let n = Number($("#divListaProle").children().length);
+  for (let i = 1; i <= n; i++) {
+    let label = "#divDadosProle-" + i;
+    $(label + " #iNomeProle").css("border-color", "#ced4da");
+    $(label + " #iIdadeProle").css("border-color", "#ced4da");
+    $(label + " #sIdadeProle").css("border-color", "#ced4da");
+    $(label + " #cOutroProle").css("border-color", "#ced4da");
+    $(label + " #cJuntoProle").css("border-color", "#ced4da");
   }
-
-  $("#sNumeroFilhosMenores").html(t);
-  $("#sNumeroFilhosVivendo").html(t);
 });
+
+$("#rProleS").click(function () {
+  $("#divProle").show();
+});
+
+$("#spanAdicionarProle").click(function () {
+  let last = $("#divListaProle").children().length;
+  let divClone = $("#divDadosProle-" + last).clone();
+  let n = $("#divListaProle").children().length + 1;
+  let id = "divDadosProle-" + n;
+  divClone.prop("id", id);
+  divClone.appendTo("#divListaProle");
+
+  let label = "#divDadosProle-" + n;
+  $(label + " #iNomeProle").prop("value", "");
+  $(label + " #iNomeProle").css("border-color", "#ced4da");
+  $(label + " #iIdadeProle").prop("value", "");
+  $(label + " #iIdadeProle").css("border-color", "#ced4da");
+  $(label + " #sIdadeProle").css("border-color", "#ced4da");
+  $(label + " #cOutroProle").css("border-color", "#ced4da");
+  $(label + " #cJuntoProle").css("border-color", "#ced4da");
+
+  if (n > 1) $("#spanRemoverProle").show();
+});
+
+
+$("#spanRemoverProle").click(function () {
+  let id = "#divDadosProle-" + $("#divListaProle").children().length;
+  $(id).remove();
+  let n = $("#divListaProle").children().length;
+  if (n == 1)  $("#spanRemoverProle").hide();
+});
+
+
 
 $("#rLesaoN").click(function () {
   $("#divAtendimento").hide();
@@ -465,6 +447,7 @@ $("#rAtendimentoN").click(function () {
 $("#rAtendimentoS").click(function () {
   $("#divLocalAtendimento").show();
 });
+
 
 $("#rTestemunhaN").click(function () {
   $("#divTestemunha").hide();
@@ -583,106 +566,31 @@ $("#rEntregouMidiaS").click(function () {
   $("#divLocalMidia").hide();
 });
 
-$("#rAmeacaArmaN").click(function () {
-  $("#divAmeacaArmaUsou").hide();
-  $("#divAmeacaArmaAmeacou").hide();
-  $("#divAmeacaArmaFacil").hide();
-  $("#divAmeacaArmaNaoSabe").hide();
 
-  $("#aAmeacaArmaUsou").hide();
-  $("#aAmeacaArmaAmeacou").hide();
-  $("#aAmeacaArmaFacil").hide();
-  $("#aAmeacaArmaNaoSabe").hide();
 
-  $("#taAmeacaArmaUsou").css("border-color", "#ced4da");
-  $("#taAmeacaArmaAmeacou").css("border-color", "#ced4da");
-  $("#taAmeacaArmaFacil").css("border-color", "#ced4da");
-  $("#taAmeacaArmaNaoSabe").css("border-color", "#ced4da");
+$("#rPossuiArmasN").click(function () {
+  $("#divPossuiArmasSim").hide();
+  $("#aPossuiArmasSim").hide();
+  $("#taPossuiArmasSim").css("border-color", "#ced4da");
 });
 
-$("#rAmeacaArmaSU").click(function () {
-  $("#taAmeacaArmaUsou").val(
-    "A vítima informou que o suspeito usou arma de fogo ..."
+$("#rPossuiArmasSim").click(function () {
+  $("#taPossuiArmasSim").val(
+    "A vítima informou que o suspeito possui ou mantém em sua posse ___ arma(s) de fogo, e que são armazenadas em ___"
   );
 
-  $("#divAmeacaArmaUsou").show();
-  $("#divAmeacaArmaAmeacou").hide();
-  $("#divAmeacaArmaFacil").hide();
-  $("#divAmeacaArmaNaoSabe").hide();
-
-  $("#aAmeacaArmaUsou").hide();
-  $("#aAmeacaArmaAmeacou").hide();
-  $("#aAmeacaArmaFacil").hide();
-  $("#aAmeacaArmaNaoSabe").hide();
-
-  $("#taAmeacaArmaUsou").css("border-color", "#ced4da");
-  $("#taAmeacaArmaAmeacou").css("border-color", "#ced4da");
-  $("#taAmeacaArmaFacil").css("border-color", "#ced4da");
-  $("#taAmeacaArmaNaoSabe").css("border-color", "#ced4da");
+  $("#divPossuiArmasSim").show();
+  $("#aPossuiArmasSim").hide();
+  $("#taPossuiArmasSim").css("border-color", "#ced4da");
 });
 
-$("#rAmeacaArmaSA").click(function () {
-  $("#taAmeacaArmaAmeacou").val(
-    "A vítima informou que o suspeito ameaçou usar arma de fogo ..."
-  );
-
-  $("#divAmeacaArmaUsou").hide();
-  $("#divAmeacaArmaAmeacou").show();
-  $("#divAmeacaArmaFacil").hide();
-  $("#divAmeacaArmaNaoSabe").hide();
-
-  $("#aAmeacaArmaUsou").hide();
-  $("#aAmeacaArmaAmeacou").hide();
-  $("#aAmeacaArmaFacil").hide();
-  $("#aAmeacaArmaNaoSabe").hide();
-
-  $("#taAmeacaArmaUsou").css("border-color", "#ced4da");
-  $("#taAmeacaArmaAmeacou").css("border-color", "#ced4da");
-  $("#taAmeacaArmaFacil").css("border-color", "#ced4da");
-  $("#taAmeacaArmaNaoSabe").css("border-color", "#ced4da");
+$("#rPossuiArmasNS").click(function () {
+  $("#divPossuiArmasSim").hide();
+  $("#aPossuiArmasSim").hide();
+  $("#taPossuiArmasSim").css("border-color", "#ced4da");
 });
 
-$("#rAmeacaArmaSF").click(function () {
-  $("#taAmeacaArmaFacil").val(
-    "A vítima informou que o suspeito tem fácil acesso a arma de fogo ..."
-  );
 
-  $("#divAmeacaArmaUsou").hide();
-  $("#divAmeacaArmaAmeacou").hide();
-  $("#divAmeacaArmaFacil").show();
-  $("#divAmeacaArmaNaoSabe").hide();
-
-  $("#aAmeacaArmaUsou").hide();
-  $("#aAmeacaArmaAmeacou").hide();
-  $("#aAmeacaArmaFacil").hide();
-  $("#aAmeacaArmaNaoSabe").hide();
-
-  $("#taAmeacaArmaUsou").css("border-color", "#ced4da");
-  $("#taAmeacaArmaAmeacou").css("border-color", "#ced4da");
-  $("#taAmeacaArmaFacil").css("border-color", "#ced4da");
-  $("#taAmeacaArmaNaoSabe").css("border-color", "#ced4da");
-});
-
-$("#rAmeacaArmaNS").click(function () {
-  $("#taAmeacaArmaNaoSabe").val(
-    "Quando perguntada sobre o suspeito ter usado ou ameaçado usar arma de fogo, ou ter fácil acesso a arma, a vítima respondeu não saber. O motivo de não saber é ..."
-  );
-
-  $("#divAmeacaArmaUsou").hide();
-  $("#divAmeacaArmaAmeacou").hide();
-  $("#divAmeacaArmaFacil").hide();
-  $("#divAmeacaArmaNaoSabe").show();
-
-  $("#aAmeacaArmaUsou").hide();
-  $("#aAmeacaArmaAmeacou").hide();
-  $("#aAmeacaArmaFacil").hide();
-  $("#aAmeacaArmaNaoSabe").hide();
-
-  $("#taAmeacaArmaUsou").css("border-color", "#ced4da");
-  $("#taAmeacaArmaAmeacou").css("border-color", "#ced4da");
-  $("#taAmeacaArmaFacil").css("border-color", "#ced4da");
-  $("#taAmeacaArmaNaoSabe").css("border-color", "#ced4da");
-});
 
 $("#rRelacoesSexuaisS").click(function () {
   $("#divRelacoesSexuaisNaoSabe").hide();
@@ -784,13 +692,14 @@ $("#btnGerar").click(function () {
   ok = verificaCamposRelacionamento(ok);
   ok = verificaCamposMesmaResidencia(ok);
   ok = verificaCamposConduta(ok);
+  ok = verificaCamposProle(ok);
   ok = verificaLesaoAtendimento(ok);
   ok = verificaCamposTestemunhas(ok);
   ok = verificaCamposAcaoPenal(ok);
   ok = verificaCamposParadeiro(ok);
   ok = verificaCamposVicios(ok);
   ok = verificaCamposMidias(ok);
-  ok = verificaCamposAmeacaArmas(ok);
+  ok = verificaCamposPossuiArmas(ok);
   ok = verificaCamposRelacoesSexuais(ok);
   ok = verificaCamposOrientacoesHistorico(ok);
 
@@ -823,7 +732,7 @@ $("#btnGerar").click(function () {
   if (localStorage.getItem("settingHistorico10") === "true")
     $("#taHistorico").append(criaParagrafoMedidasProtetivas()); // 10
   if (localStorage.getItem("settingHistorico11") === "true")
-    $("#taHistorico").append(criaParagrafoAmeacaArmas()); // 11
+    $("#taHistorico").append(criaParagrafoPossuiArmas()); // 11
   if (localStorage.getItem("settingHistorico12") === "true")
     $("#taHistorico").append(criaParagrafoArmas()); // 12
   if (localStorage.getItem("settingHistorico13") === "true")
@@ -869,7 +778,7 @@ $("#btnGerar").click(function () {
   if (localStorage.getItem("settingTermo10") === "true")
     $("#taTermo").append(criaParagrafoMedidasProtetivas()); // 10
   if (localStorage.getItem("settingTermo11") === "true")
-    $("#taTermo").append(criaParagrafoAmeacaArmas()); // 11
+    $("#taTermo").append(criaParagrafoPossuiArmas()); // 11
   if (localStorage.getItem("settingTermo12") === "true")
     $("#taTermo").append(criaParagrafoArmas()); // 12
   if (localStorage.getItem("settingTermo13") === "true")
@@ -1035,7 +944,7 @@ function verificaCamposRelacionamento(ok) {
 
     let showAlert = false;
 
-    if ($("#iTempoRelacionamento").val()) {
+    if ($("#iTempoRelacionamento").val().trim()) {
       $("#iTempoRelacionamento").css("border-color", "#ced4da");
     } else {
       $("#iTempoRelacionamento").css("border-color", "red");
@@ -1048,7 +957,7 @@ function verificaCamposRelacionamento(ok) {
       $("#rRelacionamento2-Ex").is(":checked") ||
       $("#rRelacionamento4-Ex").is(":checked")
     ) {
-      if ($("#iTempoSeparados").val()) {
+      if ($("#iTempoSeparados").val().trim()) {
         $("#iTempoSeparados").css("border-color", "#ced4da");
       } else {
         $("#iTempoSeparados").css("border-color", "red");
@@ -1098,16 +1007,16 @@ function criaParagrafoRelacionamento(termo) {
     // POR / PRETÉRITO
     if ($("#sTempoRelacionamento option:selected").text() == "por") {
       t = t.concat("viveu em união estável com o suspeito por ");
-      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val());
+      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val().trim());
       t = t.concat(tempoRelacionamento);
       // DESDE E HÁ / PRESENTE
     } else if ($("#sTempoRelacionamento option:selected").text() == "desde") {
       t = t.concat("vive em união estável com o suspeito desde ");
-      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val());
+      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val().trim());
       t = t.concat(tempoRelacionamento);
     } else if ($("#sTempoRelacionamento option:selected").text() == "há") {
       t = t.concat("vive em união estável com o suspeito há ");
-      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val());
+      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val().trim());
       t = t.concat(tempoRelacionamento);
     }
 
@@ -1125,27 +1034,27 @@ function criaParagrafoRelacionamento(termo) {
     // POR / PRETÉRITO
     if ($("#sTempoRelacionamento option:selected").text() == "por") {
       t = t.concat("viveu em união estável com o suspeito por ");
-      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val());
+      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val().trim());
       t = t.concat(tempoRelacionamento);
       // DESDE E HÁ / PRESENTE
     } else if ($("#sTempoRelacionamento option:selected").text() == "desde") {
       t = t.concat("vive em união estável com o suspeito desde ");
-      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val());
+      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val().trim());
       t = t.concat(tempoRelacionamento);
     } else if ($("#sTempoRelacionamento option:selected").text() == "há") {
       t = t.concat("vive em união estável com o suspeito há ");
-      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val());
+      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val().trim());
       t = t.concat(tempoRelacionamento);
     }
 
     t = t.concat(", que estão separados");
     if ($("#sTempoSeparados option:selected").text() == "desde") {
       t = t.concat(" desde ");
-      let tempoSeparados = removerPonto($("#iTempoSeparados").val());
+      let tempoSeparados = removerPonto($("#iTempoSeparados").val().trim());
       t = t.concat(tempoSeparados);
     } else if ($("#sTempoSeparados option:selected").text() == "há") {
       t = t.concat(" há ");
-      let tempoSeparados = removerPonto($("#iTempoSeparados").val());
+      let tempoSeparados = removerPonto($("#iTempoSeparados").val().trim());
       t = t.concat(tempoSeparados);
     }
 
@@ -1162,16 +1071,16 @@ function criaParagrafoRelacionamento(termo) {
     // POR / PRETÉRITO
     if ($("#sTempoRelacionamento option:selected").text() == "por") {
       t = t.concat("esteve casada com o suspeito por ");
-      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val());
+      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val().trim());
       t = t.concat(tempoRelacionamento);
       // DESDE E HÁ / PRESENTE
     } else if ($("#sTempoRelacionamento option:selected").text() == "desde") {
       t = t.concat("está casada com o suspeito desde ");
-      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val());
+      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val().trim());
       t = t.concat(tempoRelacionamento);
     } else if ($("#sTempoRelacionamento option:selected").text() == "há") {
       t = t.concat("está casada com o suspeito há ");
-      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val());
+      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val().trim());
       t = t.concat(tempoRelacionamento);
     }
 
@@ -1188,27 +1097,27 @@ function criaParagrafoRelacionamento(termo) {
     // POR / PRETÉRITO
     if ($("#sTempoRelacionamento option:selected").text() == "por") {
       t = t.concat("esteve casada com o suspeito por ");
-      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val());
+      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val().trim());
       t = t.concat(tempoRelacionamento);
       // DESDE E HÁ / PRESENTE
     } else if ($("#sTempoRelacionamento option:selected").text() == "desde") {
       t = t.concat("está casada com o suspeito desde ");
-      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val());
+      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val().trim());
       t = t.concat(tempoRelacionamento);
     } else if ($("#sTempoRelacionamento option:selected").text() == "há") {
       t = t.concat("está casada com o suspeito há ");
-      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val());
+      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val().trim());
       t = t.concat(tempoRelacionamento);
     }
 
     t = t.concat(", que estão separados");
     if ($("#sTempoSeparados option:selected").text() == "desde") {
       t = t.concat(" desde ");
-      let tempoSeparados = removerPonto($("#iTempoSeparados").val());
+      let tempoSeparados = removerPonto($("#iTempoSeparados").val().trim());
       t = t.concat(tempoSeparados);
     } else if ($("#sTempoSeparados option:selected").text() == "há") {
       t = t.concat(" há ");
-      let tempoSeparados = removerPonto($("#iTempoSeparados").val());
+      let tempoSeparados = removerPonto($("#iTempoSeparados").val().trim());
       t = t.concat(tempoSeparados);
     }
 
@@ -1225,16 +1134,16 @@ function criaParagrafoRelacionamento(termo) {
     // POR / PRETÉRITO
     if ($("#sTempoRelacionamento option:selected").text() == "por") {
       t = t.concat("esteve namorando com o suspeito por ");
-      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val());
+      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val().trim());
       t = t.concat(tempoRelacionamento);
       // DESDE E HÁ / PRESENTE
     } else if ($("#sTempoRelacionamento option:selected").text() == "desde") {
       t = t.concat("está namorando com o suspeito desde ");
-      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val());
+      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val().trim());
       t = t.concat(tempoRelacionamento);
     } else if ($("#sTempoRelacionamento option:selected").text() == "há") {
       t = t.concat("está namorando com o suspeito há ");
-      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val());
+      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val().trim());
       t = t.concat(tempoRelacionamento);
     }
 
@@ -1251,27 +1160,27 @@ function criaParagrafoRelacionamento(termo) {
     // POR / PRETÉRITO
     if ($("#sTempoRelacionamento option:selected").text() == "por") {
       t = t.concat("esteve namorando com o suspeito por ");
-      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val());
+      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val().trim());
       t = t.concat(tempoRelacionamento);
       // DESDE E HÁ / PRESENTE
     } else if ($("#sTempoRelacionamento option:selected").text() == "desde") {
       t = t.concat("está namorando com o suspeito desde ");
-      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val());
+      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val().trim());
       t = t.concat(tempoRelacionamento);
     } else if ($("#sTempoRelacionamento option:selected").text() == "há") {
       t = t.concat("está namorando com o suspeito há ");
-      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val());
+      let tempoRelacionamento = removerPonto($("#iTempoRelacionamento").val().trim());
       t = t.concat(tempoRelacionamento);
     }
 
     t = t.concat(", que estão separados");
     if ($("#sTempoSeparados option:selected").text() == "desde") {
       t = t.concat(" desde ");
-      let tempoSeparados = removerPonto($("#iTempoSeparados").val());
+      let tempoSeparados = removerPonto($("#iTempoSeparados").val().trim());
       t = t.concat(tempoSeparados);
     } else if ($("#sTempoSeparados option:selected").text() == "há") {
       t = t.concat(" há ");
-      let tempoSeparados = removerPonto($("#iTempoSeparados").val());
+      let tempoSeparados = removerPonto($("#iTempoSeparados").val().trim());
       t = t.concat(tempoSeparados);
     }
   } else {
@@ -1308,59 +1217,145 @@ function criaParagrafoMesmaResidencia() {
   }
 
   let t = " e que vivem na mesma residência (";
-  t = t.concat($("#iLocalResidencia").val() + ").");
+  t = t.concat($("#iLocalResidencia").val().trim() + ").");
   return t;
 }
 
-function criaParagrafoProle() {
-  let t = "";
 
-  if ($("#rFilhosS").is(":checked")) {
-    let numeroFilhos = $("#sNumeroFilhos option:selected").text();
-    let numeroFilhosMenores = $("#sNumeroFilhosMenores option:selected").text();
-    let numeroFilhosVivendo = $("#sNumeroFilhosVivendo option:selected").text();
 
-    t = t.concat(" A vítima informa que possui ");
 
-    // UM FILHO
-    if (numeroFilhos == "um") {
-      t = t.concat("um filho");
 
-      if (numeroFilhosMenores == "um") t = t.concat(" menor de idade ");
-      else t = t.concat(" maior de idade ");
+function verificaCamposProle(ok) {
 
-      if (numeroFilhosVivendo == "um") t = t.concat("que reside com ela.");
-      else t = t.concat("que não reside com ela.");
+  if ($("#rProleS").is(":checked")) {
+    let n = Number($("#divListaProle").children().length);
 
-      // MAIS DE UM FILHO
-    } else {
-      t = t.concat(numeroFilhos);
-      t = t.concat(" filhos, ");
+    let aListaProle = false;
+    for (let i = 1; i <= n; i++) {
+      let label = "#divDadosProle-" + i;
 
-      if (numeroFilhosMenores == "todos")
-        t = t.concat("todos menores de idade, ");
-      else if (numeroFilhosMenores == "nenhum")
-        t = t.concat("nenhum deles menor de idade, ");
-      else if (numeroFilhosMenores == "um")
-        t = t.concat("um deles menor de idade, ");
-      else {
-        t = t.concat(numeroFilhosMenores);
-        t = t.concat(" deles menores de idade, ");
+      if ($(label + " #iNomeProle").val()) {
+        $(label + " #iNomeProle").css("border-color", "#ced4da");
+      } else {
+        $(label + " #iNomeProle").css("border-color", "red");
+        aListaProle = true;
       }
 
-      if (numeroFilhosVivendo == "todos")
-        t = t.concat("todos residindo com ela.");
-      else {
-        t = t.concat(numeroFilhosVivendo);
-        t = t.concat(" deles residindo com ela.");
+      if ($(label + " #iIdadeProle").val()) {
+        $(label + " #iIdadeProle").css("border-color", "#ced4da");
+      } else {
+        $(label + " #iIdadeProle").css("border-color", "red");
+        aListaProle = true;
       }
     }
 
+    if (aListaProle) {
+      $("#aListaProle").show();
+      if (!ok) ok = "divProle";
+    } else {
+      $("#aListaProle").hide();
+    }
+  }
+
+  return ok;
+}
+
+
+
+function criaParagrafoProle() {
+
+  let t = "";
+
+  if ($("#rProleN").is(":checked")) {
     return t;
   }
 
+  let proleComum = [];
+  let proleOutro = [];
+
+  let n = Number($("#divListaProle").children().length);
+
+  for (let i = 1; i <= n; i++) {
+    let label = "#divDadosProle-" + i;
+
+    let nome = String($(label + " #iNomeProle").val()).trim().toUpperCase();
+    let idade = String($(label + " #iIdadeProle").val().trim());
+    let dma = $(label + " #sIdadeProle option:selected").val();
+    dma = (dma === "mes") ? "mês" : dma;
+    let outro = Boolean($(label + " #cOutroProle").is(":checked"));
+    let junto = Boolean($(label + " #cJuntoProle").is(":checked"));
+
+
+    if(Number(idade) > 1) {
+      dma = (dma === "dia") ? "dias" : dma;
+      dma = (dma === "mês") ? "meses" : dma;
+      dma = (dma === "ano") ? "anos" : dma;
+    }
+    
+    if(outro)
+      proleOutro.push({ nome, idade, dma, junto });
+    else 
+      proleComum.push({ nome, idade, dma, junto });
+
+  }  
+
+  if(proleComum.length > 0) {
+    t = t.concat(" A vítima informa que possui ");
+    let sp = (proleComum.length == 1) ? "um filho" : (numerosPorExtenso[proleComum.length] + " filhos");
+    t = t.concat(sp + " em comum com o suspeito: ");
+
+
+    for (let i = 0; i < proleComum.length; i++) {
+      if (i == 0) {
+        t = t.concat(proleComum[i].nome);
+        t = t.concat(" (" + proleComum[i].idade + " " + proleComum[i].dma);
+        t = t.concat( proleComum[i].junto ? ", vive junto com a vítima)" : ")" );
+        if (proleComum.length == 1) t = t.concat(".");
+      } else if (i == proleComum.length - 1) {
+        t = t.concat(" e " + proleComum[i].nome);
+        t = t.concat(" (" + proleComum[i].idade + " " + proleComum[i].dma);
+        t = t.concat( proleComum[i].junto ? ", vive junto com a vítima)." : ")." );
+      } else {
+        t = t.concat(", " + proleComum[i].nome);
+        t = t.concat(" (" + proleComum[i].idade + " " + proleComum[i].dma);
+        t = t.concat( proleComum[i].junto ? ", vive junto com a vítima)" : ")" );
+      }
+    }
+  
+
+  }
+
+  if(proleOutro.length > 0) {
+    if(proleComum.length > 0) {
+      t = t.concat(" Também possui ");
+    } else {
+      t = t.concat(" A vítima informa que possui ");
+    }
+    let sp = (proleOutro.length == 1) ? "um filho" : (numerosPorExtenso[proleOutro.length] + " filhos");
+    t = t.concat(sp + " de outro(s) relacionamento(s): ");
+
+    for (let i = 0; i < proleOutro.length; i++) {
+      if (i == 0) {
+        t = t.concat(proleOutro[i].nome);
+        t = t.concat(" (" + proleOutro[i].idade + " " + proleOutro[i].dma);
+        t = t.concat( proleOutro[i].junto ? ", vive junto com a vítima)" : ")" );
+        if (proleOutro.length == 1) t = t.concat(".");
+      } else if (i == proleOutro.length - 1) {
+        t = t.concat(" e " + proleOutro[i].nome);
+        t = t.concat(" (" + proleOutro[i].idade + " " + proleOutro[i].dma);
+        t = t.concat( proleOutro[i].junto ? ", vive junto com a vítima)." : ")." );
+      } else {
+        t = t.concat(", " + proleOutro[i].nome);
+        t = t.concat(" (" + proleOutro[i].idade + " " + proleOutro[i].dma);
+        t = t.concat( proleOutro[i].junto ? ", vive junto com a vítima)" : ")" );
+      }
+    }
+  }
+
+  t = " " + removerPontoDuplicado(t);
   return t;
 }
+
 
 function verificaCamposConduta(ok) {
   let s = "Relata, ainda, que NA DATA DO FATO, o suspeito";
@@ -1379,10 +1374,12 @@ function verificaCamposConduta(ok) {
 }
 
 function criaParagrafoConduta() {
-  let t = String($("#taConduta").val()) + ".";
+  let t = String($("#taConduta").val()).trim() + ".";
   t = " " + removerPontoDuplicado(t);
   return t;
 }
+
+
 
 function verificaLesaoAtendimento(ok) {
   if (
@@ -1407,7 +1404,7 @@ function criaParagrafoLesaoAtendimento() {
 
     if ($("#rAtendimentoS").is(":checked")) {
       t = t.concat("A vítima informa que procurou atendimento médico no seguinte local: ");
-      t = t.concat($("#iLocalAtendimento").val() + ".");
+      t = t.concat($("#iLocalAtendimento").val().trim() + ".");
       t = removerPontoDuplicado(t);
       t = t.concat(" Realizado o seu encaminhamento a exame pericial no PML.");
 
@@ -1471,8 +1468,8 @@ function criaParagrafoTestemunhas() {
 
   for (let i = 1; i <= n; i++) {
     let label = "#divDadosTestemunha-" + i;
-    nomes.push((String($(label + " #iNomeTestemunha").val()).toUpperCase()));
-    contatos.push(String($(label + " #iContatoTestemunha").val()));
+    nomes.push((String($(label + " #iNomeTestemunha").val()).trim().toUpperCase()));
+    contatos.push(String($(label + " #iContatoTestemunha").val().trim()));
   }
 
   let t = " Indicada como testemunha do fato: ";
@@ -1558,77 +1555,33 @@ function criaParagrafoArmas() {
   return " Realizada pesquisas nos sistemas ARM/SINARM: há registro de arma em nome do suspeito, conforme documentos anexos.";
 }
 
-function verificaCamposAmeacaArmas(ok) {
-  if ($("#rAmeacaArmaSU").is(":checked")) {
-    let s = "A vítima informou que o suspeito usou arma de fogo ...";
-    let t = String($("#taAmeacaArmaUsou").val()).trim();
+function verificaCamposPossuiArmas(ok) {
+
+  if ($("#rPossuiArmasSim").is(":checked")) {
+    let s = "A vítima informou que o suspeito possui ou mantém em sua posse ___ arma(s) de fogo, e que são armazenadas em ___";
+    let t = String($("#taPossuiArmasSim").val()).trim();
 
     if (t == "" || t == s) {
-      $("#aAmeacaArmaUsou").show();
-      $("#taAmeacaArmaUsou").css("border-color", "red");
-      if (!ok) ok = "lAmeacaArmaUsou";
+      $("#aPossuiArmasSim").show();
+      $("#taPossuiArmasSim").css("border-color", "red");
+      if (!ok) ok = "lPossuiArmasSim";
     } else {
-      $("#taAmeacaArmaUsou").css("border-color", "#ced4da");
-      $("#aAmeacaArmaUsou").hide();
-    }
-  } else if ($("#rAmeacaArmaSA").is(":checked")) {
-    let s = "A vítima informou que o suspeito ameaçou usar arma de fogo ...";
-    let t = String($("#taAmeacaArmaAmeacou").val()).trim();
-
-    if (t == "" || t == s) {
-      $("#aAmeacaArmaAmeacou").show();
-      $("#taAmeacaArmaAmeacou").css("border-color", "red");
-      if (!ok) ok = "lAmeacaArmaAmeacou";
-    } else {
-      $("#taAmeacaArmaAmeacou").css("border-color", "#ced4da");
-      $("#aAmeacaArmaAmeacou").hide();
-    }
-  } else if ($("#rAmeacaArmaSF").is(":checked")) {
-    let s =
-      "A vítima informou que o suspeito tem fácil acesso a arma de fogo ...";
-    let t = String($("#taAmeacaArmaFacil").val()).trim();
-
-    if (t == "" || t == s) {
-      $("#aAmeacaArmaFacil").show();
-      $("#taAmeacaArmaFacil").css("border-color", "red");
-      if (!ok) ok = "lAmeacaArmaFacil";
-    } else {
-      $("#taAmeacaArmaFacil").css("border-color", "#ced4da");
-      $("#aAmeacaArmaFacil").hide();
-    }
-  } else if ($("#rAmeacaArmaNS").is(":checked")) {
-    let s =
-      "Quando perguntada sobre o suspeito ter usado ou ameaçado usar arma de fogo, ou ter fácil acesso a arma, a vítima respondeu não saber. O motivo de não saber é ...";
-    let t = String($("#taAmeacaArmaNaoSabe").val()).trim();
-
-    if (t == "" || t == s) {
-      $("#aAmeacaArmaNaoSabe").show();
-      $("#taAmeacaArmaNaoSabe").css("border-color", "red");
-      if (!ok) ok = "lAmeacaArmaNaoSabe";
-    } else {
-      $("#taAmeacaArmaNaoSabe").css("border-color", "#ced4da");
-      $("#aAmeacaArmaNaoSabe").hide();
+      $("#taPossuiArmasSim").css("border-color", "#ced4da");
+      $("#aPossuiArmasSim").hide();
     }
   }
 
   return ok;
 }
 
-function criaParagrafoAmeacaArmas() {
+function criaParagrafoPossuiArmas() {
   let t = "";
 
-  if ($("#rAmeacaArmaSU").is(":checked")) {
-    t = String($("#taAmeacaArmaUsou").val()) + ".";
+  if ($("#rPossuiArmasSim").is(":checked")) {
+    t = String($("#taPossuiArmasSim").val().trim()) + ".";
     t = " " + removerPontoDuplicado(t);
-  } else if ($("#rAmeacaArmaSA").is(":checked")) {
-    t = String($("#taAmeacaArmaAmeacou").val()) + ".";
-    t = " " + removerPontoDuplicado(t);
-  } else if ($("#rAmeacaArmaSF").is(":checked")) {
-    t = String($("#taAmeacaArmaFacil").val()) + ".";
-    t = " " + removerPontoDuplicado(t);
-  } else if ($("#rAmeacaArmaNS").is(":checked")) {
-    t = String($("#taAmeacaArmaNaoSabe").val()) + ".";
-    t = " " + removerPontoDuplicado(t);
+  } else if ($("#rPossuiArmasNS").is(":checked")) {
+    t = " A vítima não soube informar se o suspeito possui ou mantém em sua posse arma(s) de fogo.";
   }
 
   return t;
@@ -1675,10 +1628,10 @@ function criaParagrafoRelacoesSexuais() {
     $("#rRelacoesSexuaisS").is(":checked") ||
     $("#rRelacoesSexuaisSV").is(":checked")
   ) {
-    t = String($("#taRelacoesSexuais").val()) + ".";
+    t = String($("#taRelacoesSexuais").val().trim()) + ".";
     t = " " + removerPontoDuplicado(t);
   } else if ($("#rRelacoesSexuaisNS").is(":checked")) {
-    t = String($("#taRelacoesSexuaisNaoSabe").val()) + ".";
+    t = String($("#taRelacoesSexuaisNaoSabe").val().trim()) + ".";
     t = " " + removerPontoDuplicado(t);
   }
 
@@ -1717,7 +1670,7 @@ function verificaCamposParadeiro(ok) {
 }
 
 function criaParagrafoParadeiro() {
-  let t = String($("#taParadeiro").val()) + ".";
+  let t = String($("#taParadeiro").val()).trim() + ".";
   t = " " + removerPontoDuplicado(t);
   return t;
 }
@@ -1747,7 +1700,7 @@ function criaParagrafoVicios() {
     let label = "#cVicio" + i;
     if ($(label).is(":checked")) {
       if (i == 6) {
-        vicios.push(String($("#iOutrosVicios").val()));
+        vicios.push(String($("#iOutrosVicios").val().trim()));
       } else {
         vicios.push($(label).val());
       }
@@ -1830,7 +1783,7 @@ function criaParagrafoMidias() {
     if ($("#rEntregouMidiaS").is(":checked")) {
       t = t.concat(", e que o material foi entregue na Delegacia de Polícia.");
     } else {
-      t = t.concat(". " + $("#taLocalMidia").val() + ".");
+      t = t.concat(". " + $("#taLocalMidia").val().trim() + ".");
     }
 
     t = " " + removerPontoDuplicado(t) + " ";
@@ -1890,11 +1843,13 @@ function criaParagrafoBuscaPertences() {
 }
 
 function verificaCamposOrientacoesHistorico(ok) {
+
   let warning = false;
 
-  // Info MPU
+
+  // Info MPU / Forum e Prazo
   if ($("#cOutrosHistorico1").is(":checked")) {
-    if ($("#iLocalInfo").val()) {
+    if ($("#iLocalInfo").val().trim()) {
       $("#iLocalInfo").css("border-color", "#ced4da");
     } else {
       warning = true;
@@ -1902,14 +1857,18 @@ function verificaCamposOrientacoesHistorico(ok) {
       if (!ok) ok = "lOutrosHistorico";
     }
 
-    if ($("#iPrazoInfo").val()) {
+    if ($("#iPrazoInfo").val().trim()) {
       $("#iPrazoInfo").css("border-color", "#ced4da");
     } else {
       warning = true;
       $("#iPrazoInfo").css("border-color", "red");
       if (!ok) ok = "lOutrosHistorico";
     }
+  } else {
+    $("#iLocalInfo").css("border-color", "#ced4da");
+    $("#iPrazoInfo").css("border-color", "#ced4da");
   }
+
 
   // Descumprimento MPU / Revogação MPU
   if ($("#cOutrosHistorico2").is(":checked")) {
@@ -1920,11 +1879,14 @@ function verificaCamposOrientacoesHistorico(ok) {
       $("#iLocalRevogar").css("border-color", "red");
       if (!ok) ok = "lOutrosHistorico";
     }
+  } else {
+    $("#iLocalRevogar").css("border-color", "#ced4da");
   }
+
 
   // Provas Complementares
   if ($("#cOutrosHistorico3").is(":checked")) {
-    if ($("#iLocalProvas").val()) {
+    if ($("#iLocalProvas").val().trim()) {
       $("#iLocalProvas").css("border-color", "#ced4da");
     } else {
       warning = true;
@@ -1932,71 +1894,101 @@ function verificaCamposOrientacoesHistorico(ok) {
       if (!ok) ok = "lOutrosHistorico";
     }
 
-    if ($("#iPrazoProvas").val()) {
+    if ($("#iPrazoProvas").val().trim()) {
       $("#iPrazoProvas").css("border-color", "#ced4da");
     } else {
       warning = true;
       $("#iPrazoProvas").css("border-color", "red");
       if (!ok) ok = "lOutrosHistorico";
     }
+
+    if (
+      !$("#cOutrosHistorico3Fone").is(":checked") &&
+      !$("#cOutrosHistorico3Email").is(":checked")
+    ) {
+      
+      $("#divOutrosHistorico3Email").css("color", "red");
+      $("#divOutrosHistorico3Fone").css("color", "red");
+
+      $("#iEmailProvas").css("border-color", "red");
+      $("#iFoneProvas").css("border-color", "red");
+      $("#iEmailProvas").css("color", "red");
+      $("#iFoneProvas").css("color", "red");
+
+      $("#aOutrosHistoricoFoneEmail").show();
+
+      if (!ok) ok = "lOutrosHistorico";
+    } else {
+
+      $("#divOutrosHistorico3Email").css("color", "#495057");
+      $("#divOutrosHistorico3Fone").css("color", "#495057");
+
+      $("#iEmailProvas").css("border-color", "#ced4da");
+      $("#iFoneProvas").css("border-color", "#ced4da");
+      $("#iEmailProvas").css("color", "#495057");
+      $("#iFoneProvas").css("color", "#495057");
+
+      $("#aOutrosHistoricoFoneEmail").hide();
+    }
+
+
+    if (
+        $("#cOutrosHistorico3Email").is(":checked") &&
+        (!$("#iEmailProvas").val().trim() || $("#iEmailProvas").val().trim() == "@pc.rs.gov.br")
+      ) {
+        warning = true;
+        $("#iEmailProvas").css("border-color", "red");
+        if (!ok) ok = "lOutrosHistorico";
+    } else {
+      $("#iEmailProvas").css("border-color", "#ced4da");
+    }
+
+    if (
+        $("#cOutrosHistorico3Fone").is(":checked") &&
+        (!$("#iFoneProvas").val().trim() || $("#iFoneProvas").val().trim() == "(51) 9999-99999")
+      ) {
+        warning = true;
+        $("#iFoneProvas").css("border-color", "red");
+        if (!ok) ok = "lOutrosHistorico";
+    } else {
+      $("#iFoneProvas").css("border-color", "#ced4da");
+    }
+
+
   } else {
     $("#iLocalProvas").css("border-color", "#ced4da");
     $("#iPrazoProvas").css("border-color", "#ced4da");
-  }
 
-  if (
-    $("#cOutrosHistorico3").is(":checked") &&
-    $("#cOutrosHistorico3Email").is(":checked") &&
-    (!$("#iEmailProvas").val() || $("#iEmailProvas").val() == "@pc.rs.gov.br")
-  ) {
-    warning = true;
-    $("#iEmailProvas").css("border-color", "red");
-    if (!ok) ok = "lOutrosHistorico";
-  } else {
+    $("#divOutrosHistorico3Email").css("color", "#495057");
+    $("#divOutrosHistorico3Fone").css("color", "#495057");
+
     $("#iEmailProvas").css("border-color", "#ced4da");
+    $("#iFoneProvas").css("border-color", "#ced4da");
+    $("#iEmailProvas").css("color", "#495057");
+    $("#iFoneProvas").css("color", "#495057");
+  
+    $("#aOutrosHistoricoFoneEmail").hide();
   }
 
-  if (
-    $("#cOutrosHistorico3").is(":checked") &&
-    $("#cOutrosHistorico3Fone").is(":checked") &&
-    (!$("#iFoneProvas").val() || $("#iFoneProvas").val() == "(51) 9999-99999")
-  ) {
-    warning = true;
-    $("#iFoneProvas").css("border-color", "red");
-    if (!ok) ok = "lOutrosHistorico";
-  } else {
-    $("#iFoneProvas").css("border-color", "#ced4da");
-  }
 
   if (warning) {
     $("#aOutrosHistorico").show();
   } else {
     $("#aOutrosHistorico").hide();
   }
-
-  if (
-    $("#cOutrosHistorico3").is(":checked") &&
-    !$("#cOutrosHistorico3Fone").is(":checked") &&
-    !$("#cOutrosHistorico3Email").is(":checked")
-  ) {
-    $("#aOutrosHistoricoFoneEmail").show();
-    if (!ok) ok = "lOutrosHistorico";
-  } else {
-    $("#aOutrosHistoricoFoneEmail").hide();
-  }
-
+  
   return ok;
 }
 
 function criaParagrafoOrientacoesHistorico() {
   let t = " ";
 
-  // Info MPU
+  // Info MPU / Forum e Prazo
   if ($("#cOutrosHistorico1").is(":checked")) {
     t = t.concat("Orientada a contatar o ");
-    t = t.concat($("#iLocalInfo").val());
+    t = t.concat($("#iLocalInfo").val().trim());
     t = t.concat(" para obter informações da MPU em até ");
-    t = t.concat($("#iPrazoInfo").val());
+    t = t.concat($("#iPrazoInfo").val().trim());
     t = t.concat(" horas. ");
   }
 
@@ -2005,16 +1997,16 @@ function criaParagrafoOrientacoesHistorico() {
     t = t.concat(
       "Orientada a registrar nova ocorrência, para novos encaminhamentos, caso houver descumprimento da MPU, e orientada a entrar em contato com "
     );
-    t = t.concat($("#iLocalRevogar").val());
+    t = t.concat($("#iLocalRevogar").val().trim());
     t = t.concat(" caso deseje a revogação da medida. ");
   }
 
   // Provas Complementares
   if ($("#cOutrosHistorico3").is(":checked")) {
     t = t.concat("Orientada a encaminhar ");
-    t = t.concat($("#iLocalProvas").val());
+    t = t.concat($("#iLocalProvas").val().trim());
     t = t.concat(" no prazo de ");
-    t = t.concat($("#iPrazoProvas").val());
+    t = t.concat($("#iPrazoProvas").val().trim());
     t = t.concat(" dias úteis, provas complementares caso surjam, através ");
 
     if (
@@ -2022,15 +2014,15 @@ function criaParagrafoOrientacoesHistorico() {
       $("#cOutrosHistorico3Fone").is(":checked")
     ) {
       t = t.concat("do E-mail ");
-      t = t.concat($("#iEmailProvas").val());
+      t = t.concat($("#iEmailProvas").val().trim());
       t = t.concat(" e do Whatsapp ");
-      t = t.concat($("#iFoneProvas").val());
+      t = t.concat($("#iFoneProvas").val().trim());
     } else if ($("#cOutrosHistorico3Email").is(":checked")) {
       t = t.concat("do E-mail ");
-      t = t.concat($("#iEmailProvas").val());
+      t = t.concat($("#iEmailProvas").val().trim());
     } else if ($("#cOutrosHistorico3Fone").is(":checked")) {
       t = t.concat("do Whatsapp ");
-      t = t.concat($("#iFoneProvas").val());
+      t = t.concat($("#iFoneProvas").val().trim());
     }
 
     t = t.concat(". ");
@@ -2060,6 +2052,7 @@ function criaParagrafoOrientacoesHistorico() {
     t = " " + removerPontoDuplicado(t);
     return t;
 }
+
 
 $("#cOutrosHistorico6").click(function () {
   $("#cOutrosHistorico7").prop('checked', false);
