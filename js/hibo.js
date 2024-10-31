@@ -279,10 +279,7 @@ $("#rRelacionamento3").click(function () {
   $("#aTempoRelacionamento").hide();
   $("#divTempoSeparados").hide();
   $("#aTempoRelacionamento").hide();
-
-  $("#taOutroRelacionamento").val(
-    "A vítima relata que sofreu violência praticada pelo "
-  );
+  $("#taOutroRelacionamento").val("A vítima relata que sofreu violência praticada pelo ___");
   $("#taOutroRelacionamento").css("border-color", "#ced4da");
   $("#iTempoRelacionamento").css("border-color", "#ced4da");
   $("#iTempoSeparados").css("border-color", "#ced4da");
@@ -505,7 +502,7 @@ $("#spanRemoverTestemunha").click(function () {
 
 $("#rRepresentacaoPrivada").click(function () {
   $("#taAcaoPrivada").val(
-    "A vítima fica ciente do prazo decadencial de seis meses para propor queixa-crime através de advogado no tocante às "
+    "A vítima fica ciente do prazo decadencial de seis meses para propor queixa-crime através de advogado no tocante às ___"
   );
   $("#divAcaoPrivada").show();
 });
@@ -630,24 +627,24 @@ $("#rRelacoesSexuaisNS").click(function () {
   $("#aRelacoesSexuaisNaoSabe").css("border-color", "#ced4da");
 
   $("#taRelacoesSexuaisNaoSabe").val(
-    "Quando perguntada sobre ter sido obrigada a ter relações sexuais ou praticar atos sexuais contra a sua vontade, a vítima respondeu não saber. O motivo de não saber é ..."
+    "Quando perguntada sobre ter sido obrigada a ter relações sexuais ou praticar atos sexuais contra a sua vontade, a vítima respondeu não saber. O motivo de não saber é ___"
   );
 });
 
 let funcViolenciaGraveAmeaca = function () {
   let text =
-    "A vítima informa que foi obrigada a praticar relações sexuais com o suspeito, sem violência ou grave ameaça. O fato ocorreu no ...";
+    "A vítima informa que foi obrigada a praticar relações sexuais com o suspeito, sem violência ou grave ameaça. O fato ocorreu no ___";
   if ($("#cViolencia").is(":checked")) {
     if ($("#cGraveAmeaca").is(":checked")) {
       text =
-        "A vítima informa que foi obrigada a praticar relações sexuais com o suspeito mediante grave ameaça e violência. O fato ocorreu no ...";
+        "A vítima informa que foi obrigada a praticar relações sexuais com o suspeito mediante grave ameaça e violência. O fato ocorreu no ___";
     } else {
       text =
-        "A vítima informa que foi obrigada a praticar relações sexuais com o suspeito mediante violência. O fato ocorreu no ...";
+        "A vítima informa que foi obrigada a praticar relações sexuais com o suspeito mediante violência. O fato ocorreu no ___";
     }
   } else if ($("#cGraveAmeaca").is(":checked")) {
     text =
-      "A vítima informa que foi obrigada a praticar relações sexuais com o suspeito mediante grave ameaça. O fato ocorreu no ...";
+      "A vítima informa que foi obrigada a praticar relações sexuais com o suspeito mediante grave ameaça. O fato ocorreu no ___";
   }
 
   $("#taRelacoesSexuais").val(text);
@@ -696,11 +693,11 @@ $("#btnGerar").click(function () {
   ok = verificaLesaoAtendimento(ok);
   ok = verificaCamposTestemunhas(ok);
   ok = verificaCamposAcaoPenal(ok);
+  ok = verificaCamposPossuiArmas(ok);
+  ok = verificaCamposRelacoesSexuais(ok);
   ok = verificaCamposParadeiro(ok);
   ok = verificaCamposVicios(ok);
   ok = verificaCamposMidias(ok);
-  ok = verificaCamposPossuiArmas(ok);
-  ok = verificaCamposRelacoesSexuais(ok);
   ok = verificaCamposOrientacoesHistorico(ok);
 
   if (ok) {
@@ -972,10 +969,9 @@ function verificaCamposRelacionamento(ok) {
 
     // outro relacionamento
   } else {
-    let s = "A vítima relata que sofreu violência praticada pelo";
     let t = String($("#taOutroRelacionamento").val()).trim();
 
-    if (t == "" || t == s) {
+    if (t.includes("__")) {
       $("#aOutroRelacionamento").show();
       $("#taOutroRelacionamento").css("border-color", "red");
       if (!ok) ok = "lOutroRelacionamento";
@@ -1358,10 +1354,9 @@ function criaParagrafoProle() {
 
 
 function verificaCamposConduta(ok) {
-  let s = "Relata, ainda, que NA DATA DO FATO, o suspeito";
   let t = String($("#taConduta").val()).trim();
 
-  if (t == "" || t == s) {
+  if (t.includes("__")) {
     $("#aConduta").show();
     $("#taConduta").css("border-color", "red");
     if (!ok) ok = "lConduta";
@@ -1495,10 +1490,9 @@ function criaParagrafoTestemunhas() {
 
 function verificaCamposAcaoPenal(ok) {
   if ($("#rRepresentacaoPrivada").is(":checked")) {
-    let s = "A vítima fica ciente do prazo decadencial de seis meses para propor queixa-crime através de advogado no tocante às";
     let t = String($("#taAcaoPrivada").val()).trim();
 
-    if (t == "" || t == s) {
+    if (t.includes("__")) {
       $("#aAcaoPrivada").show();
       $("#taAcaoPrivada").css("border-color", "red");
       if (!ok) ok = "lAcaoPrivada";
@@ -1558,10 +1552,9 @@ function criaParagrafoArmas() {
 function verificaCamposPossuiArmas(ok) {
 
   if ($("#rPossuiArmasSim").is(":checked")) {
-    let s = "A vítima informou que o suspeito possui ou mantém em sua posse ___ arma(s) de fogo, e que são armazenadas em ___";
     let t = String($("#taPossuiArmasSim").val()).trim();
 
-    if (t == "" || t == s) {
+    if (t.includes("__")) {
       $("#aPossuiArmasSim").show();
       $("#taPossuiArmasSim").css("border-color", "red");
       if (!ok) ok = "lPossuiArmasSim";
@@ -1592,10 +1585,9 @@ function verificaCamposRelacoesSexuais(ok) {
     $("#rRelacoesSexuaisS").is(":checked") ||
     $("#rRelacoesSexuaisSV").is(":checked")
   ) {
-    let s = "O fato ocorreu no ...";
     let t = String($("#taRelacoesSexuais").val()).trim();
 
-    if (t == "" || t.endsWith(s)) {
+    if (t.includes("__")) {
       $("#aRelacoesSexuais").show();
       $("#taRelacoesSexuais").css("border-color", "red");
       if (!ok) ok = "lRelacoesSexuais";
@@ -1604,11 +1596,9 @@ function verificaCamposRelacoesSexuais(ok) {
       $("#aRelacoesSexuais").hide();
     }
   } else if ($("#rRelacoesSexuaisNS").is(":checked")) {
-    let s =
-      "Quando perguntada sobre ter sido obrigada a ter relações sexuais ou praticar atos sexuais contra a sua vontade, a vítima respondeu não saber. O motivo de não saber é ...";
     let t = String($("#taRelacoesSexuaisNaoSabe").val()).trim();
 
-    if (t == "" || t == s) {
+    if (t.includes("__")) {
       $("#aRelacoesSexuaisNaoSabe").show();
       $("#taRelacoesSexuaisNaoSabe").css("border-color", "red");
       if (!ok) ok = "lRelacoesSexuaisNaoSabe";
@@ -1653,11 +1643,9 @@ function criaParagrafoOcorrenciaSuspeito() {
 }
 
 function verificaCamposParadeiro(ok) {
-  let s =
-    "Sobre o paradeiro do suspeito, acredita-se que possa ser encontrado na";
   let t = String($("#taParadeiro").val()).trim();
 
-  if (t == "" || t == s) {
+  if (t.includes("__")) {
     $("#aParadeiro").show();
     $("#taParadeiro").css("border-color", "red");
     if (!ok) ok = "lParadeiro";
@@ -1746,11 +1734,9 @@ function verificaCamposMidias(ok) {
     }
 
     if ($("#rEntregouMidiaN").is(":checked")) {
-      let s =
-        "O material não foi entregue na Delegacia de Polícia, e pode ser encontrado ...";
       let t = String($("#taLocalMidia").val()).trim();
 
-      if (t == "" || t == s) {
+      if (t.includes("__")) {
         $("#aLocalMidia").show();
         $("#taLocalMidia").css("border-color", "red");
         if (!ok) ok = "lLocalMidia";
