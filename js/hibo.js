@@ -1305,16 +1305,16 @@ function criaParagrafoProle() {
       if (i == 0) {
         t = t.concat(proleComum[i].nome);
         t = t.concat(" (" + proleComum[i].idade + " " + proleComum[i].dma);
-        t = t.concat( proleComum[i].junto ? ", vive junto com a vítima)" : ")" );
+        t = t.concat( proleComum[i].junto ? ", vive com a vítima)" : ", não vive com a vítima)" );
         if (proleComum.length == 1) t = t.concat(".");
       } else if (i == proleComum.length - 1) {
         t = t.concat(" e " + proleComum[i].nome);
         t = t.concat(" (" + proleComum[i].idade + " " + proleComum[i].dma);
-        t = t.concat( proleComum[i].junto ? ", vive junto com a vítima)." : ")." );
+        t = t.concat( proleComum[i].junto ? ", vive com a vítima)." : ", não vive com a vítima)." );
       } else {
         t = t.concat(", " + proleComum[i].nome);
         t = t.concat(" (" + proleComum[i].idade + " " + proleComum[i].dma);
-        t = t.concat( proleComum[i].junto ? ", vive junto com a vítima)" : ")" );
+        t = t.concat( proleComum[i].junto ? ", vive com a vítima)" : ", não vive com a vítima)" );
       }
     }
   
@@ -1334,16 +1334,16 @@ function criaParagrafoProle() {
       if (i == 0) {
         t = t.concat(proleOutro[i].nome);
         t = t.concat(" (" + proleOutro[i].idade + " " + proleOutro[i].dma);
-        t = t.concat( proleOutro[i].junto ? ", vive junto com a vítima)" : ")" );
+        t = t.concat( proleOutro[i].junto ? ", vive com a vítima)" : ", não vive com a vítima)" );
         if (proleOutro.length == 1) t = t.concat(".");
       } else if (i == proleOutro.length - 1) {
         t = t.concat(" e " + proleOutro[i].nome);
         t = t.concat(" (" + proleOutro[i].idade + " " + proleOutro[i].dma);
-        t = t.concat( proleOutro[i].junto ? ", vive junto com a vítima)." : ")." );
+        t = t.concat( proleOutro[i].junto ? ", vive com a vítima)." : ", não vive com a vítima)." );
       } else {
         t = t.concat(", " + proleOutro[i].nome);
         t = t.concat(" (" + proleOutro[i].idade + " " + proleOutro[i].dma);
-        t = t.concat( proleOutro[i].junto ? ", vive junto com a vítima)" : ")" );
+        t = t.concat( proleOutro[i].junto ? ", vive com a vítima)" : ", não vive com a vítima)" );
       }
     }
   }
