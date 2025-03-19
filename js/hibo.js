@@ -1,7 +1,7 @@
 /*
  * title="HiBO"
- * version="1.7.3"
- * date="29/10/2024"
+ * version="1.8"
+ * date="17/03/2025"
  * author="Moser Silva Fagundes"
  *
  * This file is part of HiBO (is the past named HBO).
@@ -19,6 +19,11 @@
  * You should have received a copy of the GNU General Public License
  * along with HiBO.  If not, see <https://www.gnu.org/licenses/>.
  */
+let versao = "1.8";
+if( !localStorage.getItem("versao") || (localStorage.getItem("versao") !== versao)) {
+  localStorage.clear();
+  localStorage.setItem("versao", versao);
+}
 
 $(function () {
   $('[data-toggle="popover"]').popover({ html: true, container: "body" });
@@ -68,6 +73,14 @@ $("#divDeficiente").hide();
 $("#divEntregouMidia").hide();
 $("#divTipoMidia").hide();
 $("#divLocalMidia").hide();
+
+$("#divObservacao1").hide();  // se houver MPU, mostra
+$("#divObservacao2").hide();  // se houver MPU, mostra
+$("#divObservacao3").hide(); // se houver MPU, mostra
+
+$("#divObservacao9").hide(); // se houver lesão, mostra
+$("#divObservacao10").hide(); // se houver lesão, mostra
+
 $("#divHistorico").hide();
 $("#divTermo").hide();
 
@@ -88,8 +101,8 @@ $("#aPossuiArmasSim").hide();
 $("#aRelacoesSexuais").hide();
 $("#aRelacoesSexuaisNaoSabe").hide();
 $("#aQuandoOnde").hide();
-$("#aOutrosHistorico").hide();
-$("#aOutrosHistoricoFoneEmail").hide();
+$("#aObservacao").hide();
+$("#aObservacaoFoneEmail").hide();
 
 $("#rOrgaoSPN").click(function () {
   $("#divOrgaoSP").hide();
@@ -114,6 +127,7 @@ $("#rRelacionamento1").click(function () {
   $("#sTempoRelacionamento").append(optionDesde);
   $("#sTempoRelacionamento").append(optionHa);
 
+  $("#divMedidaJuridicaSepara").show();
   $("#divOutroRelacionamento").hide();
   $("#divTempoRelacionamento").show();
   $("#divTempoSeparados").hide();
@@ -138,6 +152,7 @@ $("#rRelacionamento1-Ex").click(function () {
   $("#sTempoRelacionamento").empty();
   $("#sTempoRelacionamento").append(optionPor);
 
+  $("#divMedidaJuridicaSepara").show();
   $("#divOutroRelacionamento").hide();
   $("#divTempoRelacionamento").show();
   $("#divTempoSeparados").show();
@@ -172,6 +187,7 @@ $("#rRelacionamento2").click(function () {
   $("#sTempoRelacionamento").append(optionDesde);
   $("#sTempoRelacionamento").append(optionHa);
 
+  $("#divMedidaJuridicaSepara").show();
   $("#divOutroRelacionamento").hide();
   $("#divTempoRelacionamento").show();
   $("#divTempoSeparados").hide();
@@ -196,6 +212,7 @@ $("#rRelacionamento2-Ex").click(function () {
   $("#sTempoRelacionamento").empty();
   $("#sTempoRelacionamento").append(optionPor);
 
+  $("#divMedidaJuridicaSepara").show();
   $("#divOutroRelacionamento").hide();
   $("#divTempoRelacionamento").show();
   $("#divTempoSeparados").show();
@@ -230,6 +247,7 @@ $("#rRelacionamento4").click(function () {
   $("#sTempoRelacionamento").append(optionDesde);
   $("#sTempoRelacionamento").append(optionHa);
 
+  $("#divMedidaJuridicaSepara").hide();
   $("#divOutroRelacionamento").hide();
   $("#divTempoRelacionamento").show();
   $("#divTempoSeparados").hide();
@@ -254,6 +272,7 @@ $("#rRelacionamento4-Ex").click(function () {
   $("#sTempoRelacionamento").empty();
   $("#sTempoRelacionamento").append(optionPor);
 
+  $("#divMedidaJuridicaSepara").hide();
   $("#divOutroRelacionamento").hide();
   $("#divTempoRelacionamento").show();
   $("#divTempoSeparados").show();
@@ -274,6 +293,7 @@ $("#rRelacionamento4-Ex").click(function () {
 });
 
 $("#rRelacionamento3").click(function () {
+  $("#divMedidaJuridicaSepara").hide();
   $("#divOutroRelacionamento").show();
   $("#divTempoRelacionamento").hide();
   $("#aTempoRelacionamento").hide();
@@ -429,10 +449,16 @@ $("#spanRemoverProle").click(function () {
 $("#rLesaoN").click(function () {
   $("#divAtendimento").hide();
   $("#aLocalAtendimento").hide();
+
+  $("#divObservacao9").hide();
+  $("#divObservacao10").hide();
+
 });
 
 $("#rLesaoS").click(function () {
   $("#divAtendimento").show();
+  $("#divObservacao9").show();
+  $("#divObservacao10").show();
 });
 
 $("#rAtendimentoN").click(function () {
@@ -499,6 +525,24 @@ $("#spanRemoverTestemunha").click(function () {
     $("#spanRemoverTestemunha").hide();
   }
 });
+
+
+$("#rMedidasN").click(function () {
+  $("#divObservacao1").hide();
+  $("#divObservacao2").hide();
+  $("#divObservacao4").show();
+  $("#divObservacao3").hide();
+
+});
+
+$("#rMedidasS").click(function () {
+  $("#divObservacao1").show();
+  $("#divObservacao2").show();
+  $("#divObservacao4").hide();
+  $("#divObservacao3").show();
+});
+
+
 
 $("#rRepresentacaoPrivada").click(function () {
   $("#taAcaoPrivada").val(
@@ -932,7 +976,6 @@ function verificaDadosVitima(ok) {
   return ok;
 }
 
-
 function verificaCamposRelacionamento(ok) {
   if (!$("#rRelacionamento3").is(":checked")) {
     $("#aTempoRelacionamento").hide();
@@ -1186,6 +1229,21 @@ function criaParagrafoRelacionamento(termo) {
 
   t = removerPonto(t);
 
+  
+  if( $("#rRelacionamento1").is(":checked") || 
+      $("#rRelacionamento1-Ex").is(":checked") ||
+      $("#rRelacionamento2").is(":checked") || 
+      $("#rRelacionamento2-Ex").is(":checked") ) {
+
+        if ($("#rMedidaJuridicaSeparaN").is(":checked"))
+          t = t.concat(", que não há medida jurídica para oficializar a separação e não pretende fazê-lo,");
+        else if ($("#rMedidaJuridicaSeparaP").is(":checked"))
+          t = t.concat(", que não há medida jurídica para oficializar a separação, porém pretende fazê-lo,");
+        else if ($("#rMedidaJuridicaSeparaS").is(":checked"))
+          t = t.concat(", que há medida jurídica para oficializar a separação,");
+  }
+  
+
   return t;
 }
 
@@ -1216,10 +1274,6 @@ function criaParagrafoMesmaResidencia() {
   t = t.concat($("#iLocalResidencia").val().trim() + ").");
   return t;
 }
-
-
-
-
 
 function verificaCamposProle(ok) {
 
@@ -1256,14 +1310,12 @@ function verificaCamposProle(ok) {
   return ok;
 }
 
-
-
 function criaParagrafoProle() {
 
   let t = "";
 
   if ($("#rProleN").is(":checked")) {
-    return t;
+    return " A vítima informa que não possui filhos.";
   }
 
   let proleComum = [];
@@ -1352,7 +1404,6 @@ function criaParagrafoProle() {
   return t;
 }
 
-
 function verificaCamposConduta(ok) {
   let t = String($("#taConduta").val()).trim();
 
@@ -1373,8 +1424,6 @@ function criaParagrafoConduta() {
   t = " " + removerPontoDuplicado(t);
   return t;
 }
-
-
 
 function verificaLesaoAtendimento(ok) {
   if (
@@ -1487,7 +1536,6 @@ function criaParagrafoTestemunhas() {
   return t;
 }
 
-
 function verificaCamposAcaoPenal(ok) {
   if ($("#rRepresentacaoPrivada").is(":checked")) {
     let t = String($("#taAcaoPrivada").val()).trim();
@@ -1512,9 +1560,9 @@ function criaParagrafoAcaoPenal() {
   if ($("#rRepresentacaoIncondicionada").is(":checked")) {
     t = "A vítima foi cientificada de que se trata de crime(s) de ação penal pública incondicionada.";
   } else if ($("#rRepresentacaoCondicionadaSim").is(":checked")) {
-    t = "A vítima manifestou o interesse de representar criminalmente contra o(s) autor(es) do(s) fato(s).";
+    t = "A vítima manifestou o interesse de representar criminalmente contra o suspeito.";
   } else if ($("#rRepresentacaoCondicionadaNao").is(":checked")) {
-    t = "A vítima não deseja representar criminalmente contra o(s) autor(es) do(s) fato(s).";
+    t = "A vítima não deseja representar criminalmente contra o suspeito.";
   } else {
     t = String($("#taAcaoPrivada").val()).trim() + ".";
   }
@@ -1523,24 +1571,12 @@ function criaParagrafoAcaoPenal() {
   return t;
 }
 
-
-
-
 function criaParagrafoMedidasProtetivas() {
-  if ($("#rRepresentacaoS").is(":checked")) {
-    if ($("#rMedidasN").is(":checked")) {
-      return " porém não solicita medidas protetivas.";
-    } else return " e solicita medidas protetivas.";
-  } 
-
   if ($("#rMedidasN").is(":checked")) {
-    return " Não solicita medidas protetivas.";
+    return " Não solicita Medidas Protetivas de Urgência.";
   }
-  return " Solicita medidas protetivas.";
+  return " Solicita Medidas Protetivas de Urgência.";
 }
-
-
-
 
 function criaParagrafoArmas() {
   if ($("#rArmasN").is(":checked")) {
@@ -1823,144 +1859,179 @@ function criaParagrafoAbrigo() {
 
 function criaParagrafoBuscaPertences() {
   if ($("#rPertencesN").is(":checked")) {
-    return " A vítima diz que não precisa de auxílio para buscar os seus pertences pessoais.";
+    return " A vítima informa que não precisa de auxílio para buscar os seus pertences pessoais.";
   }
-  return " A vítima diz que precisa de auxílio para buscar os seus pertences pessoais.";
+  return " A vítima informa que precisa de auxílio para buscar os seus pertences pessoais.";
 }
 
 function verificaCamposOrientacoesHistorico(ok) {
 
   let warning = false;
 
+  /* Não precisam ser verificados pois não possuem campos aninhados
+        cObservacao0
+        cObservacao3
+        cObservacao4
+        cObservacao8
+        cObservacao9
+        cObservacao10
+  */
 
-  // Info MPU / Forum e Prazo
-  if ($("#cOutrosHistorico1").is(":checked")) {
-    if ($("#iLocalInfo").val().trim()) {
-      $("#iLocalInfo").css("border-color", "#ced4da");
+  // Se há MPU, então verificar cObservacao1 e cObservacao2  
+  if ($("#rMedidasS").is(":checked")) {
+
+    // cObservacao1 - Info MPU / Local-Forum e Prazo
+    if ($("#cObservacao1").is(":checked")) {
+      if ($("#iObservacao1Local").val().trim()) {
+        $("#iObservacao1Local").css("border-color", "#ced4da");
+      } else {
+        warning = true;
+        $("#iObservacao1Local").css("border-color", "red");
+        if (!ok) ok = "lOutrosHistorico";
+      }
+
+      if ($("#iObservacao1Prazo").val().trim()) {
+        $("#iObservacao1Prazo").css("border-color", "#ced4da");
+      } else {
+        warning = true;
+        $("#iObservacao1Prazo").css("border-color", "red");
+        if (!ok) ok = "lOutrosHistorico";
+      }
     } else {
-      warning = true;
-      $("#iLocalInfo").css("border-color", "red");
-      if (!ok) ok = "lOutrosHistorico";
+      $("#iObservacao1Local").css("border-color", "#ced4da");
+      $("#iObservacao1Prazo").css("border-color", "#ced4da");
     }
 
-    if ($("#iPrazoInfo").val().trim()) {
-      $("#iPrazoInfo").css("border-color", "#ced4da");
+    // cObservacao2 - Descumprimento MPU / Revogação MPU
+    if ($("#cObservacao2").is(":checked")) {
+      if ($("#iObservacao2Local").val()) {
+        $("#iObservacao2Local").css("border-color", "#ced4da");
+      } else {
+        warning = true;
+        $("#iObservacao2Local").css("border-color", "red");
+        if (!ok) ok = "lOutrosHistorico";
+      }
+    } else {
+      $("#iObservacao2Local").css("border-color", "#ced4da");
+    }
+  }
+
+  // cObservacao5 - Atendimento psicológico, jurídico e de assistência social
+  if ($("#cObservacao5").is(":checked")) {
+    if ($("#iObservacao5Local").val().trim()) {
+      $("#iObservacao5Local").css("border-color", "#ced4da");
     } else {
       warning = true;
-      $("#iPrazoInfo").css("border-color", "red");
+      $("#iObservacao5Local").css("border-color", "red");
       if (!ok) ok = "lOutrosHistorico";
     }
   } else {
-    $("#iLocalInfo").css("border-color", "#ced4da");
-    $("#iPrazoInfo").css("border-color", "#ced4da");
+    $("#iObservacao5Local").css("border-color", "#ced4da");
   }
 
-
-  // Descumprimento MPU / Revogação MPU
-  if ($("#cOutrosHistorico2").is(":checked")) {
-    if ($("#iLocalRevogar").val()) {
-      $("#iLocalRevogar").css("border-color", "#ced4da");
+  // cObservacao6 - Transporte local / aceite ou recusa
+  if ($("#cObservacao6").is(":checked")) {
+    if ($("#iObservacao6Local").val().trim()) {
+      $("#iObservacao6Local").css("border-color", "#ced4da");
     } else {
       warning = true;
-      $("#iLocalRevogar").css("border-color", "red");
+      $("#iObservacao6Local").css("border-color", "red");
       if (!ok) ok = "lOutrosHistorico";
     }
   } else {
-    $("#iLocalRevogar").css("border-color", "#ced4da");
+    $("#iObservacao6Local").css("border-color", "#ced4da");
   }
 
-
-  // Provas Complementares
-  if ($("#cOutrosHistorico3").is(":checked")) {
-    if ($("#iLocalProvas").val().trim()) {
-      $("#iLocalProvas").css("border-color", "#ced4da");
+  // cObservacao7 - Provas Complementares
+  if ($("#cObservacao7").is(":checked")) {
+    if ($("#iObservacao7Local").val().trim()) {
+      $("#iObservacao7Local").css("border-color", "#ced4da");
     } else {
       warning = true;
-      $("#iLocalProvas").css("border-color", "red");
+      $("#iObservacao7Local").css("border-color", "red");
       if (!ok) ok = "lOutrosHistorico";
     }
 
-    if ($("#iPrazoProvas").val().trim()) {
-      $("#iPrazoProvas").css("border-color", "#ced4da");
+    if ($("#iObservacao7Prazo").val().trim()) {
+      $("#iObservacao7Prazo").css("border-color", "#ced4da");
     } else {
       warning = true;
-      $("#iPrazoProvas").css("border-color", "red");
+      $("#iObservacao7Prazo").css("border-color", "red");
       if (!ok) ok = "lOutrosHistorico";
     }
 
     if (
-      !$("#cOutrosHistorico3Fone").is(":checked") &&
-      !$("#cOutrosHistorico3Email").is(":checked")
+      !$("#cObservacao7Fone").is(":checked") &&
+      !$("#cObservacao7Email").is(":checked")
     ) {
       
-      $("#divOutrosHistorico3Email").css("color", "red");
-      $("#divOutrosHistorico3Fone").css("color", "red");
+      $("#divObservacao7Email").css("color", "red");
+      $("#divObservacao7Fone").css("color", "red");
 
-      $("#iEmailProvas").css("border-color", "red");
-      $("#iFoneProvas").css("border-color", "red");
-      $("#iEmailProvas").css("color", "red");
-      $("#iFoneProvas").css("color", "red");
+      $("#iObservacao7Email").css("border-color", "red");
+      $("#iObservacao7Fone").css("border-color", "red");
+      $("#iObservacao7Email").css("color", "red");
+      $("#iObservacao7Fone").css("color", "red");
 
-      $("#aOutrosHistoricoFoneEmail").show();
+      $("#aObservacaoFoneEmail").show();
 
       if (!ok) ok = "lOutrosHistorico";
     } else {
 
-      $("#divOutrosHistorico3Email").css("color", "#495057");
-      $("#divOutrosHistorico3Fone").css("color", "#495057");
+      $("#divObservacao7Email").css("color", "#495057");
+      $("#divObservacao7Fone").css("color", "#495057");
 
-      $("#iEmailProvas").css("border-color", "#ced4da");
-      $("#iFoneProvas").css("border-color", "#ced4da");
-      $("#iEmailProvas").css("color", "#495057");
-      $("#iFoneProvas").css("color", "#495057");
+      $("#iObservacao7Email").css("border-color", "#ced4da");
+      $("#iObservacao7Fone").css("border-color", "#ced4da");
+      $("#iObservacao7Email").css("color", "#495057");
+      $("#iObservacao7Fone").css("color", "#495057");
 
-      $("#aOutrosHistoricoFoneEmail").hide();
+      $("#aObservacaoFoneEmail").hide();
     }
 
 
     if (
-        $("#cOutrosHistorico3Email").is(":checked") &&
-        (!$("#iEmailProvas").val().trim() || $("#iEmailProvas").val().trim() == "@pc.rs.gov.br")
+        $("#cObservacao7Email").is(":checked") &&
+        (!$("#iObservacao7Email").val().trim() || $("#iObservacao7Email").val().trim() == "@pc.rs.gov.br")
       ) {
         warning = true;
-        $("#iEmailProvas").css("border-color", "red");
+        $("#iObservacao7Email").css("border-color", "red");
         if (!ok) ok = "lOutrosHistorico";
     } else {
-      $("#iEmailProvas").css("border-color", "#ced4da");
+      $("#iObservacao7Email").css("border-color", "#ced4da");
     }
 
     if (
-        $("#cOutrosHistorico3Fone").is(":checked") &&
-        (!$("#iFoneProvas").val().trim() || $("#iFoneProvas").val().trim() == "(51) 9999-99999")
+        $("#cObservacao7Fone").is(":checked") &&
+        (!$("#iObservacao7Fone").val().trim() || $("#iObservacao7Fone").val().trim() == "(51) 9999-99999")
       ) {
         warning = true;
-        $("#iFoneProvas").css("border-color", "red");
+        $("#iObservacao7Fone").css("border-color", "red");
         if (!ok) ok = "lOutrosHistorico";
     } else {
-      $("#iFoneProvas").css("border-color", "#ced4da");
+      $("#iObservacao7Fone").css("border-color", "#ced4da");
     }
 
 
   } else {
-    $("#iLocalProvas").css("border-color", "#ced4da");
-    $("#iPrazoProvas").css("border-color", "#ced4da");
+    $("#iObservacao7Local").css("border-color", "#ced4da");
+    $("#iObservacao7Prazo").css("border-color", "#ced4da");
 
-    $("#divOutrosHistorico3Email").css("color", "#495057");
-    $("#divOutrosHistorico3Fone").css("color", "#495057");
+    $("#divObservacao7Email").css("color", "#495057");
+    $("#divObservacao7Fone").css("color", "#495057");
 
-    $("#iEmailProvas").css("border-color", "#ced4da");
-    $("#iFoneProvas").css("border-color", "#ced4da");
-    $("#iEmailProvas").css("color", "#495057");
-    $("#iFoneProvas").css("color", "#495057");
+    $("#iObservacao7Email").css("border-color", "#ced4da");
+    $("#iObservacao7Fone").css("border-color", "#ced4da");
+    $("#iObservacao7Email").css("color", "#495057");
+    $("#iObservacao7Fone").css("color", "#495057");
   
-    $("#aOutrosHistoricoFoneEmail").hide();
+    $("#aObservacaoFoneEmail").hide();
   }
 
-
   if (warning) {
-    $("#aOutrosHistorico").show();
+    $("#aObservacao").show();
   } else {
-    $("#aOutrosHistorico").hide();
+    $("#aObservacao").hide();
   }
   
   return ok;
@@ -1968,116 +2039,171 @@ function verificaCamposOrientacoesHistorico(ok) {
 
 function criaParagrafoOrientacoesHistorico() {
   let t = " ";
-
-  // Info MPU / Forum e Prazo
-  if ($("#cOutrosHistorico1").is(":checked")) {
-    t = t.concat("Orientada a contatar o ");
-    t = t.concat($("#iLocalInfo").val().trim());
-    t = t.concat(" para obter informações da MPU em até ");
-    t = t.concat($("#iPrazoInfo").val().trim());
-    t = t.concat(" horas. ");
+  
+  // cObservacao0 - sem dependencias / only text
+  // Informada sobre direitos na Lei Maria da Penha
+  if ($("#cObservacao0").is(":checked")) {
+    t = t.concat("Informado à ofendida os direitos a ela conferidos na Lei Maria da Penha (Lei nº 11.340/2006) e os serviços disponíveis, inclusive os de assistência judiciária para o eventual ajuizamento perante o juízo competente da ação de separação judicial, de divórcio, de anulação de casamento ou de dissolução de união estável. ");
   }
 
-  // Descumprimento MPU / Revogação MPU
-  if ($("#cOutrosHistorico2").is(":checked")) {
-    t = t.concat(
-      "Orientada a registrar nova ocorrência, para novos encaminhamentos, caso houver descumprimento da MPU, e orientada a entrar em contato com "
-    );
-    t = t.concat($("#iLocalRevogar").val().trim());
-    t = t.concat(" caso deseje a revogação da medida. ");
+  // Se há MPU, então verificar cObservacao1, cObservacao2, cObservacao3
+  // Caso não há MPU, verificar cObservacao4
+  if ($("#rMedidasS").is(":checked")) {
+
+    // cObservacao1 - Info MPU / Forum e Prazo
+    if ($("#cObservacao1").is(":checked")) {
+      t = t.concat("Orientada a contatar o ");
+      t = t.concat($("#iObservacao1Local").val().trim());
+      t = t.concat(" para obter informações da MPU em até ");
+      t = t.concat($("#iObservacao1Prazo").val().trim());
+      t = t.concat(" horas. ");
+    }
+
+    // cObservacao1 - Descumprimento MPU / Revogação MPU
+    if ($("#cObservacao2").is(":checked")) {
+      t = t.concat("Orientada a registrar nova ocorrência, para novos encaminhamentos, caso houver descumprimento da MPU, e orientada a entrar em contato com ");
+      t = t.concat($("#iObservacao2Local").val().trim());
+      t = t.concat(" caso deseje a revogação da medida. ");
+    }
+
+    // cObservacao3 - Descumprimento MPU / Revogação MPU
+    if ($("#cObservacao3").is(":checked")) {
+      t = t.concat("Orientada a aguardar o deferimento das Medidas Protetivas de Urgência em local seguro. ");
+    }
+  } else {
+    // cObservacao4 - Recusa da MPU
+    if ($("#cObservacao4").is(":checked")) {
+      t = t.concat("Oferecida à vítima as Medidas Protetivas de Urgência, tendo ela NÃO demonstrado interesse. ");
+    }
   }
 
-  // Provas Complementares
-  if ($("#cOutrosHistorico3").is(":checked")) {
+  // cObservacao5 - Atendimento psicológico, jurídico e de assistência social
+  if ($("#cObservacao5").is(":checked")) {
+    t = t.concat("Orientada a comparecer ");
+    t = t.concat($("#iObservacao5Local").val().trim());
+    t = t.concat(" para buscar atendimento psicológico, jurídico e de assistência social. ");
+  }
+
+  // cObservacao6 - Transporte local / aceite ou recusa
+  if ($("#cObservacao6").is(":checked")) {
+    t = t.concat("Oferecido à vítima o transporte ");
+    t = t.concat($("#iObservacao6Local").val().trim());
+    t = t.concat(", tendo ela ");
+    t = t.concat($("#sObservacao6Resp option:selected").text());
+    t = t.concat(". ");
+  }
+
+  // cObservacao7 - Provas Complementares
+  if ($("#cObservacao7").is(":checked")) {
     t = t.concat("Orientada a encaminhar ");
-    t = t.concat($("#iLocalProvas").val().trim());
+    t = t.concat($("#iObservacao7Local").val().trim());
     t = t.concat(" no prazo de ");
-    t = t.concat($("#iPrazoProvas").val().trim());
+    t = t.concat($("#iObservacao7Prazo").val().trim());
     t = t.concat(" dias úteis, provas complementares caso surjam, através ");
 
     if (
-      $("#cOutrosHistorico3Email").is(":checked") &&
-      $("#cOutrosHistorico3Fone").is(":checked")
+      $("#cObservacao7Email").is(":checked") &&
+      $("#cObservacao7Fone").is(":checked")
     ) {
       t = t.concat("do E-mail ");
-      t = t.concat($("#iEmailProvas").val().trim());
+      t = t.concat($("#iObservacao7Email").val().trim());
       t = t.concat(" e do Whatsapp ");
-      t = t.concat($("#iFoneProvas").val().trim());
-    } else if ($("#cOutrosHistorico3Email").is(":checked")) {
+      t = t.concat($("#iObservacao7Fone").val().trim());
+    } else if ($("#cObservacao7Email").is(":checked")) {
       t = t.concat("do E-mail ");
-      t = t.concat($("#iEmailProvas").val().trim());
-    } else if ($("#cOutrosHistorico3Fone").is(":checked")) {
+      t = t.concat($("#iObservacao7Email").val().trim());
+    } else if ($("#cObservacao7Fone").is(":checked")) {
       t = t.concat("do Whatsapp ");
-      t = t.concat($("#iFoneProvas").val().trim());
+      t = t.concat($("#iObservacao7Fone").val().trim());
     }
 
     t = t.concat(". ");
   }
 
-    // Comparecimento CRAM
-    if ($("#cOutrosHistorico4").is(":checked")) {
-      t = t.concat("Orientada a comparecer ao CRAM (Centro de Referência de Atendimento à Mulher) para buscar atendimento psicológico, jurídico e de assistência social. ");
-    }
+  // cObservacao8 - Autorizou a intimicao por meio tecnologico idoneo
+  if ($("#cObservacao8").is(":checked")) {
+    t = t.concat("A vítima autorizou que a sua intimação pessoal acerca dos atos processuais seja realizada por telefone, e-mail, WhatsApp ou por outro meio tecnológico sério e idôneo. ");
+  }
+
+  // Se há lesão corporal
+  // então verifica cObservacao9 e cObservacao10 
+  if ($("#rLesaoS").is(":checked")) {
 
     // Encaminhamento Exame Corpo Delito
-    if ($("#cOutrosHistorico5").is(":checked")) {
+    if ($("#cObservacao9").is(":checked")) {
       t = t.concat("Houve o encaminhamento da vítima a exame de corpo de delito. ");
     }
 
-    // Autorizou Registro Lesao
-    if ($("#cOutrosHistorico6").is(":checked")) {
-      t = t.concat("A vítima autorizou o(a) servidor(a) policial responsável pelo atendimento da ocorrência a realizar o registro fotográfico da(s) lesão(ões) corporal(is) indicada(s). ");
+    // Autorizou (ou Não) o Registro Lesao
+    if ($("#cObservacao10").is(":checked")) {
+      t = t.concat("A vítima ");
+      t = t.concat($("#sObservacao10Resp option:selected").text());
+      t = t.concat(" o(a) servidor(a) policial responsável pelo atendimento da ocorrência a realizar o registro fotográfico da(s) lesão(ões) corporal(is) indicada(s). ");
     }
     
-    // NAO Autorizou Registro Lesao
-    if ($("#cOutrosHistorico7").is(":checked")) {
-      t = t.concat("A vítima NÃO autorizou o(a) servidor(a) policial responsável pelo atendimento da ocorrência a realizar o registro fotográfico da(s) lesão(ões) corporal(is) indicada(s). ");
-    }
+   
+  }
 
-    // Remover espaço em branco
-    t = " " + removerPontoDuplicado(t);
-    return t;
+  // Remover espaço em branco
+  t = " " + removerPontoDuplicado(t);
+  return t;
 }
-
-
-$("#cOutrosHistorico6").click(function () {
-  $("#cOutrosHistorico7").prop('checked', false);
-});
-
-$("#cOutrosHistorico7").click(function () {
-  $("#cOutrosHistorico6").prop('checked', false);
-});
-
 
 function salvarOrientacoesHistorico() {
-  localStorage.setItem(
-    "cOutrosHistorico1",
-    $("#cOutrosHistorico1").is(":checked") ? true : false
-  );
-  localStorage.setItem("iLocalInfo", $("#iLocalInfo").val());
-  localStorage.setItem("iPrazoInfo", $("#iPrazoInfo").val());
-  localStorage.setItem(
-    "cOutrosHistorico2",
-    $("#cOutrosHistorico2").is(":checked") ? true : false
-  );
-  localStorage.setItem("iLocalRevogar", $("#iLocalRevogar").val());
-  localStorage.setItem(
-    "cOutrosHistorico3",
-    $("#cOutrosHistorico3").is(":checked") ? true : false
-  );
-  localStorage.setItem("iLocalProvas", $("#iLocalProvas").val());
-  localStorage.setItem("iPrazoProvas", $("#iPrazoProvas").val());
-  localStorage.setItem(
-    "cOutrosHistorico3Email",
-    $("#cOutrosHistorico3Email").is(":checked") ? true : false
-  );
-  localStorage.setItem("iEmailProvas", $("#iEmailProvas").val());
-  localStorage.setItem(
-    "cOutrosHistorico3Fone",
-    $("#cOutrosHistorico3Fone").is(":checked") ? true : false
-  );
-  localStorage.setItem("iFoneProvas", $("#iFoneProvas").val());
+  localStorage.setItem("cObservacao0", $("#cObservacao0").is(":checked") ? true : false);
+  localStorage.setItem("cObservacao1",$("#cObservacao1").is(":checked") ? true : false);
+  localStorage.setItem("iObservacao1Local", $("#iObservacao1Local").val());
+  localStorage.setItem("iObservacao1Prazo", $("#iObservacao1Prazo").val());
+  localStorage.setItem("cObservacao2",$("#cObservacao2").is(":checked") ? true : false);
+  localStorage.setItem("iObservacao2Local", $("#iObservacao2Local").val());
+  localStorage.setItem("cObservacao3",$("#cObservacao3").is(":checked") ? true : false);
+  localStorage.setItem("cObservacao4",$("#cObservacao4").is(":checked") ? true : false);
+  localStorage.setItem("cObservacao5",$("#cObservacao5").is(":checked") ? true : false);
+  localStorage.setItem("iObservacao5Local", $("#iObservacao5Local").val());
+  localStorage.setItem("cObservacao6",$("#cObservacao6").is(":checked") ? true : false);
+  localStorage.setItem("iObservacao6Local", $("#iObservacao6Local").val());
+  localStorage.setItem("sObservacao6Resp", $("#sObservacao6Resp option:selected").text());
+  localStorage.setItem("cObservacao7",$("#cObservacao7").is(":checked") ? true : false);
+  localStorage.setItem("iObservacao7Local", $("#iObservacao7Local").val());
+  localStorage.setItem("iObservacao7Prazo", $("#iObservacao7Prazo").val());
+  localStorage.setItem("cObservacao7Email", $("#cObservacao7Email").is(":checked") ? true : false);
+  localStorage.setItem("iObservacao7Email", $("#iObservacao7Email").val());
+  localStorage.setItem("cObservacao7Fone",$("#cObservacao7Fone").is(":checked") ? true : false);
+  localStorage.setItem("iObservacao7Fone", $("#iObservacao7Fone").val());
+  localStorage.setItem("cObservacao8", $("#cObservacao8").is(":checked") ? true : false);
+  localStorage.setItem("cObservacao9", $("#cObservacao9").is(":checked") ? true : false);
+  localStorage.setItem("cObservacao10", $("#cObservacao10").is(":checked") ? true : false);
+  localStorage.setItem("sObservacao10Resp", $("#sObservacao10Resp option:selected").text());
 }
+
+function inicializaOrientacoes() {
+  if (localStorage.getItem("cObservacao0")) $("#cObservacao0").attr("checked", localStorage.getItem("cObservacao0") === "true" ? true : false);
+  if (localStorage.getItem("cObservacao1")) $("#cObservacao1").attr("checked", localStorage.getItem("cObservacao1") === "true" ? true : false);
+  if (localStorage.getItem("iObservacao1Local")) $("#iObservacao1Local").attr("value", localStorage.getItem("iObservacao1Local"));
+  if (localStorage.getItem("iObservacao1Prazo")) $("#iObservacao1Prazo").attr("value", localStorage.getItem("iObservacao1Prazo"));
+  if (localStorage.getItem("cObservacao2")) $("#cObservacao2").attr("checked", localStorage.getItem("cObservacao2") === "true" ? true : false);
+  if (localStorage.getItem("iObservacao2Local")) $("#iObservacao2Local").attr("value", localStorage.getItem("iObservacao2Local"));
+  if (localStorage.getItem("cObservacao3")) $("#cObservacao3").attr("checked", localStorage.getItem("cObservacao3") === "true" ? true : false);
+  if (localStorage.getItem("cObservacao4")) $("#cObservacao4").attr("checked", localStorage.getItem("cObservacao4") === "true" ? true : false);
+  if (localStorage.getItem("cObservacao5")) $("#cObservacao5").attr("checked", localStorage.getItem("cObservacao5") === "true" ? true : false);
+  if (localStorage.getItem("iObservacao5Local")) $("#iObservacao5Local").attr("value", localStorage.getItem("iObservacao5Local"));
+  if (localStorage.getItem("cObservacao6")) $("#cObservacao6").attr("checked", localStorage.getItem("cObservacao6") === "true" ? true : false);
+  if (localStorage.getItem("iObservacao6Local")) $("#iObservacao6Local").attr("value", localStorage.getItem("iObservacao6Local"));
+  if (localStorage.getItem("sObservacao6Resp")) $(`#sObservacao6Resp option[value="${localStorage.getItem("sObservacao6Resp")}"]`).attr('selected', 'selected');
+  if (localStorage.getItem("cObservacao7")) $("#cObservacao7").attr("checked", localStorage.getItem("cObservacao7") === "true" ? true : false);
+  if (localStorage.getItem("iObservacao7Local")) $("#iObservacao7Local").attr("value", localStorage.getItem("iObservacao7Local"));
+  if (localStorage.getItem("iObservacao7Prazo")) $("#iObservacao7Prazo").attr("value", localStorage.getItem("iObservacao7Prazo"));
+  if (localStorage.getItem("cObservacao7Email")) $("#cObservacao7Email").attr("checked", localStorage.getItem("cObservacao7Email") === "true" ? true : false);
+  if (localStorage.getItem("iObservacao7Email")) $("#iObservacao7Email").attr("value", localStorage.getItem("iObservacao7Email"));
+  if (localStorage.getItem("cObservacao7Fone")) $("#cObservacao7Fone").attr("checked", localStorage.getItem("cObservacao7Fone") === "true" ? true : false);
+  if (localStorage.getItem("iObservacao7Fone")) $("#iObservacao7Fone").attr("value", localStorage.getItem("iObservacao7Fone"));
+  if (localStorage.getItem("cObservacao8")) $("#cObservacao8").attr("checked", localStorage.getItem("cObservacao8") === "true" ? true : false);
+  if (localStorage.getItem("cObservacao9")) $("#cObservacao9").attr("checked", localStorage.getItem("cObservacao9") === "true" ? true : false);
+  if (localStorage.getItem("cObservacao10")) $("#cObservacao10").attr("checked", localStorage.getItem("cObservacao10") === "true" ? true : false);
+  if (localStorage.getItem("sObservacao10Resp")) $(`#sObservacao10Resp option[value="${localStorage.getItem("sObservacao10Resp")}"]`).attr('selected', 'selected');
+}
+
+
 
 $("#programa").click(function () {
   bootbox.alert({
@@ -2438,7 +2564,7 @@ $("#config").click(function () {
 
                         <tr>
                         <th scope="row">22</th>
-                        <td>Orientações no histórico</td>
+                        <td>Orientações</td>
                         <td>
                             <div class="form-check text-center">
                                 <input class="form-check-input my-0" type="checkbox" value="settingHistorico22" id="settingHistorico22">
@@ -2525,47 +2651,14 @@ function inicializaConfig() {
   });
 }
 
-function inicializaOrientacoes() {
-  if (localStorage.getItem("cOutrosHistorico1"))
-    $("#cOutrosHistorico1").attr(
-      "checked",
-      localStorage.getItem("cOutrosHistorico1") === "true" ? true : false
-    );
-  if (localStorage.getItem("iLocalInfo"))
-    $("#iLocalInfo").attr("value", localStorage.getItem("iLocalInfo"));
-  if (localStorage.getItem("iPrazoInfo"))
-    $("#iPrazoInfo").attr("value", localStorage.getItem("iPrazoInfo"));
-  if (localStorage.getItem("cOutrosHistorico2"))
-    $("#cOutrosHistorico2").attr(
-      "checked",
-      localStorage.getItem("cOutrosHistorico2") === "true" ? true : false
-    );
-  if (localStorage.getItem("iLocalRevogar"))
-    $("#iLocalRevogar").attr("value", localStorage.getItem("iLocalRevogar"));
-  if (localStorage.getItem("cOutrosHistorico3"))
-    $("#cOutrosHistorico3").attr(
-      "checked",
-      localStorage.getItem("cOutrosHistorico3") === "true" ? true : false
-    );
-  if (localStorage.getItem("iLocalProvas"))
-    $("#iLocalProvas").attr("value", localStorage.getItem("iLocalProvas"));
-  if (localStorage.getItem("iPrazoProvas"))
-    $("#iPrazoProvas").attr("value", localStorage.getItem("iPrazoProvas"));
-  if (localStorage.getItem("cOutrosHistorico3Email"))
-    $("#cOutrosHistorico3Email").attr(
-      "checked",
-      localStorage.getItem("cOutrosHistorico3Email") === "true" ? true : false
-    );
-  if (localStorage.getItem("iEmailProvas"))
-    $("#iEmailProvas").attr("value", localStorage.getItem("iEmailProvas"));
-  if (localStorage.getItem("cOutrosHistorico3Fone"))
-    $("#cOutrosHistorico3Fone").attr(
-      "checked",
-      localStorage.getItem("cOutrosHistorico3Fone") === "true" ? true : false
-    );
-  if (localStorage.getItem("iFoneProvas"))
-    $("#iFoneProvas").attr("value", localStorage.getItem("iFoneProvas"));
+
+function testing() {
+  $("#iNomeVitima").attr("value", "Maria");
+  $("#iTempoRelacionamento").attr("value", "janeiro de 2020");
+  document.getElementById("taConduta").innerHTML = "Relata, ainda, que NA DATA DO FATO, o suspeito xxxxx";
+  document.getElementById("taParadeiro").innerHTML = "Sobre o paradeiro do suspeito, acredita-se que possa ser encontrado na xxxx";
 }
 
 inicializaConfig();
 inicializaOrientacoes();
+//testing();

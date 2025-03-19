@@ -1,7 +1,7 @@
 <!--
  * title="HiBO"
- * version="1.7.3"
- * date="29/10/2024"
+ * version="1.8"
+ * date="17/03/2025"
  * author="Moser Silva Fagundes"
  *
  * This file is part of HiBO (is the past named HBO).
@@ -62,12 +62,11 @@
     <!--
         JUMBOTRON
     -->
-    <div class="jumbotron jumbotron-fluid text-center p-4">
-        <div class="container">
-            <p class="lead mb-0">
-                <strong>Sistema de Apoio para Construção de Históricos e Termos de Informações</strong>
-            </p>
-            <p class="lead mb-0">Registros de Violência Doméstica e Familiar</p>
+
+    <div id="jumbo" ="jumbotron p-4">
+        <div class="container text-center">
+            <p class="lead mb-1 mt-4">Sistema de Apoio para Construção de Históricos e Termos de Informações de BOs</p>
+            <p class="lead mb-4">Registros de Violência Doméstica e Familiar</p>
         </div>
     </div>
 
@@ -257,6 +256,37 @@
                                     placeholder="janeiro de 2020">
                             </div>
                         </div>
+
+                        <div id="divMedidaJuridicaSepara" class="form-group col-sm-12 form-row mb-0 pb-0">
+                            <div class="form-group col-sm-12">
+                                <label class="main-label">Há medida jurídica para oficializar eventual separação ou pretende fazê-lo?</label>
+    
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="rMedidaJuridicaSepara" id="rMedidaJuridicaSeparaN" value="Nao"
+                                        checked>
+                                    <label class="form-check-label" for="rMedidaJuridicaSepara">
+                                        Não há medida e <span class="sublinhado">não pretende</span> fazê-lo.
+                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="rMedidaJuridicaSepara" id="rMedidaJuridicaSeparaP" value="Pretende">
+                                    <label class="form-check-label" for="rMedidaJuridicaSepara">
+                                        Não há medida, porém pretende fazê-lo.
+                                    </label>
+                                </div>
+
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="rMedidaJuridicaSepara" id="rMedidaJuridicaSeparaS" value="Sim">
+                                    <label class="form-check-label" for="rMedidaJuridicaSepara">
+                                        Sim, há medida judicial.
+                                    </label>
+                                </div>
+    
+                            </div>
+                        </div>
+
+
                         <div id="divOutroRelacionamento" class="form-group col-sm-12">
                             <label id="lOutroRelacionamento" for="taOutroRelacionamento" class="main-label">
                                 Detalhamento do relacionamento:
@@ -540,7 +570,7 @@
                     <!-- 9. REPRESENTACAO CRIMINAL / ACAO PENAL PUBLICA -->
                     <div id="divRepresentacao" class="form-row pt-3 pl-3 pr-3 pb-1 mt-3 rounded container-border">
                         <div class="form-group col-sm-12">
-                            <label class="main-label">9. Qual a natureza da ação penal?</label>
+                            <label class="main-label">9. Qual a natureza da ação penal? Deseja representar?</label>
 
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="rRepresentacao" id="rRepresentacaoIncondicionada" value="Incondicionada" checked>
@@ -1068,118 +1098,167 @@
                         <div class="form-group col-sm-12">
                             <label class="main-label" id="lOutrosHistorico">22. Orientações.</label>
 
-
-                            <div class="form-check my-3">
-                                <input class="form-check-input" type="checkbox" value="informacoesMedidas"
-                                    id="cOutrosHistorico1">
-                                <label class="form-check-label" for="cOutrosHistorico1">
+                            <div class="form-check my-3" id="divObservacao0">
+                                <input class="form-check-input" type="checkbox" id="cObservacao0">
+                                <label class="form-check-label" for="cObservacao0">
+                                    <div style="line-height: 1.7em;">
+                                        Informado à ofendida os direitos a ela conferidos na Lei Maria da Penha 
+                                        (Lei nº 11.340/2006) e os serviços disponíveis, inclusive os de assistência 
+                                        judiciária para o eventual ajuizamento perante o juízo competente da ação 
+                                        de separação judicial, de divórcio, de anulação de casamento ou de dissolução
+                                        de união estável. 
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="form-check my-3" id="divObservacao1">
+                                <input class="form-check-input" type="checkbox" id="cObservacao1">
+                                <label class="form-check-label" for="cObservacao1">
                                     <div style="line-height: 1.7em;">
                                         Orientada a contatar o
                                         <input type="text" class="form-control form-control-sm"
-                                            style="display: inline; width: 25em; height: 1.7em;" id="iLocalInfo"
+                                            style="display: inline; width: 25em; height: 1.7em;" id="iObservacao1Local"
                                             value="Fórum Central">
                                         para obter informações da Medida Protetiva de Urgência em até
                                         <input type="text" class="form-control form-control-sm"
-                                            style="display: inline; width: 4em; height: 1.7em;" id="iPrazoInfo"
+                                            style="display: inline; width: 4em; height: 1.7em;" id="iObservacao1Prazo"
                                             value="72">
                                         horas.
                                     </div>
                                 </label>
                             </div>
 
-                            <div class="form-check my-3">
-                                <input class="form-check-input" type="checkbox" value="novaOcorrencia"
-                                    id="cOutrosHistorico2">
-                                <label class="form-check-label" for="cOutrosHistorico2">
+                            <div class="form-check my-3" id="divObservacao2">
+                                <input class="form-check-input" type="checkbox" id="cObservacao2">
+                                <label class="form-check-label" for="cObservacao2">
                                     <div style="line-height: 1.7em;">
                                         Orientada a registrar nova ocorrência, para novos encaminhamentos, caso houver
                                         descumprimento da Medida Protetiva de Urgência, e orientada a entrar em contato
                                         com
                                         <input type="text" class="form-control form-control-sm"
-                                            style="display: inline; width: 25em; height: 1.7em;" id="iLocalRevogar"
+                                            style="display: inline; width: 25em; height: 1.7em;" id="iObservacao2Local"
                                             value="o Fórum">
                                         caso deseje a revogação da medida.
                                     </div>
                                 </label>
                             </div>
 
-                            <div class="form-check mt-3">
-                                <input class="form-check-input" type="checkbox" value="provasComplementares"
-                                    id="cOutrosHistorico3">
-                                <label class="form-check-label" for="cOutrosHistorico3">
+                            <div class="form-check my-3" id="divObservacao3">
+                                <input class="form-check-input" type="checkbox" id="cObservacao3">
+                                <label class="form-check-label" for="cObservacao3">
+                                    <div style="line-height: 1.7em;">
+                                        Orientada a aguardar o deferimento das Medidas Protetivas de Urgência em local seguro.
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="form-check my-3" id="divObservacao4">
+                                <input class="form-check-input" type="checkbox" id="cObservacao4">
+                                <label class="form-check-label" for="cObservacao4">
+                                    <div style="line-height: 1.7em;">
+                                        Oferecida à vítima as Medidas Protetivas de Urgência, tendo ela NÃO demonstrado interesse.
+                                    </div>
+                                </label>
+                            </div>
+
+                            <div class="form-check my-3" id="divObservacao5">
+                                <input class="form-check-input" type="checkbox" id="cObservacao5">
+                                <label class="form-check-label" for="cObservacao5">
+                                    <div style="line-height: 1.7em;">
+                                        Orientada a comparecer 
+                                        <input type="text" class="form-control form-control-sm"
+                                            style="display: inline; width: 28em; height: 1.7em;" id="iObservacao5Local"
+                                            value="ao CRAM (Centro de Referência de Atendimento à Mulher)">
+                                        para buscar atendimento psicológico, jurídico e de assistência social.
+                                    </div>
+                                </label>
+                            </div>
+
+                            <div class="form-check my-3" id="divObservacao6">
+                                <input class="form-check-input" type="checkbox" id="cObservacao6">
+                                <label class="form-check-label" for="cObservacao6">
+                                    <div style="line-height: 1.7em;">
+                                        Oferecido à vítima o transporte 
+                                        <input type="text" class="form-control form-control-sm"
+                                            style="display: inline; width: 12em; height: 1.7em;" id="iObservacao6Local" value="à Casa Abrigo">
+                                        , tendo ela 
+                                            <select name="sObservacao6Resp" id="sObservacao6Resp"
+                                                class="form-control form-control-sm"
+                                                style="display: inline; width: 8em; height: 2em;">
+                                                <option value="recusado">recusado</option>
+                                                <option value="aceitado">aceitado</option>
+                                            </select>
+                                    </div>
+                                </label>
+                            </div>
+
+                            <div class="form-check mt-3" id="divObservacao7">
+                                <input class="form-check-input" type="checkbox" id="cObservacao7">
+                                <label class="form-check-label" for="cObservacao7">
 
                                     <div style="line-height: 1.7em;">
                                         Orientada a encaminhar
                                         <input type="text" class="form-control form-control-sm"
-                                            style="display: inline; width: 20em; height: 1.7em;" id="iLocalProvas"
-                                            value="ao cartório da DEAM">
+                                            style="display: inline; width: 20em; height: 1.7em;" id="iObservacao7Local" value="ao cartório da DEAM">
                                         no prazo de
                                         <input type="text" class="form-control form-control-sm"
-                                            style="display: inline; width: 4em; height: 1.7em;" id="iPrazoProvas"
-                                            value="5">
+                                            style="display: inline; width: 4em; height: 1.7em;" id="iObservacao7Prazo" value="5">
                                         dias úteis, provas complementares caso surjam, através do(s):
 
-                                        <div class="form-check ml-5 mt-1 p-1" id="divOutrosHistorico3Email">
-                                            <input class="form-check-input" type="checkbox" value="EmailProvas"
-                                                id="cOutrosHistorico3Email">
-                                            <label class="form-check-label" for="cOutrosHistorico3Email" >
+                                        <div class="form-check ml-5 mt-1 p-1" id="divObservacao7Email">
+                                            <input class="form-check-input" type="checkbox" id="cObservacao7Email">
+                                            <label class="form-check-label" for="cObservacao7Email" >
                                                 E-mail
                                                 <input type="text" class="form-control form-control-sm"
-                                                    style="display: inline; width: 20em; height: 1.7em;"
-                                                    id="iEmailProvas" placeholder="@pc.rs.gov.br">
+                                                    style="display: inline; width: 20em; height: 1.7em;" id="iObservacao7Email" placeholder="@pc.rs.gov.br">
                                             </label>
                                         </div>
 
-                                        <div class="form-check ml-5 mt-1 p-1" id="divOutrosHistorico3Fone">
-                                            <input class="form-check-input" type="checkbox" value="FoneProvas"
-                                                id="cOutrosHistorico3Fone">
-                                            <label class="form-check-label" for="cOutrosHistorico3Fone">
+                                        <div class="form-check ml-5 mt-1 p-1" id="divObservacao7Fone">
+                                            <input class="form-check-input" type="checkbox" id="cObservacao7Fone">
+                                            <label class="form-check-label" for="cObservacao7Fone">
                                                 Whatsapp
                                                 <input type="text" class="form-control form-control-sm"
                                                     style="display: inline; width: 10em; height: 1.7em;"
-                                                    id="iFoneProvas" placeholder="(51) 9999-99999">
+                                                    id="iObservacao7Fone" placeholder="(51) 9999-99999">
                                             </label>
                                         </div>
                                     </div>
                                 </label>
                             </div>
 
-                            <div class="form-check my-3">
-                                <input class="form-check-input" type="checkbox" value="comparecerCRAM"
-                                    id="cOutrosHistorico4">
-                                <label class="form-check-label" for="cOutrosHistorico4">
+                            <div class="form-check my-3" id="divObservacao8">
+                                <input class="form-check-input" type="checkbox" value="autorizaIntimacaoMeiosIdoneos"
+                                    id="cObservacao8">
+                                <label class="form-check-label" for="cObservacao8">
                                     <div style="line-height: 1.7em;">
-                                        Orientada a comparecer ao CRAM (Centro de Referência de Atendimento à Mulher) para buscar atendimento psicológico, jurídico e de assistência social.
+                                        A vítima autorizou que a sua intimação pessoal acerca dos atos processuais seja realizada
+                                        por telefone, e-mail, WhatsApp ou por outro meio tecnológico sério e idôneo.
                                     </div>
                                 </label>
                             </div>
 
-                            <div class="form-check my-3">
-                                <input class="form-check-input" type="checkbox" value="encaminhamentoCorpoDelito"
-                                    id="cOutrosHistorico5">
-                                <label class="form-check-label" for="cOutrosHistorico5">
+                            <div class="form-check my-3" id="divObservacao9">
+                                <input class="form-check-input" type="checkbox"  id="cObservacao9">
+                                <label class="form-check-label" for="cObservacao9">
                                     <div style="line-height: 1.7em;">
                                         Houve o encaminhamento da vítima a exame de corpo de delito.
                                     </div>
                                 </label>
                             </div>
 
-                            <div class="form-check my-3">
-                                <input class="form-check-input" type="checkbox" value="autorizouRegistroLesao"
-                                    id="cOutrosHistorico6">
-                                <label class="form-check-label" for="cOutrosHistorico6">
+                            <div class="form-check my-3" id="divObservacao10">
+                                <input class="form-check-input" type="checkbox" id="cObservacao10">
+                                <label class="form-check-label" for="cObservacao10">
                                     <div style="line-height: 1.7em;">
-                                        A vítima autorizou o(a) servidor(a) policial responsável pelo atendimento da ocorrência a realizar o registro fotográfico da(s) lesão(ões) corporal(is) indicada(s).
-                                    </div>
-                                </label>
-                            </div>
-
-                            <div class="form-check my-3">
-                                <input class="form-check-input" type="checkbox" value="naoAutorizouRegistroLesao"
-                                    id="cOutrosHistorico7">
-                                <label class="form-check-label" for="cOutrosHistorico7">
-                                    <div style="line-height: 1.7em;">
-                                        A vítima NÃO autorizou o(a) servidor(a) policial responsável pelo atendimento da ocorrência a realizar o registro fotográfico da(s) lesão(ões) corporal(is) indicada(s).
+                                        A vítima 
+                                        <select name="sObservacao10Resp" id="sObservacao10Resp"
+                                                class="form-control form-control-sm"
+                                                style="display: inline; width: 10em; height: 2em;">
+                                                <option value="NÃO autorizou">NÃO autorizou</option>
+                                                <option value="autorizou">autorizou</option>
+                                            </select> 
+                                        o(a) servidor(a) policial responsável pelo atendimento da ocorrência a realizar o registro fotográfico da(s) lesão(ões) corporal(is) indicada(s).
                                     </div>
                                 </label>
                             </div>
@@ -1187,13 +1266,13 @@
                         </div>
                     </div>
 
-                    <div class="form-row" id="aOutrosHistorico">
+                    <div class="form-row" id="aObservacao">
                         <div class="alert alert-warning">
                             Os itens marcados devem ser devidamente preenchidos.
                         </div>
                     </div>
 
-                    <div class="form-row" id="aOutrosHistoricoFoneEmail">
+                    <div class="form-row" id="aObservacaoFoneEmail">
                         <div class="alert alert-warning">
                             Pelo menos um dos dois, E-mail ou Whatsapp, deve ser marcado.
                         </div>
