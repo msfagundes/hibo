@@ -1,7 +1,7 @@
 /*
  * title="HiBO"
- * version="1.8"
- * date="17/03/2025"
+ * version="1.8.1"
+ * date="20/03/2025"
  * author="Moser Silva Fagundes"
  *
  * This file is part of HiBO (is the past named HBO).
@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with HiBO.  If not, see <https://www.gnu.org/licenses/>.
  */
-let versao = "1.8";
+let versao = "1.8.1";
 if( !localStorage.getItem("versao") || (localStorage.getItem("versao") !== versao)) {
   localStorage.clear();
   localStorage.setItem("versao", versao);
@@ -78,8 +78,7 @@ $("#divObservacao1").hide();  // se houver MPU, mostra
 $("#divObservacao2").hide();  // se houver MPU, mostra
 $("#divObservacao3").hide(); // se houver MPU, mostra
 
-$("#divObservacao9").hide(); // se houver lesão, mostra
-$("#divObservacao10").hide(); // se houver lesão, mostra
+$("#divObservacao8").hide(); // se houver lesão, mostra
 
 $("#divHistorico").hide();
 $("#divTermo").hide();
@@ -101,8 +100,12 @@ $("#aPossuiArmasSim").hide();
 $("#aRelacoesSexuais").hide();
 $("#aRelacoesSexuaisNaoSabe").hide();
 $("#aQuandoOnde").hide();
-$("#aObservacao").hide();
-$("#aObservacaoFoneEmail").hide();
+$("#aObservacao1").hide();
+$("#aObservacao2").hide();
+$("#aObservacao4").hide();
+$("#aObservacao5").hide();
+$("#aObservacao6").hide();
+$("#aObservacao6FoneEmail").hide();
 
 $("#rOrgaoSPN").click(function () {
   $("#divOrgaoSP").hide();
@@ -444,21 +447,15 @@ $("#spanRemoverProle").click(function () {
   if (n == 1)  $("#spanRemoverProle").hide();
 });
 
-
-
 $("#rLesaoN").click(function () {
   $("#divAtendimento").hide();
   $("#aLocalAtendimento").hide();
-
-  $("#divObservacao9").hide();
-  $("#divObservacao10").hide();
-
+  $("#divObservacao8").hide();
 });
 
 $("#rLesaoS").click(function () {
   $("#divAtendimento").show();
-  $("#divObservacao9").show();
-  $("#divObservacao10").show();
+  $("#divObservacao8").show();
 });
 
 $("#rAtendimentoN").click(function () {
@@ -530,15 +527,12 @@ $("#spanRemoverTestemunha").click(function () {
 $("#rMedidasN").click(function () {
   $("#divObservacao1").hide();
   $("#divObservacao2").hide();
-  $("#divObservacao4").show();
   $("#divObservacao3").hide();
-
 });
 
 $("#rMedidasS").click(function () {
   $("#divObservacao1").show();
   $("#divObservacao2").show();
-  $("#divObservacao4").hide();
   $("#divObservacao3").show();
 });
 
@@ -714,12 +708,17 @@ $("#rDeficienteS3").click(function () {
   $("#divDeficiente").show();
 });
 
-$("#sCidade").change(function () {
-  if ($("#sCidade option:selected").index()) {
-    $("#divBairro").hide();
-  } else {
-    $("#divBairro").show();
-  }
+
+$("#rAbrigoN").click(function () {
+  $("#divObservacao5").show();
+});
+
+$("#rAbrigoS").click(function () {
+  $("#divObservacao5").show();
+});
+
+$("#rAbrigoNH").click(function () {
+  $("#divObservacao5").hide();
 });
 
 $("#btnGerar").click(function () {
@@ -742,7 +741,12 @@ $("#btnGerar").click(function () {
   ok = verificaCamposParadeiro(ok);
   ok = verificaCamposVicios(ok);
   ok = verificaCamposMidias(ok);
-  ok = verificaCamposOrientacoesHistorico(ok);
+
+  ok = verificaCamposObservacao1(ok);
+  ok = verificaCamposObservacao2(ok);
+  ok = verificaCamposObservacao4(ok);
+  ok = verificaCamposObservacao5(ok);
+  ok = verificaCamposObservacao6(ok);
 
   if (ok) {
     $("#divHistorico").hide();
@@ -794,8 +798,26 @@ $("#btnGerar").click(function () {
     $("#taHistorico").append(criaParagrafoAbrigo()); // 20
   if (localStorage.getItem("settingHistorico21") === "true")
     $("#taHistorico").append(criaParagrafoBuscaPertences()); // 21
-  if (localStorage.getItem("settingHistorico22") === "true")
-    $("#taHistorico").append(criaParagrafoOrientacoesHistorico()); // 22
+
+  // OBSERVACOES
+  if (localStorage.getItem("settingObservacaoHistorico0") === "true")
+    $("#taHistorico").append(criaParagrafoObservacao0());
+  if (localStorage.getItem("settingObservacaoHistorico1") === "true")
+    $("#taHistorico").append(criaParagrafoObservacao1());
+  if (localStorage.getItem("settingObservacaoHistorico2") === "true")
+    $("#taHistorico").append(criaParagrafoObservacao2());
+  if (localStorage.getItem("settingObservacaoHistorico3") === "true")
+    $("#taHistorico").append(criaParagrafoObservacao3());
+  if (localStorage.getItem("settingObservacaoHistorico4") === "true")
+    $("#taHistorico").append(criaParagrafoObservacao4());
+  if (localStorage.getItem("settingObservacaoHistorico5") === "true")
+    $("#taHistorico").append(criaParagrafoObservacao5());
+  if (localStorage.getItem("settingObservacaoHistorico6") === "true")
+    $("#taHistorico").append(criaParagrafoObservacao6());
+  if (localStorage.getItem("settingObservacaoHistorico7") === "true")
+    $("#taHistorico").append(criaParagrafoObservacao7());
+  if (localStorage.getItem("settingObservacaoHistorico8") === "true")
+    $("#taHistorico").append(criaParagrafoObservacao8());
 
   // *******************************************
   // GERA OS PARAGRAFOS DO TERMO DE INFORMAÇÕES
@@ -840,8 +862,36 @@ $("#btnGerar").click(function () {
     $("#taTermo").append(criaParagrafoAbrigo()); // 20
   if (localStorage.getItem("settingTermo21") === "true")
     $("#taTermo").append(criaParagrafoBuscaPertences()); // 21
-  if (localStorage.getItem("settingTermo22") === "true")
-    $("#taTermo").append(criaParagrafoOrientacoesHistorico()); // 22
+
+
+  // OBSERVACOES
+  localConfigObservacoes.every((i) => {
+      if (localStorage.getItem(`settingObservacaoTermo${i}`) === "true" && $(`#cObservacao${i}`).is(":checked")) {
+        $("#taTermo").append(" OBSERVAÇÕES:");
+        return false;
+      }
+      return true;
+  });
+
+  if (localStorage.getItem("settingObservacaoTermo0") === "true")
+    $("#taTermo").append(criaParagrafoObservacao0());
+  if (localStorage.getItem("settingObservacaoTermo1") === "true")
+    $("#taTermo").append(criaParagrafoObservacao1());
+  if (localStorage.getItem("settingObservacaoTermo2") === "true")
+    $("#taTermo").append(criaParagrafoObservacao2());
+  if (localStorage.getItem("settingObservacaoTermo3") === "true")
+    $("#taTermo").append(criaParagrafoObservacao3());
+  if (localStorage.getItem("settingObservacaoTermo4") === "true")
+    $("#taTermo").append(criaParagrafoObservacao4());
+  if (localStorage.getItem("settingObservacaoTermo5") === "true")
+    $("#taTermo").append(criaParagrafoObservacao5());
+  if (localStorage.getItem("settingObservacaoTermo6") === "true")
+    $("#taTermo").append(criaParagrafoObservacao6());
+  if (localStorage.getItem("settingObservacaoTermo7") === "true")
+    $("#taTermo").append(criaParagrafoObservacao7());
+  if (localStorage.getItem("settingObservacaoTermo8") === "true")
+    $("#taTermo").append(criaParagrafoObservacao8());
+
 
   let maxTamanhoHistorico = 1804;
   let tamanhoHistorico = $("#taHistorico").val().length;
@@ -861,7 +911,7 @@ $("#btnGerar").click(function () {
     $("#divInfoHistorico").html(textInfoHistorico);
   }
 
-  salvarOrientacoesHistorico();
+  salvarObservacoes();
 
   bootbox.confirm({
     message:
@@ -1450,11 +1500,11 @@ function criaParagrafoLesaoAtendimento() {
       t = t.concat("A vítima informa que procurou atendimento médico no seguinte local: ");
       t = t.concat($("#iLocalAtendimento").val().trim() + ".");
       t = removerPontoDuplicado(t);
-      t = t.concat(" Realizado o seu encaminhamento a exame pericial no PML.");
+      t = t.concat(" Realizado o seu encaminhamento a exame pericial no IGP.");
 
     } else {
       t = t.concat("A vítima informa que não procurou atendimento médico,");
-      t = t.concat(" sendo realizado o seu encaminhamento a exame pericial no PML.");
+      t = t.concat(" sendo realizado o seu encaminhamento a exame pericial no IGP.");
     }
 
     t = " " + t;
@@ -1853,6 +1903,7 @@ function criaParagrafoAbrigo() {
       t = t.concat(".");
     }
   }
+
   t = " " + removerPontoDuplicado(t);
   return t;
 }
@@ -1864,60 +1915,155 @@ function criaParagrafoBuscaPertences() {
   return " A vítima informa que precisa de auxílio para buscar os seus pertences pessoais.";
 }
 
-function verificaCamposOrientacoesHistorico(ok) {
 
+// Informada sobre direitos na Lei Maria da Penha
+function criaParagrafoObservacao0() {
+  if ($("#cObservacao0").is(":checked"))
+    return " Informado à ofendida os direitos a ela conferidos na Lei Maria da Penha (Lei nº 11.340/2006) e os serviços disponíveis, inclusive os de assistência judiciária para o eventual ajuizamento perante o juízo competente da ação de separação judicial, de divórcio, de anulação de casamento ou de dissolução de união estável. ";
+  return "";
+}
+
+// Info MPU / Forum e Prazo
+function criaParagrafoObservacao1() {
+    if ($("#rMedidasS").is(":checked") && $("#cObservacao1").is(":checked")) {
+      let t = " Orientada a contatar o ";
+      t = t.concat($("#iObservacao1Local").val().trim());
+      t = t.concat(" para obter informações da MPU em até ");
+      t = t.concat($("#iObservacao1Prazo").val().trim());
+      t = t.concat(" horas.");
+      return t;
+    }
+    return "";
+}
+
+function verificaCamposObservacao1(ok) {
   let warning = false;
 
-  /* Não precisam ser verificados pois não possuem campos aninhados
-        cObservacao0
-        cObservacao3
-        cObservacao4
-        cObservacao8
-        cObservacao9
-        cObservacao10
-  */
-
-  // Se há MPU, então verificar cObservacao1 e cObservacao2  
-  if ($("#rMedidasS").is(":checked")) {
-
-    // cObservacao1 - Info MPU / Local-Forum e Prazo
-    if ($("#cObservacao1").is(":checked")) {
-      if ($("#iObservacao1Local").val().trim()) {
-        $("#iObservacao1Local").css("border-color", "#ced4da");
-      } else {
-        warning = true;
-        $("#iObservacao1Local").css("border-color", "red");
-        if (!ok) ok = "lOutrosHistorico";
-      }
-
-      if ($("#iObservacao1Prazo").val().trim()) {
-        $("#iObservacao1Prazo").css("border-color", "#ced4da");
-      } else {
-        warning = true;
-        $("#iObservacao1Prazo").css("border-color", "red");
-        if (!ok) ok = "lOutrosHistorico";
-      }
-    } else {
+  if ($("#rMedidasS").is(":checked") && $("#cObservacao1").is(":checked")) {
+    if ($("#iObservacao1Local").val().trim()) {
       $("#iObservacao1Local").css("border-color", "#ced4da");
-      $("#iObservacao1Prazo").css("border-color", "#ced4da");
+    } else {
+      warning = true;
+      $("#iObservacao1Local").css("border-color", "red");
+      if (!ok) ok = "lOutrosHistorico";
     }
 
-    // cObservacao2 - Descumprimento MPU / Revogação MPU
-    if ($("#cObservacao2").is(":checked")) {
-      if ($("#iObservacao2Local").val()) {
-        $("#iObservacao2Local").css("border-color", "#ced4da");
-      } else {
-        warning = true;
-        $("#iObservacao2Local").css("border-color", "red");
-        if (!ok) ok = "lOutrosHistorico";
-      }
+    if ($("#iObservacao1Prazo").val().trim()) {
+      $("#iObservacao1Prazo").css("border-color", "#ced4da");
     } else {
-      $("#iObservacao2Local").css("border-color", "#ced4da");
+      warning = true;
+      $("#iObservacao1Prazo").css("border-color", "red");
+      if (!ok) ok = "lOutrosHistorico";
     }
+  } else {
+    $("#iObservacao1Local").css("border-color", "#ced4da");
+    $("#iObservacao1Prazo").css("border-color", "#ced4da");
+  }
+  
+  if (warning) {
+    $("#aObservacao1").show();
+  } else {
+    $("#aObservacao1").hide();
+  }
+  
+  return ok;
+}
+
+// Descumprimento MPU / Revogacao MPU
+function criaParagrafoObservacao2() { 
+  if ($("#rMedidasS").is(":checked") && $("#cObservacao2").is(":checked")) {
+    let t = " Orientada a registrar nova ocorrência, para novos encaminhamentos, caso houver descumprimento da MPU, e orientada a entrar em contato com ";
+    t = t.concat($("#iObservacao2Local").val().trim());
+    t = t.concat(" caso deseje a revogação da medida.");
+    return t;
+  }
+  return "";
+}
+
+function verificaCamposObservacao2(ok) {
+  let warning = false;
+
+  if ($("#rMedidasS").is(":checked") && $("#cObservacao2").is(":checked")) {
+    if ($("#iObservacao2Local").val()) {
+      $("#iObservacao2Local").css("border-color", "#ced4da");
+    } else {
+      warning = true;
+      $("#iObservacao2Local").css("border-color", "red");
+      if (!ok) ok = "lOutrosHistorico";
+    }
+  } else {
+    $("#iObservacao2Local").css("border-color", "#ced4da");
+  }
+  
+  if (warning) {
+    $("#aObservacao2").show();
+  } else {
+    $("#aObservacao2").hide();
+  }
+  
+  return ok;
+}
+
+// Aguardar MPU em local seguro
+function criaParagrafoObservacao3() { 
+  if ($("#rMedidasS").is(":checked") && $("#cObservacao3").is(":checked")) {
+    return " Orientada a aguardar o deferimento das Medidas Protetivas de Urgência em local seguro.";
+  }
+  return "";
+}
+
+// Atendimento psicológico, jurídico e de assistência social
+function criaParagrafoObservacao4() {
+  if ($("#cObservacao4").is(":checked")) {
+    let t = " Orientada a comparecer ";
+    t = t.concat($("#iObservacao4Local").val().trim());
+    t = t.concat(" para buscar atendimento psicológico, jurídico e de assistência social.");
+    return t;
+  }
+  return "";
+}
+
+function verificaCamposObservacao4(ok) {
+  let warning = false;
+
+  if ($("#cObservacao4").is(":checked")) {
+    if ($("#iObservacao4Local").val().trim()) {
+      $("#iObservacao4Local").css("border-color", "#ced4da");
+    } else {
+      warning = true;
+      $("#iObservacao4Local").css("border-color", "red");
+      if (!ok) ok = "lOutrosHistorico";
+    }
+  } else {
+    $("#iObservacao4Local").css("border-color", "#ced4da");
   }
 
-  // cObservacao5 - Atendimento psicológico, jurídico e de assistência social
-  if ($("#cObservacao5").is(":checked")) {
+  if (warning) {
+    $("#aObservacao4").show();
+  } else {
+    $("#aObservacao4").hide();
+  }
+  
+  return ok;
+}
+
+// Transporte local / aceite ou recusa
+function criaParagrafoObservacao5() {
+  if (($("#rAbrigoN").is(":checked") || $("#rAbrigoS").is(":checked")) && $("#cObservacao5").is(":checked")) {
+    let t = " Oferecido à vítima o transporte ";
+    t = t.concat($("#iObservacao5Local").val().trim());
+    t = t.concat(", tendo ela ");
+    t = t.concat($("#sObservacao5Resp option:selected").text());
+    t = t.concat(".");
+    return t;
+  }
+  return "";
+}
+
+function verificaCamposObservacao5(ok) {
+  let warning = false;
+
+  if (($("#rAbrigoN").is(":checked") || $("#rAbrigoS").is(":checked")) && $("#cObservacao5").is(":checked")) {
     if ($("#iObservacao5Local").val().trim()) {
       $("#iObservacao5Local").css("border-color", "#ced4da");
     } else {
@@ -1928,8 +2074,51 @@ function verificaCamposOrientacoesHistorico(ok) {
   } else {
     $("#iObservacao5Local").css("border-color", "#ced4da");
   }
+  
+  if (warning) {
+    $("#aObservacao5").show();
+  } else {
+    $("#aObservacao5").hide();
+  }
+  
+  return ok;
+}
 
-  // cObservacao6 - Transporte local / aceite ou recusa
+// Provas complementares
+function criaParagrafoObservacao6() {
+  if ($("#cObservacao6").is(":checked")) {
+    let t = " Orientada a encaminhar ";
+    t = t.concat($("#iObservacao6Local").val().trim());
+    t = t.concat(" no prazo de ");
+    t = t.concat($("#iObservacao6Prazo").val().trim());
+    t = t.concat(" dias úteis, provas complementares caso surjam, através ");
+
+    if (
+      $("#cObservacao6Email").is(":checked") &&
+      $("#cObservacao6Fone").is(":checked")
+    ) {
+      t = t.concat("do E-mail ");
+      t = t.concat($("#iObservacao6Email").val().trim());
+      t = t.concat(" e do Whatsapp ");
+      t = t.concat($("#iObservacao6Fone").val().trim());
+    } else if ($("#cObservacao6Email").is(":checked")) {
+      t = t.concat("do E-mail ");
+      t = t.concat($("#iObservacao6Email").val().trim());
+    } else if ($("#cObservacao6Fone").is(":checked")) {
+      t = t.concat("do Whatsapp ");
+      t = t.concat($("#iObservacao6Fone").val().trim());
+    }
+
+    t = t.concat(".");
+    return t;
+  }
+
+  return "";
+}
+
+function verificaCamposObservacao6(ok) {
+  let warning = false;
+
   if ($("#cObservacao6").is(":checked")) {
     if ($("#iObservacao6Local").val().trim()) {
       $("#iObservacao6Local").css("border-color", "#ced4da");
@@ -1938,218 +2127,118 @@ function verificaCamposOrientacoesHistorico(ok) {
       $("#iObservacao6Local").css("border-color", "red");
       if (!ok) ok = "lOutrosHistorico";
     }
-  } else {
-    $("#iObservacao6Local").css("border-color", "#ced4da");
-  }
 
-  // cObservacao7 - Provas Complementares
-  if ($("#cObservacao7").is(":checked")) {
-    if ($("#iObservacao7Local").val().trim()) {
-      $("#iObservacao7Local").css("border-color", "#ced4da");
+    if ($("#iObservacao6Prazo").val().trim()) {
+      $("#iObservacao6Prazo").css("border-color", "#ced4da");
     } else {
       warning = true;
-      $("#iObservacao7Local").css("border-color", "red");
-      if (!ok) ok = "lOutrosHistorico";
-    }
-
-    if ($("#iObservacao7Prazo").val().trim()) {
-      $("#iObservacao7Prazo").css("border-color", "#ced4da");
-    } else {
-      warning = true;
-      $("#iObservacao7Prazo").css("border-color", "red");
+      $("#iObservacao6Prazo").css("border-color", "red");
       if (!ok) ok = "lOutrosHistorico";
     }
 
     if (
-      !$("#cObservacao7Fone").is(":checked") &&
-      !$("#cObservacao7Email").is(":checked")
+      !$("#cObservacao6Fone").is(":checked") &&
+      !$("#cObservacao6Email").is(":checked")
     ) {
       
-      $("#divObservacao7Email").css("color", "red");
-      $("#divObservacao7Fone").css("color", "red");
+      $("#divObservacao6Email").css("color", "red");
+      $("#divObservacao6Fone").css("color", "red");
 
-      $("#iObservacao7Email").css("border-color", "red");
-      $("#iObservacao7Fone").css("border-color", "red");
-      $("#iObservacao7Email").css("color", "red");
-      $("#iObservacao7Fone").css("color", "red");
+      $("#iObservacao6Email").css("border-color", "red");
+      $("#iObservacao6Fone").css("border-color", "red");
+      $("#iObservacao6Email").css("color", "red");
+      $("#iObservacao6Fone").css("color", "red");
 
-      $("#aObservacaoFoneEmail").show();
+      $("#aObservacao6FoneEmail").show();
 
       if (!ok) ok = "lOutrosHistorico";
     } else {
 
-      $("#divObservacao7Email").css("color", "#495057");
-      $("#divObservacao7Fone").css("color", "#495057");
+      $("#divObservacao6Email").css("color", "#495057");
+      $("#divObservacao6Fone").css("color", "#495057");
 
-      $("#iObservacao7Email").css("border-color", "#ced4da");
-      $("#iObservacao7Fone").css("border-color", "#ced4da");
-      $("#iObservacao7Email").css("color", "#495057");
-      $("#iObservacao7Fone").css("color", "#495057");
+      $("#iObservacao6Email").css("border-color", "#ced4da");
+      $("#iObservacao6Fone").css("border-color", "#ced4da");
+      $("#iObservacao6Email").css("color", "#495057");
+      $("#iObservacao6Fone").css("color", "#495057");
 
-      $("#aObservacaoFoneEmail").hide();
+      $("#aObservacao6FoneEmail").hide();
     }
 
 
     if (
-        $("#cObservacao7Email").is(":checked") &&
-        (!$("#iObservacao7Email").val().trim() || $("#iObservacao7Email").val().trim() == "@pc.rs.gov.br")
+        $("#cObservacao6Email").is(":checked") &&
+        (!$("#iObservacao6Email").val().trim() || $("#iObservacao6Email").val().trim() == "@pc.rs.gov.br")
       ) {
         warning = true;
-        $("#iObservacao7Email").css("border-color", "red");
+        $("#iObservacao6Email").css("border-color", "red");
         if (!ok) ok = "lOutrosHistorico";
     } else {
-      $("#iObservacao7Email").css("border-color", "#ced4da");
+      $("#iObservacao6Email").css("border-color", "#ced4da");
     }
 
     if (
-        $("#cObservacao7Fone").is(":checked") &&
-        (!$("#iObservacao7Fone").val().trim() || $("#iObservacao7Fone").val().trim() == "(51) 9999-99999")
+        $("#cObservacao6Fone").is(":checked") &&
+        (!$("#iObservacao6Fone").val().trim() || $("#iObservacao6Fone").val().trim() == "(51) 9999-99999")
       ) {
         warning = true;
-        $("#iObservacao7Fone").css("border-color", "red");
+        $("#iObservacao6Fone").css("border-color", "red");
         if (!ok) ok = "lOutrosHistorico";
     } else {
-      $("#iObservacao7Fone").css("border-color", "#ced4da");
+      $("#iObservacao6Fone").css("border-color", "#ced4da");
     }
 
 
   } else {
-    $("#iObservacao7Local").css("border-color", "#ced4da");
-    $("#iObservacao7Prazo").css("border-color", "#ced4da");
+    $("#iObservacao6Local").css("border-color", "#ced4da");
+    $("#iObservacao6Prazo").css("border-color", "#ced4da");
 
-    $("#divObservacao7Email").css("color", "#495057");
-    $("#divObservacao7Fone").css("color", "#495057");
+    $("#divObservacao6Email").css("color", "#495057");
+    $("#divObservacao6Fone").css("color", "#495057");
 
-    $("#iObservacao7Email").css("border-color", "#ced4da");
-    $("#iObservacao7Fone").css("border-color", "#ced4da");
-    $("#iObservacao7Email").css("color", "#495057");
-    $("#iObservacao7Fone").css("color", "#495057");
+    $("#iObservacao6Email").css("border-color", "#ced4da");
+    $("#iObservacao6Fone").css("border-color", "#ced4da");
+    $("#iObservacao6Email").css("color", "#495057");
+    $("#iObservacao6Fone").css("color", "#495057");
   
-    $("#aObservacaoFoneEmail").hide();
+    $("#aObservacao6FoneEmail").hide();
   }
-
+  
   if (warning) {
-    $("#aObservacao").show();
+    $("#aObservacao6").show();
   } else {
-    $("#aObservacao").hide();
+    $("#aObservacao6").hide();
   }
   
   return ok;
 }
 
-function criaParagrafoOrientacoesHistorico() {
-  let t = " ";
-  
-  // cObservacao0 - sem dependencias / only text
-  // Informada sobre direitos na Lei Maria da Penha
-  if ($("#cObservacao0").is(":checked")) {
-    t = t.concat("Informado à ofendida os direitos a ela conferidos na Lei Maria da Penha (Lei nº 11.340/2006) e os serviços disponíveis, inclusive os de assistência judiciária para o eventual ajuizamento perante o juízo competente da ação de separação judicial, de divórcio, de anulação de casamento ou de dissolução de união estável. ");
-  }
-
-  // Se há MPU, então verificar cObservacao1, cObservacao2, cObservacao3
-  // Caso não há MPU, verificar cObservacao4
-  if ($("#rMedidasS").is(":checked")) {
-
-    // cObservacao1 - Info MPU / Forum e Prazo
-    if ($("#cObservacao1").is(":checked")) {
-      t = t.concat("Orientada a contatar o ");
-      t = t.concat($("#iObservacao1Local").val().trim());
-      t = t.concat(" para obter informações da MPU em até ");
-      t = t.concat($("#iObservacao1Prazo").val().trim());
-      t = t.concat(" horas. ");
-    }
-
-    // cObservacao1 - Descumprimento MPU / Revogação MPU
-    if ($("#cObservacao2").is(":checked")) {
-      t = t.concat("Orientada a registrar nova ocorrência, para novos encaminhamentos, caso houver descumprimento da MPU, e orientada a entrar em contato com ");
-      t = t.concat($("#iObservacao2Local").val().trim());
-      t = t.concat(" caso deseje a revogação da medida. ");
-    }
-
-    // cObservacao3 - Descumprimento MPU / Revogação MPU
-    if ($("#cObservacao3").is(":checked")) {
-      t = t.concat("Orientada a aguardar o deferimento das Medidas Protetivas de Urgência em local seguro. ");
-    }
-  } else {
-    // cObservacao4 - Recusa da MPU
-    if ($("#cObservacao4").is(":checked")) {
-      t = t.concat("Oferecida à vítima as Medidas Protetivas de Urgência, tendo ela NÃO demonstrado interesse. ");
-    }
-  }
-
-  // cObservacao5 - Atendimento psicológico, jurídico e de assistência social
-  if ($("#cObservacao5").is(":checked")) {
-    t = t.concat("Orientada a comparecer ");
-    t = t.concat($("#iObservacao5Local").val().trim());
-    t = t.concat(" para buscar atendimento psicológico, jurídico e de assistência social. ");
-  }
-
-  // cObservacao6 - Transporte local / aceite ou recusa
-  if ($("#cObservacao6").is(":checked")) {
-    t = t.concat("Oferecido à vítima o transporte ");
-    t = t.concat($("#iObservacao6Local").val().trim());
-    t = t.concat(", tendo ela ");
-    t = t.concat($("#sObservacao6Resp option:selected").text());
-    t = t.concat(". ");
-  }
-
-  // cObservacao7 - Provas Complementares
+// Autorizou a intimicao por meio tecnologico idoneo
+function criaParagrafoObservacao7() {
   if ($("#cObservacao7").is(":checked")) {
-    t = t.concat("Orientada a encaminhar ");
-    t = t.concat($("#iObservacao7Local").val().trim());
-    t = t.concat(" no prazo de ");
-    t = t.concat($("#iObservacao7Prazo").val().trim());
-    t = t.concat(" dias úteis, provas complementares caso surjam, através ");
-
-    if (
-      $("#cObservacao7Email").is(":checked") &&
-      $("#cObservacao7Fone").is(":checked")
-    ) {
-      t = t.concat("do E-mail ");
-      t = t.concat($("#iObservacao7Email").val().trim());
-      t = t.concat(" e do Whatsapp ");
-      t = t.concat($("#iObservacao7Fone").val().trim());
-    } else if ($("#cObservacao7Email").is(":checked")) {
-      t = t.concat("do E-mail ");
-      t = t.concat($("#iObservacao7Email").val().trim());
-    } else if ($("#cObservacao7Fone").is(":checked")) {
-      t = t.concat("do Whatsapp ");
-      t = t.concat($("#iObservacao7Fone").val().trim());
-    }
-
-    t = t.concat(". ");
+    return " A vítima autorizou que a sua intimação pessoal acerca dos atos processuais seja realizada por telefone, e-mail, WhatsApp ou por outro meio tecnológico sério e idôneo.";
   }
-
-  // cObservacao8 - Autorizou a intimicao por meio tecnologico idoneo
-  if ($("#cObservacao8").is(":checked")) {
-    t = t.concat("A vítima autorizou que a sua intimação pessoal acerca dos atos processuais seja realizada por telefone, e-mail, WhatsApp ou por outro meio tecnológico sério e idôneo. ");
-  }
-
-  // Se há lesão corporal
-  // então verifica cObservacao9 e cObservacao10 
-  if ($("#rLesaoS").is(":checked")) {
-
-    // Encaminhamento Exame Corpo Delito
-    if ($("#cObservacao9").is(":checked")) {
-      t = t.concat("Houve o encaminhamento da vítima a exame de corpo de delito. ");
-    }
-
-    // Autorizou (ou Não) o Registro Lesao
-    if ($("#cObservacao10").is(":checked")) {
-      t = t.concat("A vítima ");
-      t = t.concat($("#sObservacao10Resp option:selected").text());
-      t = t.concat(" o(a) servidor(a) policial responsável pelo atendimento da ocorrência a realizar o registro fotográfico da(s) lesão(ões) corporal(is) indicada(s). ");
-    }
-    
-   
-  }
-
-  // Remover espaço em branco
-  t = " " + removerPontoDuplicado(t);
-  return t;
+  return "";
 }
 
-function salvarOrientacoesHistorico() {
+// Autoriza a tirar fotos das lesoes
+function criaParagrafoObservacao8() {
+  if ($("#rLesaoS").is(":checked") && $("#cObservacao8").is(":checked")) {
+    let t = " A vítima ";
+    t = t.concat($("#sObservacao8Resp option:selected").text());
+    t = t.concat(" o(a) servidor(a) policial responsável pelo atendimento da ocorrência a realizar o registro fotográfico da(s) lesão(ões) corporal(is) indicada(s).");
+    return t;
+  }
+  return "";
+}
+
+
+// depois verificacoes
+// depois teste uma a uma, comentando as demais
+// fazer a terceira opcao do abrigo 
+
+
+function salvarObservacoes() {
   localStorage.setItem("cObservacao0", $("#cObservacao0").is(":checked") ? true : false);
   localStorage.setItem("cObservacao1",$("#cObservacao1").is(":checked") ? true : false);
   localStorage.setItem("iObservacao1Local", $("#iObservacao1Local").val());
@@ -2158,49 +2247,45 @@ function salvarOrientacoesHistorico() {
   localStorage.setItem("iObservacao2Local", $("#iObservacao2Local").val());
   localStorage.setItem("cObservacao3",$("#cObservacao3").is(":checked") ? true : false);
   localStorage.setItem("cObservacao4",$("#cObservacao4").is(":checked") ? true : false);
+  localStorage.setItem("iObservacao4Local", $("#iObservacao4Local").val());
   localStorage.setItem("cObservacao5",$("#cObservacao5").is(":checked") ? true : false);
   localStorage.setItem("iObservacao5Local", $("#iObservacao5Local").val());
+  localStorage.setItem("sObservacao5Resp", $("#sObservacao5Resp option:selected").text());
   localStorage.setItem("cObservacao6",$("#cObservacao6").is(":checked") ? true : false);
   localStorage.setItem("iObservacao6Local", $("#iObservacao6Local").val());
-  localStorage.setItem("sObservacao6Resp", $("#sObservacao6Resp option:selected").text());
-  localStorage.setItem("cObservacao7",$("#cObservacao7").is(":checked") ? true : false);
-  localStorage.setItem("iObservacao7Local", $("#iObservacao7Local").val());
-  localStorage.setItem("iObservacao7Prazo", $("#iObservacao7Prazo").val());
-  localStorage.setItem("cObservacao7Email", $("#cObservacao7Email").is(":checked") ? true : false);
-  localStorage.setItem("iObservacao7Email", $("#iObservacao7Email").val());
-  localStorage.setItem("cObservacao7Fone",$("#cObservacao7Fone").is(":checked") ? true : false);
-  localStorage.setItem("iObservacao7Fone", $("#iObservacao7Fone").val());
+  localStorage.setItem("iObservacao6Prazo", $("#iObservacao6Prazo").val());
+  localStorage.setItem("cObservacao6Email", $("#cObservacao6Email").is(":checked") ? true : false);
+  localStorage.setItem("iObservacao6Email", $("#iObservacao6Email").val());
+  localStorage.setItem("cObservacao6Fone",$("#cObservacao6Fone").is(":checked") ? true : false);
+  localStorage.setItem("iObservacao6Fone", $("#iObservacao6Fone").val());
+  localStorage.setItem("cObservacao7", $("#cObservacao7").is(":checked") ? true : false);
   localStorage.setItem("cObservacao8", $("#cObservacao8").is(":checked") ? true : false);
-  localStorage.setItem("cObservacao9", $("#cObservacao9").is(":checked") ? true : false);
-  localStorage.setItem("cObservacao10", $("#cObservacao10").is(":checked") ? true : false);
-  localStorage.setItem("sObservacao10Resp", $("#sObservacao10Resp option:selected").text());
+  localStorage.setItem("sObservacao8Resp", $("#sObservacao8Resp option:selected").text());
 }
 
-function inicializaOrientacoes() {
-  if (localStorage.getItem("cObservacao0")) $("#cObservacao0").attr("checked", localStorage.getItem("cObservacao0") === "true" ? true : false);
-  if (localStorage.getItem("cObservacao1")) $("#cObservacao1").attr("checked", localStorage.getItem("cObservacao1") === "true" ? true : false);
-  if (localStorage.getItem("iObservacao1Local")) $("#iObservacao1Local").attr("value", localStorage.getItem("iObservacao1Local"));
-  if (localStorage.getItem("iObservacao1Prazo")) $("#iObservacao1Prazo").attr("value", localStorage.getItem("iObservacao1Prazo"));
-  if (localStorage.getItem("cObservacao2")) $("#cObservacao2").attr("checked", localStorage.getItem("cObservacao2") === "true" ? true : false);
-  if (localStorage.getItem("iObservacao2Local")) $("#iObservacao2Local").attr("value", localStorage.getItem("iObservacao2Local"));
-  if (localStorage.getItem("cObservacao3")) $("#cObservacao3").attr("checked", localStorage.getItem("cObservacao3") === "true" ? true : false);
-  if (localStorage.getItem("cObservacao4")) $("#cObservacao4").attr("checked", localStorage.getItem("cObservacao4") === "true" ? true : false);
-  if (localStorage.getItem("cObservacao5")) $("#cObservacao5").attr("checked", localStorage.getItem("cObservacao5") === "true" ? true : false);
-  if (localStorage.getItem("iObservacao5Local")) $("#iObservacao5Local").attr("value", localStorage.getItem("iObservacao5Local"));
-  if (localStorage.getItem("cObservacao6")) $("#cObservacao6").attr("checked", localStorage.getItem("cObservacao6") === "true" ? true : false);
-  if (localStorage.getItem("iObservacao6Local")) $("#iObservacao6Local").attr("value", localStorage.getItem("iObservacao6Local"));
-  if (localStorage.getItem("sObservacao6Resp")) $(`#sObservacao6Resp option[value="${localStorage.getItem("sObservacao6Resp")}"]`).attr('selected', 'selected');
-  if (localStorage.getItem("cObservacao7")) $("#cObservacao7").attr("checked", localStorage.getItem("cObservacao7") === "true" ? true : false);
-  if (localStorage.getItem("iObservacao7Local")) $("#iObservacao7Local").attr("value", localStorage.getItem("iObservacao7Local"));
-  if (localStorage.getItem("iObservacao7Prazo")) $("#iObservacao7Prazo").attr("value", localStorage.getItem("iObservacao7Prazo"));
-  if (localStorage.getItem("cObservacao7Email")) $("#cObservacao7Email").attr("checked", localStorage.getItem("cObservacao7Email") === "true" ? true : false);
-  if (localStorage.getItem("iObservacao7Email")) $("#iObservacao7Email").attr("value", localStorage.getItem("iObservacao7Email"));
-  if (localStorage.getItem("cObservacao7Fone")) $("#cObservacao7Fone").attr("checked", localStorage.getItem("cObservacao7Fone") === "true" ? true : false);
-  if (localStorage.getItem("iObservacao7Fone")) $("#iObservacao7Fone").attr("value", localStorage.getItem("iObservacao7Fone"));
-  if (localStorage.getItem("cObservacao8")) $("#cObservacao8").attr("checked", localStorage.getItem("cObservacao8") === "true" ? true : false);
-  if (localStorage.getItem("cObservacao9")) $("#cObservacao9").attr("checked", localStorage.getItem("cObservacao9") === "true" ? true : false);
-  if (localStorage.getItem("cObservacao10")) $("#cObservacao10").attr("checked", localStorage.getItem("cObservacao10") === "true" ? true : false);
-  if (localStorage.getItem("sObservacao10Resp")) $(`#sObservacao10Resp option[value="${localStorage.getItem("sObservacao10Resp")}"]`).attr('selected', 'selected');
+function inicializaObservacoes() {
+  if (localStorage.getItem("cObservacao0")) $("#cObservacao0").attr("checked", localStorage.getItem("cObservacao0") === "true" ? true : false); else localStorage.setItem("cObservacao0", true);
+  if (localStorage.getItem("cObservacao1")) $("#cObservacao1").attr("checked", localStorage.getItem("cObservacao1") === "true" ? true : false); else localStorage.setItem("cObservacao1", false);
+  if (localStorage.getItem("iObservacao1Local")) $("#iObservacao1Local").attr("value", localStorage.getItem("iObservacao1Local")); else localStorage.setItem("iObservacao1Local", "Fórum Central");
+  if (localStorage.getItem("iObservacao1Prazo")) $("#iObservacao1Prazo").attr("value", localStorage.getItem("iObservacao1Prazo")); else localStorage.setItem("iObservacao1Prazo", "72");
+  if (localStorage.getItem("cObservacao2")) $("#cObservacao2").attr("checked", localStorage.getItem("cObservacao2") === "true" ? true : false); else localStorage.setItem("cObservacao2", false);
+  if (localStorage.getItem("iObservacao2Local")) $("#iObservacao2Local").attr("value", localStorage.getItem("iObservacao2Local")); else localStorage.setItem("iObservacao2Local", "o Fórum");
+  if (localStorage.getItem("cObservacao3")) $("#cObservacao3").attr("checked", localStorage.getItem("cObservacao3") === "true" ? true : false); else localStorage.setItem("cObservacao3", false);
+  if (localStorage.getItem("cObservacao4")) $("#cObservacao4").attr("checked", localStorage.getItem("cObservacao4") === "true" ? true : false); else localStorage.setItem("cObservacao4", false);
+  if (localStorage.getItem("iObservacao4Local")) $("#iObservacao4Local").attr("value", localStorage.getItem("iObservacao4Local")); else localStorage.setItem("iObservacao4Local", "ao CRAM (Centro de Referência de Atendimento à Mulher)");
+  if (localStorage.getItem("cObservacao5")) $("#cObservacao5").attr("checked", localStorage.getItem("cObservacao5") === "true" ? true : false); else localStorage.setItem("cObservacao5", false);
+  if (localStorage.getItem("iObservacao5Local")) $("#iObservacao5Local").attr("value", localStorage.getItem("iObservacao5Local")); else localStorage.setItem("iObservacao5Local", "à Casa Abrigo");
+  if (localStorage.getItem("sObservacao5Resp")) $(`#sObservacao5Resp option[value="${localStorage.getItem("sObservacao5Resp")}"]`).attr('selected', 'selected'); else localStorage.setItem("sObservacao5Resp", "recusado");
+  if (localStorage.getItem("cObservacao6")) $("#cObservacao6").attr("checked", localStorage.getItem("cObservacao6") === "true" ? true : false); else localStorage.setItem("cObservacao6", false);
+  if (localStorage.getItem("iObservacao6Local")) $("#iObservacao6Local").attr("value", localStorage.getItem("iObservacao6Local")); else localStorage.setItem("iObservacao6Local", "ao cartório da DEAM");
+  if (localStorage.getItem("iObservacao6Prazo")) $("#iObservacao6Prazo").attr("value", localStorage.getItem("iObservacao6Prazo")); else localStorage.setItem("iObservacao6Prazo", "5");
+  if (localStorage.getItem("cObservacao6Email")) $("#cObservacao6Email").attr("checked", localStorage.getItem("cObservacao6Email") === "true" ? true : false); else localStorage.setItem("cObservacao6Email", false);
+  if (localStorage.getItem("iObservacao6Email")) $("#iObservacao6Email").attr("value", localStorage.getItem("iObservacao6Email")); else localStorage.setItem("iObservacao6Email", "");
+  if (localStorage.getItem("cObservacao6Fone")) $("#cObservacao6Fone").attr("checked", localStorage.getItem("cObservacao6Fone") === "true" ? true : false); else localStorage.setItem("cObservacao6Fone", false);
+  if (localStorage.getItem("iObservacao6Fone")) $("#iObservacao6Fone").attr("value", localStorage.getItem("iObservacao6Fone")); else localStorage.setItem("iObservacao6Fone", "");
+  if (localStorage.getItem("cObservacao7")) $("#cObservacao7").attr("checked", localStorage.getItem("cObservacao7") === "true" ? true : false); else localStorage.setItem("cObservacao7", false);
+  if (localStorage.getItem("cObservacao8")) $("#cObservacao8").attr("checked", localStorage.getItem("cObservacao8") === "true" ? true : false); else localStorage.setItem("cObservacao8", false);
+  if (localStorage.getItem("sObservacao8Resp")) $(`#sObservacao8Resp option[value="${localStorage.getItem("sObservacao8Resp")}"]`).attr('selected', 'selected'); else localStorage.setItem("sObservacao8Resp", "NÃO autorizou");
 }
 
 
@@ -2239,10 +2324,10 @@ $("#config").click(function () {
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                        <th scope="col">#</th>
-                        <th scope="col"></th>
-                        <th class="text-center" scope="col">Histórico</th>
-                        <th class="text-center" scope="col">Termo</th>
+                        <th scope="col" class="col-1">#</th>
+                        <th scope="col">Itens do Formulário</th>
+                        <th class="text-center col-1" scope="col">Histórico</th>
+                        <th class="text-center col-1" scope="col">Termo</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -2260,7 +2345,7 @@ $("#config").click(function () {
                             </div>
                         </td>
                         </tr>
-                        <tr>
+                      
                         <tr>
                         <th scope="row">2</th>
                         <td>Dados da vítima</td>
@@ -2564,7 +2649,7 @@ $("#config").click(function () {
 
                         <tr>
                         <th scope="row">22</th>
-                        <td>Orientações</td>
+                        <td>Processo para oficializar separação</td>
                         <td>
                             <div class="form-check text-center">
                                 <input class="form-check-input my-0" type="checkbox" value="settingHistorico22" id="settingHistorico22">
@@ -2576,8 +2661,161 @@ $("#config").click(function () {
                             </div>
                         </td>
                         </tr>
+
                     </tbody>
-                </table></div>`,
+                </table>
+                
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                        <th scope="col" class="col-1"></th>
+                        <th scope="col">Observações</th>
+                        <th class="text-center col-1" scope="col">Histórico</th>
+                        <th class="text-center col-1" scope="col">Termo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                        <th scope="row"></th>
+                        <td>Informado à ofendida os direitos a ela conferidos na Lei Maria da Penha</td>
+                        <td>
+                            <div class="form-check text-center">
+                                <input class="form-check-input my-0" type="checkbox" value="settingObservacaoHistorico0" id="settingObservacaoHistorico0">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-check text-center">
+                                <input class="form-check-input my-0" type="checkbox" value="settingObservacaoTermo0" id="settingObservacaoTermo0">
+                            </div>
+                        </td>
+                        </tr>
+
+                        <tr>
+                        <th scope="row"></th>
+                        <td>Orientada a contatar o forum para obter informações da MPU</td>
+                        <td>
+                            <div class="form-check text-center">
+                                <input class="form-check-input my-0" type="checkbox" value="settingObservacaoHistorico1" id="settingObservacaoHistorico1">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-check text-center">
+                                <input class="form-check-input my-0" type="checkbox" value="settingObservacaoTermo1" id="settingObservacaoTermo1">
+                            </div>
+                        </td>
+                        </tr>
+
+                        <tr>
+                        <th scope="row"></th>
+                        <td>Orientada a registrar nova ocorrência caso houver descumprimento da MPU</td>
+                        <td>
+                            <div class="form-check text-center">
+                                <input class="form-check-input my-0" type="checkbox" value="settingObservacaoHistorico2" id="settingObservacaoHistorico2">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-check text-center">
+                                <input class="form-check-input my-0" type="checkbox" value="settingObservacaoTermo2" id="settingObservacaoTermo2">
+                            </div>
+                        </td>
+                        </tr>
+
+                        <tr>
+                        <th scope="row"></th>
+                        <td>Orientada a aguardar o deferimento da MPU em local seguro</td>
+                        <td>
+                            <div class="form-check text-center">
+                                <input class="form-check-input my-0" type="checkbox" value="settingObservacaoHistorico3" id="settingObservacaoHistorico3">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-check text-center">
+                                <input class="form-check-input my-0" type="checkbox" value="settingObservacaoTermo3" id="settingObservacaoTermo3">
+                            </div>
+                        </td>
+                        </tr>
+
+                        <tr>
+                        <th scope="row"></th>
+                        <td>Orientada a comparecer ao local para atendimento psicológico, jurídico, etc</td>
+                        <td>
+                            <div class="form-check text-center">
+                                <input class="form-check-input my-0" type="checkbox" value="settingObservacaoHistorico4" id="settingObservacaoHistorico4">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-check text-center">
+                                <input class="form-check-input my-0" type="checkbox" value="settingObservacaoTermo4" id="settingObservacaoTermo4">
+                            </div>
+                        </td>
+                        </tr>
+
+                        <tr>
+                        <th scope="row"></th>
+                        <td>Oferecido o transporte ao abrigo, tendo a vítima aceitado/recusado</td>
+                        <td>
+                            <div class="form-check text-center">
+                                <input class="form-check-input my-0" type="checkbox" value="settingObservacaoHistorico5" id="settingObservacaoHistorico5">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-check text-center">
+                                <input class="form-check-input my-0" type="checkbox" value="settingObservacaoTermo5" id="settingObservacaoTermo5">
+                            </div>
+                        </td>
+                        </tr>
+
+                        <tr>
+                        <th scope="row"></th>
+                        <td>Orientada a encaminhar provas complementares caso surjam</td>
+                        <td>
+                            <div class="form-check text-center">
+                                <input class="form-check-input my-0" type="checkbox" value="settingObservacaoHistorico6" id="settingObservacaoHistorico6">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-check text-center">
+                                <input class="form-check-input my-0" type="checkbox" value="settingObservacaoTermo6" id="settingObservacaoTermo6">
+                            </div>
+                        </td>
+                        </tr>
+
+                        <tr>
+                        <th scope="row"></th>
+                        <td>A vítima autorizou que a sua intimação seja realizada por telefone, e-mail, etc</td>
+                        <td>
+                            <div class="form-check text-center">
+                                <input class="form-check-input my-0" type="checkbox" value="settingObservacaoHistorico7" id="settingObservacaoHistorico7">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-check text-center">
+                                <input class="form-check-input my-0" type="checkbox" value="settingObservacaoTermo7" id="settingObservacaoTermo7">
+                            </div>
+                        </td>
+                        </tr>
+
+                        <tr>
+                        <th scope="row"></th>
+                        <td>A vítima autorizou o policial a realizar o registro fotográfico das lesões</td>
+                        <td>
+                            <div class="form-check text-center">
+                                <input class="form-check-input my-0" type="checkbox" value="settingObservacaoHistorico8" id="settingObservacaoHistorico8">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="form-check text-center">
+                                <input class="form-check-input my-0" type="checkbox" value="settingObservacaoTermo8" id="settingObservacaoTermo8">
+                            </div>
+                        </td>
+                        </tr>
+
+
+                  </tbody>
+                </table>
+                
+                </div>`,
 
     size: "large",
 
@@ -2591,11 +2829,11 @@ $("#config").click(function () {
         label: "Reset",
         className: "btn btn-outline-primary",
         callback: function () {
-          localConfig.forEach((i) => {});
 
           localConfig.forEach((i) => {
-            localStorage.setItem(`settingHistorico${i}`, i <= 10 || i == 22 ? true : false);
-            localStorage.setItem(`settingTermo${i}`, i <= 2 || i == 22 ? false : true);
+            localStorage.setItem(`settingHistorico${i}`, checkedConfig.includes(i) ? true : false);
+            localStorage.setItem(`settingTermo${i}`, i <= 1 ? false : true);
+
             document.getElementById(`settingHistorico${i}`).checked =
               localStorage.getItem(`settingHistorico${i}`) === "true" ? true : false;
             document.getElementById(`settingTermo${i}`).checked =
@@ -2604,6 +2842,18 @@ $("#config").click(function () {
               disabledConfig.includes(i) ? true : false;
             document.getElementById(`settingTermo${i}`).disabled = true;
           });
+
+         
+          localConfigObservacoes.forEach((i) => {
+            localStorage.setItem(`settingObservacaoHistorico${i}`, checkedConfigObservacoes.includes(i) ? true : false);
+            localStorage.setItem(`settingObservacaoTermo${i}`, true);
+
+            document.getElementById(`settingObservacaoHistorico${i}`).checked = localStorage.getItem(`settingObservacaoHistorico${i}`) === "true" ? true : false;
+            document.getElementById(`settingObservacaoTermo${i}`).checked = localStorage.getItem(`settingObservacaoTermo${i}`) === "true" ? true : false;
+            // Todos checks habilitados no Histórico
+            document.getElementById(`settingObservacaoTermo${i}`).disabled = true;
+          });
+
 
           return true;
         },
@@ -2618,6 +2868,13 @@ $("#config").click(function () {
               localStorage.setItem(
                 `settingHistorico${i}`,
                 document.getElementById(`settingHistorico${i}`).checked ? true : false
+              );
+            });
+
+            localConfigObservacoes.forEach((i) => {
+              localStorage.setItem(
+                `settingObservacaoHistorico${i}`,
+                document.getElementById(`settingObservacaoHistorico${i}`).checked ? true : false
               );
             });
           }
@@ -2636,19 +2893,45 @@ $("#config").click(function () {
       : false;
     document.getElementById(`settingTermo${i}`).disabled = true;
   });
+
+  localConfigObservacoes.forEach((i) => {
+    document.getElementById(`settingObservacaoHistorico${i}`).checked =
+      localStorage.getItem(`settingObservacaoHistorico${i}`) === "true" ? true : false;
+    document.getElementById(`settingObservacaoTermo${i}`).checked =
+      localStorage.getItem(`settingObservacaoTermo${i}`) === "true" ? true : false;
+    // Todos checks habilitados no Histórico
+    document.getElementById(`settingObservacaoTermo${i}`).disabled = true;
+  });
+
+
 });
 
 var localConfig = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
+var checkedConfig = [1, 2, 3, 4, 5, 6, 7, 9, 10, 22];
 var disabledConfig = [1, 2, 3, 4, 5, 6, 9, 10, 22];
 
+var localConfigObservacoes = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+var checkedConfigObservacoes = [0, 1];
+
+
 function inicializaConfig() {
+
   localConfig.forEach((i) => {
     if (!localStorage.getItem(`settingHistorico${i}`))
-      localStorage.setItem(`settingHistorico${i}`, i <= 10 || i == 22 ? true : false);
+      localStorage.setItem(`settingHistorico${i}`, checkedConfig.includes(i) ? true : false);
 
     if (!localStorage.getItem(`settingTermo${i}`))
-      localStorage.setItem(`settingTermo${i}`, i <= 2 || i == 22 ? false : true);
+      localStorage.setItem(`settingTermo${i}`, i <= 1 ? false : true);
   });
+
+  localConfigObservacoes.forEach((i) => {
+    if (!localStorage.getItem(`settingObservacaoHistorico${i}`))
+      localStorage.setItem(`settingObservacaoHistorico${i}`, checkedConfigObservacoes.includes(i) ? true : false);
+  
+    if (!localStorage.getItem(`settingObservacaoTermo${i}`))
+      localStorage.setItem(`settingObservacaoTermo${i}`, true);
+  });
+  
 }
 
 
@@ -2660,5 +2943,5 @@ function testing() {
 }
 
 inicializaConfig();
-inicializaOrientacoes();
+inicializaObservacoes();
 //testing();
