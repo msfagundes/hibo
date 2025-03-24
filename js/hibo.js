@@ -2957,4 +2957,4 @@ function testing() {
 
 inicializaConfig();
 inicializaObservacoes();
-testing();
+// testing();
