@@ -1,7 +1,7 @@
 /*
  * title="HiBO"
- * version="1.8.1"
- * date="20/03/2025"
+ * version="1.8.2"
+ * date="24/03/2025"
  * author="Moser Silva Fagundes"
  *
  * This file is part of HiBO (is the past named HBO).
@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with HiBO.  If not, see <https://www.gnu.org/licenses/>.
  */
-let versao = "1.8.1";
+let versao = "1.8.2";
 if( !localStorage.getItem("versao") || (localStorage.getItem("versao") !== versao)) {
   localStorage.clear();
   localStorage.setItem("versao", versao);
@@ -798,6 +798,8 @@ $("#btnGerar").click(function () {
     $("#taHistorico").append(criaParagrafoAbrigo()); // 20
   if (localStorage.getItem("settingHistorico21") === "true")
     $("#taHistorico").append(criaParagrafoBuscaPertences()); // 21
+  if (localStorage.getItem("settingHistorico22") === "true")
+    $("#taHistorico").append(criaParagrafoOficializaSeparacao()); // 22
 
   // OBSERVACOES
   if (localStorage.getItem("settingObservacaoHistorico0") === "true")
@@ -862,7 +864,8 @@ $("#btnGerar").click(function () {
     $("#taTermo").append(criaParagrafoAbrigo()); // 20
   if (localStorage.getItem("settingTermo21") === "true")
     $("#taTermo").append(criaParagrafoBuscaPertences()); // 21
-
+  if (localStorage.getItem("settingTermo22") === "true")
+    $("#taTermo").append(criaParagrafoOficializaSeparacao()); // 22
 
   // OBSERVACOES
   localConfigObservacoes.every((i) => {
@@ -1280,20 +1283,6 @@ function criaParagrafoRelacionamento(termo) {
   t = removerPonto(t);
 
   
-  if( $("#rRelacionamento1").is(":checked") || 
-      $("#rRelacionamento1-Ex").is(":checked") ||
-      $("#rRelacionamento2").is(":checked") || 
-      $("#rRelacionamento2-Ex").is(":checked") ) {
-
-        if ($("#rMedidaJuridicaSeparaN").is(":checked"))
-          t = t.concat(", que não há medida jurídica para oficializar a separação e não pretende fazê-lo,");
-        else if ($("#rMedidaJuridicaSeparaP").is(":checked"))
-          t = t.concat(", que não há medida jurídica para oficializar a separação, porém pretende fazê-lo,");
-        else if ($("#rMedidaJuridicaSeparaS").is(":checked"))
-          t = t.concat(", que há medida jurídica para oficializar a separação,");
-  }
-  
-
   return t;
 }
 
@@ -1631,8 +1620,10 @@ function criaParagrafoMedidasProtetivas() {
 function criaParagrafoArmas() {
   if ($("#rArmasN").is(":checked")) {
     return " Realizada pesquisas nos sistemas ARM/SINARM: nada localizado em nome do suspeito, conforme documentos anexos.";
+  } else if($("#rArmasS").is(":checked")) {
+    return " Realizada pesquisas nos sistemas ARM/SINARM: há registro de arma em nome do suspeito, conforme documentos anexos.";
   }
-  return " Realizada pesquisas nos sistemas ARM/SINARM: há registro de arma em nome do suspeito, conforme documentos anexos.";
+  return "";
 }
 
 function verificaCamposPossuiArmas(ok) {
@@ -1913,6 +1904,28 @@ function criaParagrafoBuscaPertences() {
     return " A vítima informa que não precisa de auxílio para buscar os seus pertences pessoais.";
   }
   return " A vítima informa que precisa de auxílio para buscar os seus pertences pessoais.";
+}
+
+function criaParagrafoOficializaSeparacao() {
+
+  if( $("#rRelacionamento1").is(":checked") || 
+      $("#rRelacionamento1-Ex").is(":checked") ||
+      $("#rRelacionamento2").is(":checked") || 
+      $("#rRelacionamento2-Ex").is(":checked") ) {
+
+        let t = " Por fim, relata que";
+
+        if ($("#rMedidaJuridicaSeparaN").is(":checked"))
+          t = t.concat(" não há medida jurídica para oficializar a separação e não pretende fazê-lo.");
+        else if ($("#rMedidaJuridicaSeparaP").is(":checked"))
+          t = t.concat(" não há medida jurídica para oficializar a separação, porém pretende fazê-lo.");
+        else if ($("#rMedidaJuridicaSeparaS").is(":checked"))
+          t = t.concat(" há medida jurídica para oficializar a separação.");
+
+        return t;
+  }
+
+  return "";
 }
 
 
@@ -2907,8 +2920,8 @@ $("#config").click(function () {
 });
 
 var localConfig = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
-var checkedConfig = [1, 2, 3, 4, 5, 6, 7, 9, 10, 22];
-var disabledConfig = [1, 2, 3, 4, 5, 6, 9, 10, 22];
+var checkedConfig = [1, 2, 3, 4, 5, 6, 7, 9, 10];
+var disabledConfig = [1, 2, 3, 4, 5, 6, 9, 10 ];
 
 var localConfigObservacoes = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 var checkedConfigObservacoes = [0, 1];
@@ -2944,4 +2957,4 @@ function testing() {
 
 inicializaConfig();
 inicializaObservacoes();
-//testing();
+testing();
